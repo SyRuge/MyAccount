@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xcx.account.AccountApp
 import com.xcx.account.R
 import com.xcx.account.bean.HomePayBean
+import com.xcx.account.bean.HomeTotalPayBean
 
 /**
  * Created by xuchongxiang on 2020年12月18日.
  */
 class TotalPayAdapter(
     var context: Context = AccountApp.appContext,
-    var payList: MutableList<HomePayBean>
+    var payList: MutableList<HomeTotalPayBean>
 ) : RecyclerView.Adapter<TotalPayAdapter.TotalHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TotalHolder {
@@ -25,9 +26,9 @@ class TotalPayAdapter(
     }
 
     override fun onBindViewHolder(holder: TotalHolder, position: Int) {
-        holder.tvTotalPayName.text = payList[position].paySellerName
+        holder.tvTotalPayName.text = payList[position].totalPayName
         holder.tvTotalPayMoney.text = payList[position].payMoney.toString()
-        holder.tvPayRangeDate.text = payList[position].payCategory
+        holder.tvPayRangeDate.text = payList[position].payRangeDate
         if (position == payList.size - 1) {
             holder.viewTotalPayLine.visibility = View.INVISIBLE
         } else {

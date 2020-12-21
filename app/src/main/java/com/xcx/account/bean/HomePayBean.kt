@@ -10,4 +10,4 @@ data class HomePayBean(
     var payMoney: Double,
     var payCategory: String,
     var payDate: String
-)
+) : BaseDataBean()

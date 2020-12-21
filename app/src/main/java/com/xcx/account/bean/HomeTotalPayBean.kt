@@ -6,8 +6,8 @@ package com.xcx.account.bean
  */
 data class HomeTotalPayBean(
     var payId: String,
-    var paySellerName: String,
+    var totalPayName: String,
     var payMoney: Double,
     var payCategory: String,
-    var payDate: String
-)
+    var payRangeDate: String
+) : BaseDataBean()
