@@ -15,7 +15,7 @@ import com.xcx.account.bean.HomePayBean
  */
 class TodayPayAdapter(
     var context: Context = AccountApp.appContext,
-    var payList: MutableList<HomePayBean>
+    var payList: List<HomePayBean>
 ) : RecyclerView.Adapter<TodayPayAdapter.PayHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PayHolder {
@@ -38,6 +38,11 @@ class TodayPayAdapter(
 
     override fun getItemCount(): Int {
         return payList.size
+    }
+
+    fun updatePayInfoData(list: List<HomePayBean>) {
+        payList = list
+        notifyDataSetChanged()
     }
 
     class PayHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
                 2 -> tab.text = getString(R.string.tab_my)
             }
             logd(TAG, "select position: $position")
-            showToast(position.toString())
+//            showToast(position.toString())
         }.attach()
     }
 
     private fun initListener() {
-        binding.fabAddPay.setOnClickListener {
+        /*binding.fabAddPay.setOnClickListener {
             showToast("fab click")
-        }
+        }*/
     }
 }
