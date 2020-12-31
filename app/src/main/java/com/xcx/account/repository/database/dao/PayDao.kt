@@ -25,4 +25,7 @@ interface PayDao {
 
     @Query("SELECT * FROM pay_info")
     fun getAllPayInfoLD(): LiveData<MutableList<PayInfoBean>>
+
+    @Query("SELECT * FROM pay_info WHERE id = :id")
+    suspend fun getPayInfoById(id: Long): PayInfoBean
 }

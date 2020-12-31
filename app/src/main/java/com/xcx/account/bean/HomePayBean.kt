@@ -8,7 +8,8 @@ data class HomePayBean(
     var id: Long,
     var payId: String,
     var paySellerName: String,
-    var payMoney: Double,
+    var payMoney: Long,
     var payCategory: String,
+    var payTime: Long,
     var payDate: String
 ) : BaseDataBean()

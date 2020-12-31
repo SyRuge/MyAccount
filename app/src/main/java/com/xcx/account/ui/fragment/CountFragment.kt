@@ -14,6 +14,7 @@ import com.xcx.account.bean.HomeTotalPayBean
 import com.xcx.account.databinding.FragmentCountBinding
 import com.xcx.account.repository.database.PayRepository
 import com.xcx.account.repository.database.table.PayInfoBean
+import java.math.BigDecimal
 
 class CountFragment : Fragment() {
 
@@ -26,7 +27,7 @@ class CountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCountBinding.inflate(inflater, container, false)
-        val view =binding.root
+        val view = binding.root
         return view
     }
 
@@ -42,14 +43,14 @@ class CountFragment : Fragment() {
 
     private fun initListener() {
         binding.btnInsert.setOnClickListener {
-            PayRepository.addPayInfo(PayInfoBean(0, "1", "三米", 23.56, "外卖", "2020-12-04 18:04"))
+            PayRepository.addPayInfo(PayInfoBean(0, "1", "三米", 2356, "外卖", 0, "2020-12-04 18:04",""))
         }
         binding.btnDelete.setOnClickListener {
-            val bean = PayInfoBean(id, "1", "三米", 23.56, "外卖", "2020-12-04 18:04")
+            val bean = PayInfoBean(id, "1", "三米", 2356, "外卖", 0, "2020-12-04 18:04","")
             PayRepository.deletePayInfo(bean)
         }
         binding.btnUpdate.setOnClickListener {
-            val bean = PayInfoBean(id, "1", "update", 23.56, "外卖", "2020-12-04 18:04")
+            val bean = PayInfoBean(id, "1", "update", 2356, "外卖", 0, "2020-12-04 18:04","")
             PayRepository.updatePayInfo(bean)
         }
         binding.btnQuery.setOnClickListener {

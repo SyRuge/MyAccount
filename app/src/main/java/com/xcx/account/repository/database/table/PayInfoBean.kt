@@ -14,7 +14,9 @@ data class PayInfoBean(
     val id: Long,
     @ColumnInfo(name = "payId") val payId: String,
     @ColumnInfo(name = "paySellerName") val paySellerName: String,
-    @ColumnInfo(name = "payMoney") val payMoney: Double,
+    @ColumnInfo(name = "payMoney") val payMoney: Long,
     @ColumnInfo(name = "payCategory") val payCategory: String,
-    @ColumnInfo(name = "payDate") val payDate: String
+    @ColumnInfo(name = "payTime") val payTime: Long,
+    @ColumnInfo(name = "payDate") val payDate: String,
+    @ColumnInfo(name = "payNote") val payNote: String
 )

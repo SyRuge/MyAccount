@@ -10,6 +10,9 @@ import com.xcx.account.AccountApp
 import com.xcx.account.R
 import com.xcx.account.bean.HomePayBean
 import com.xcx.account.bean.HomeTotalPayBean
+import com.xcx.account.utils.getMoneyWithTwoDecimal
+import com.xcx.account.utils.logd
+import java.math.BigDecimal
 
 /**
  * Created by xuchongxiang on 2020年12月18日.
@@ -26,9 +29,11 @@ class TotalPayAdapter(
     }
 
     override fun onBindViewHolder(holder: TotalHolder, position: Int) {
-        holder.tvTotalPayName.text = payList[position].totalPayName
-        holder.tvTotalPayMoney.text = payList[position].payMoney.toString()
-        holder.tvPayRangeDate.text = payList[position].payRangeDate
+        val bean = payList[position]
+        holder.tvTotalPayName.text = bean.totalPayName
+        val payMoney = "-￥${getMoneyWithTwoDecimal(bean.payMoney)}"
+        holder.tvTotalPayMoney.text = payMoney
+        holder.tvPayRangeDate.text = bean.payRangeDate
         if (position == payList.size - 1) {
             holder.viewTotalPayLine.visibility = View.INVISIBLE
         } else {

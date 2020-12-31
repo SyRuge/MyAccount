@@ -25,13 +25,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-
+        window.navigationBarColor = Color.parseColor("#fffafafa")
     }
 
     private fun initData() {
         binding.vpContent.adapter = AccountAdapter(this)
         TabLayoutMediator(
-            binding.tlBottomTab, binding.vpContent
+            binding.tlBottomTab, binding.vpContent,true,true
         ) { tab, position ->
             when (position) {
                 0 -> tab.text = getString(R.string.tab_home)

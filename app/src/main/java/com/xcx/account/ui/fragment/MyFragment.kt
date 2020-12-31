@@ -5,26 +5,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import com.xcx.account.R
-import com.xcx.account.utils.showToast
+import com.xcx.account.databinding.FragmentMyBinding
 
 class MyFragment : Fragment() {
 
+    private var _binding: FragmentMyBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my, container, false)
+        _binding = FragmentMyBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.btn_set_1).setOnClickListener {
-            showToast("set 1!!!")
-        }
-        view.findViewById<Button>(R.id.btn_set_0).setOnClickListener {
-            showToast("set 0!!!")
-        }
+        initData()
+        initListener()
+    }
+
+    private fun initData() {
+
+    }
+
+    private fun initListener() {
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

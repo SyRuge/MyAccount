@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.PayDetailFragment">
+
+    <TextView
+        android:id="@+id/tv_detail_money"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="26dp"
+        android:ellipsize="end"
+        android:maxLength="12"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="-￥339.00" />
+
+    <View
+        android:id="@+id/view_line_1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/numberLineColor"
+        app:layout_constraintEnd_toEndOf="@id/tv_detail_money"
+        app:layout_constraintStart_toStartOf="@id/tv_detail_money"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_money" />
+
+    <LinearLayout
+        android:id="@+id/ll_detail_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="26dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_line_1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分类"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_detail_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="餐饮"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/numberLineColor" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_detail_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="26dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_detail_category">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日期"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_detail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2020-12-30"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/numberLineColor" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_detail_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="26dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_detail_date">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_detail_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11:08"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/numberLineColor" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_detail_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="16dp"
+        android:text="备注"
+        android:textColor="@color/secondaryTextColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_detail_time" />
+
+    <EditText
+        android:id="@+id/et_detail_note"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:background="@null"
+        android:hint="点击添加备注"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_detail_note"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_note" />
+
+    <View
+        android:id="@+id/view_line_5"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/numberLineColor"
+        app:layout_constraintEnd_toEndOf="@id/et_detail_note"
+        app:layout_constraintStart_toStartOf="@id/et_detail_note"
+        app:layout_constraintTop_toBottomOf="@id/et_detail_note" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

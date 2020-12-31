@@ -15,6 +15,13 @@ class PayRepository {
         val TAG = "PayRepository"
 
         /**
+         * query by id
+         */
+        suspend fun getPayInfoById(id: Long) : PayInfoBean {
+            return PayDataBaseHelper.db.payDao().getPayInfoById(id)
+        }
+
+        /**
          * insert
          */
         fun addPayInfo(bean: PayInfoBean) {

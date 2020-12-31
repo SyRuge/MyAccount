@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:id="@+id/tv_money_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="￥"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@id/tv_number_1"
+        app:layout_constraintStart_toStartOf="@id/tv_number_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="0"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_money_unit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toEndOf="@id/tv_money_unit"
+        app:layout_constraintTop_toTopOf="@id/tv_money_unit" />
+
+    <TextView
+        android:id="@+id/tv_number_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_money_unit" />
+
+    <TextView
+        android:id="@+id/tv_number_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_3"
+        app:layout_constraintStart_toEndOf="@id/tv_number_1"
+        app:layout_constraintTop_toTopOf="@id/tv_number_1" />
+
+    <TextView
+        android:id="@+id/tv_number_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="3"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_delete"
+        app:layout_constraintStart_toEndOf="@id/tv_number_2"
+        app:layout_constraintTop_toTopOf="@id/tv_number_1" />
+
+    <TextView
+        android:id="@+id/tv_number_delete"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="D"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_number_3"
+        app:layout_constraintTop_toTopOf="@id/tv_number_1" />
+
+
+    <TextView
+        android:id="@+id/tv_number_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="4"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_number_1" />
+
+    <TextView
+        android:id="@+id/tv_number_5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="5"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_6"
+        app:layout_constraintStart_toEndOf="@id/tv_number_4"
+        app:layout_constraintTop_toTopOf="@id/tv_number_4" />
+
+    <TextView
+        android:id="@+id/tv_number_6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="6"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_clear"
+        app:layout_constraintStart_toEndOf="@id/tv_number_5"
+        app:layout_constraintTop_toTopOf="@id/tv_number_4" />
+
+    <TextView
+        android:id="@+id/tv_number_clear"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="C"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_number_6"
+        app:layout_constraintTop_toTopOf="@id/tv_number_4" />
+
+    <TextView
+        android:id="@+id/tv_number_7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="7"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_8"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_number_4" />
+
+    <TextView
+        android:id="@+id/tv_number_8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="8"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_9"
+        app:layout_constraintStart_toEndOf="@id/tv_number_7"
+        app:layout_constraintTop_toTopOf="@id/tv_number_7" />
+
+    <TextView
+        android:id="@+id/tv_number_9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="9"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_delete"
+        app:layout_constraintStart_toEndOf="@id/tv_number_8"
+        app:layout_constraintTop_toTopOf="@id/tv_number_7" />
+
+    <TextView
+        android:id="@+id/tv_number_ok"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="OK"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:1.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_number_3"
+        app:layout_constraintTop_toTopOf="@id/tv_number_7" />
+
+    <TextView
+        android:id="@+id/tv_number_return"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="R"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_number_7" />
+
+    <TextView
+        android:id="@+id/tv_number_0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_point"
+        app:layout_constraintStart_toEndOf="@id/tv_number_return"
+        app:layout_constraintTop_toTopOf="@id/tv_number_return" />
+
+    <TextView
+        android:id="@+id/tv_number_point"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/tv_money_number_bg_shape"
+        android:gravity="center"
+        android:text="."
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintDimensionRatio="1:0.6"
+        app:layout_constraintEnd_toStartOf="@id/tv_number_ok"
+        app:layout_constraintStart_toEndOf="@id/tv_number_0"
+        app:layout_constraintTop_toTopOf="@id/tv_number_return" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

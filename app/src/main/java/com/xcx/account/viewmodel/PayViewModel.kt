@@ -19,6 +19,7 @@ class PayViewModel : ViewModel() {
                 bean.paySellerName,
                 bean.payMoney,
                 bean.payCategory,
+                bean.payTime,
                 bean.payDate
             )
         }
@@ -26,7 +27,7 @@ class PayViewModel : ViewModel() {
         MutableLiveData(map)
     }
 
-    /* val allPayInfo: LiveData<List<HomePayBean>> = Transformations.map(payInfo) {
+     /*val allPayInfo: LiveData<MutableList<HomePayBean>> = Transformations.map(payInfo) {
          it.map { bean ->
              HomePayBean(
                  bean.id,
@@ -34,9 +35,10 @@ class PayViewModel : ViewModel() {
                  bean.paySellerName,
                  bean.payMoney,
                  bean.payCategory,
+                 bean.payTime,
                  bean.payDate
              )
-         }
+         }.toMutableList()
      }*/
 
 
