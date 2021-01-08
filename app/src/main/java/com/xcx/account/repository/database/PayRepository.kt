@@ -24,13 +24,8 @@ class PayRepository {
         /**
          * insert
          */
-        fun addPayInfo(bean: PayInfoBean) {
-            MainScope().launch {
-                async(Dispatchers.IO) {
-                    val rowId = PayDataBaseHelper.db.payDao().insertPayInfo(bean)
-                    logd(TAG, "insert rowId: $rowId")
-                }
-            }
+        suspend fun addPayInfo(bean: PayInfoBean): Long {
+            return PayDataBaseHelper.db.payDao().insertPayInfo(bean)
         }
 
         /**
@@ -47,12 +42,8 @@ class PayRepository {
         /**
          * update
          */
-        fun updatePayInfo(bean: PayInfoBean) {
-            MainScope().launch {
-                async(Dispatchers.IO) {
-                    PayDataBaseHelper.db.payDao().updatePayInfo(bean)
-                }
-            }
+        suspend fun updatePayInfo(bean: PayInfoBean) {
+            PayDataBaseHelper.db.payDao().updatePayInfo(bean)
         }
 
         /**

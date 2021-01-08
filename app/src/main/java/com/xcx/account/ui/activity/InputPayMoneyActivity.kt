@@ -1,40 +1,35 @@
-package com.xcx.account.ui.fragment
+package com.xcx.account.ui.activity
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.DialogFragment
-import com.xcx.account.databinding.FragmentNumberBinding
-import com.xcx.account.ui.activity.AddPayInfoActivity
-import kotlinx.android.synthetic.main.fragment_number.view.*
+import com.xcx.account.databinding.ActivityInputPayMoneyBinding
 
-/**
- * Created by xuchongxiang on 2020年12月28日.
- */
-class MoneyNumberDialog : DialogFragment() {
+class InputPayMoneyActivity : AppCompatActivity() {
 
-    private var _binding: FragmentNumberBinding? = null
-    private val binding get() = _binding!!
+    lateinit var binding: ActivityInputPayMoneyBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        _binding = FragmentNumberBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityInputPayMoneyBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initView()
         initData()
         initListener()
     }
 
+    private fun initView() {
+
+    }
+
+    private fun initData() {
+
+    }
+
     private fun initListener() {
+        binding.viewNumberBg.setOnClickListener {
+            finish()
+        }
         binding.tvNumber1.setOnClickListener {
             updateMoneyText("1")
         }
@@ -75,28 +70,15 @@ class MoneyNumberDialog : DialogFragment() {
             binding.tvMoney.text = "0"
         }
         binding.tvNumberReturn.setOnClickListener {
-
+            finish()
         }
         binding.tvNumberOk.setOnClickListener {
-
-            /*childFragmentManager.beginTransaction()
-                .add(AddPayInfoFragment().apply {
-                    arguments=Bundle().apply {
-                        putString("input_money",binding.tvMoney.text.toString())
-                    }
-                },"xcx")
-                .commitNowAllowingStateLoss()
-            dismiss()*/
-            startActivity(Intent(activity, AddPayInfoActivity::class.java).apply {
+            startActivity(Intent(this, AddPayInfoActivity::class.java).apply {
                 putExtra("input_money", binding.tvMoney.text.toString())
             })
-            dismiss()
-
+            finish()
         }
-
-
     }
-
     private fun updateMoneyText(number: String) {
         val oldMoney = binding.tvMoney.text.toString()
         //only one point
@@ -129,28 +111,5 @@ class MoneyNumberDialog : DialogFragment() {
         }
         val new = oldMoney.substring(0, oldMoney.length - 1)
         binding.tvMoney.text = new
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.apply {
-            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            val params = attributes
-            params.gravity = Gravity.BOTTOM
-            attributes = params
-            setLayout(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT
-            )
-        }
-    }
-
-    private fun initData() {
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

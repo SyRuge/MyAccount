@@ -34,6 +34,11 @@ android {
     viewBinding {
         enabled true
     }
+    repositories {
+        flatDir {
+            dirs "libs"
+        }
+    }
 }
 def navigationVersion = "2.2.0"
 def roomVersion = "2.2.5"
@@ -65,5 +70,5 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation "com.google.android.material:material:1.2.0"
-
+    implementation(name: "MPAndroidChart-3.1.0", ext: "aar")
 }

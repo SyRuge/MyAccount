@@ -20,29 +20,51 @@ import java.math.BigDecimal
 class TotalPayAdapter(
     var context: Context = AccountApp.appContext,
     var payList: MutableList<HomeTotalPayBean>
-) : RecyclerView.Adapter<TotalPayAdapter.TotalHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TotalHolder {
-        val view =
-            LayoutInflater.from(context).inflate(R.layout.rv_item_total_pay, parent, false)
-        return TotalHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: TotalHolder, position: Int) {
-        val bean = payList[position]
-        holder.tvTotalPayName.text = bean.totalPayName
-        val payMoney = "-￥${getMoneyWithTwoDecimal(bean.payMoney)}"
-        holder.tvTotalPayMoney.text = payMoney
-        holder.tvPayRangeDate.text = bean.payRangeDate
-        if (position == payList.size - 1) {
-            holder.viewTotalPayLine.visibility = View.INVISIBLE
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == 1) {
+            val view =
+                LayoutInflater.from(context).inflate(R.layout.rv_item_pay_header, parent, false)
+            HeaderHolder(view)
         } else {
-            holder.viewTotalPayLine.visibility = View.VISIBLE
+            val view =
+                LayoutInflater.from(context).inflate(R.layout.rv_item_total_pay, parent, false)
+            TotalHolder(view)
         }
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is HeaderHolder) {
+            holder.tvPayHeaderTitle.text = "支出总和"
+        }
+        if (holder is TotalHolder) {
+            val bean = payList[position-1]
+            holder.tvTotalPayName.text = bean.totalPayName
+            val payMoney = "-￥${getMoneyWithTwoDecimal(bean.payMoney)}"
+            holder.tvTotalPayMoney.text = payMoney
+            holder.tvPayRangeDate.text = bean.payRangeDate
+            if (position == payList.size) {
+                holder.viewTotalPayLine.visibility = View.INVISIBLE
+            } else {
+                holder.viewTotalPayLine.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if (position == 0) {
+            return 1
+        }
+        return 0
+    }
+
     override fun getItemCount(): Int {
-        return payList.size
+        return payList.size + 1
+    }
+
+    class HeaderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var tvPayHeaderTitle: TextView = itemView.findViewById(R.id.tv_pay_header_title)
     }
 
     class TotalHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

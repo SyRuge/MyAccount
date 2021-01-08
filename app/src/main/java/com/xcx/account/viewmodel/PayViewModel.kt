@@ -20,7 +20,8 @@ class PayViewModel : ViewModel() {
                 bean.payMoney,
                 bean.payCategory,
                 bean.payTime,
-                bean.payDate
+                bean.payDate,
+                bean.payNote
             )
         }
 

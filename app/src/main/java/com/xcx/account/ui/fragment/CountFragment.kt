@@ -43,7 +43,7 @@ class CountFragment : Fragment() {
 
     private fun initListener() {
         binding.btnInsert.setOnClickListener {
-            PayRepository.addPayInfo(PayInfoBean(0, "1", "三米", 2356, "外卖", 0, "2020-12-04 18:04",""))
+//            PayRepository.addPayInfo(PayInfoBean(0, "1", "三米", 2356, "外卖", 0, "2020-12-04 18:04",""))
         }
         binding.btnDelete.setOnClickListener {
             val bean = PayInfoBean(id, "1", "三米", 2356, "外卖", 0, "2020-12-04 18:04","")
@@ -51,7 +51,7 @@ class CountFragment : Fragment() {
         }
         binding.btnUpdate.setOnClickListener {
             val bean = PayInfoBean(id, "1", "update", 2356, "外卖", 0, "2020-12-04 18:04","")
-            PayRepository.updatePayInfo(bean)
+//            PayRepository.updatePayInfo(bean)
         }
         binding.btnQuery.setOnClickListener {
             PayRepository.getAllPayInfo()

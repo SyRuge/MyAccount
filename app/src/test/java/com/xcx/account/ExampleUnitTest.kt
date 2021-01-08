@@ -19,18 +19,34 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun testListener(){
+        val l=MyListener()
+       l.setListener {
+           cancel{
+
+           }
+           ok{
+
+           }
+       }
+        l.zzz()
+    }
+
+    @Test
     fun testMap() {
-        var list1 = mutableListOf<SourceBean>()
-        list1.add(SourceBean("1"))
-        list1.add(SourceBean("2"))
-        list1.add(SourceBean("3"))
-        list1.add(SourceBean("4"))
+        val sf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
-        val map = list1.map {
-            ConBean(it.id.toDouble() / 2)
-        }
+        val c=Calendar.getInstance()
+        val t = c.timeInMillis
 
-        println(map)
+        val format = sf.format(Date(t))
+        println(format)
+
+        c.set(Calendar.HOUR_OF_DAY,12)
+        c.set(Calendar.MINUTE,54)
+
+        val ff=sf.format(Date(c.timeInMillis))
+        println(ff)
     }
 
     @Test

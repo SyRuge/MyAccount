@@ -13,6 +13,7 @@ import com.xcx.account.adapter.TotalPayAdapter
 import com.xcx.account.bean.HomePayBean
 import com.xcx.account.bean.HomeTotalPayBean
 import com.xcx.account.databinding.FragmentHomeBinding
+import com.xcx.account.ui.activity.InputPayMoneyActivity
 import com.xcx.account.ui.activity.PayDetailActivity
 import com.xcx.account.utils.*
 import com.xcx.account.viewmodel.PayViewModel
@@ -55,12 +56,12 @@ class HomeFragment : Fragment() {
         }
 
         binding.fabAddPay.setOnClickListener {
-            val numberDialog = MoneyNumberDialog()
-            numberDialog.show(childFragmentManager, "number")
+            /*val numberDialog = MoneyNumberDialog()
+            numberDialog.show(childFragmentManager, "number")*/
+            startActivity(Intent(activity, InputPayMoneyActivity::class.java))
         }
 
-        payModel.allPayInfo.observe(viewLifecycleOwner)
-        { oriList ->
+        payModel.allPayInfo.observe(viewLifecycleOwner) { oriList ->
             //update today pay info
             updateTodayPayUi(oriList)
             //update total pay info
@@ -80,7 +81,7 @@ class HomeFragment : Fragment() {
             binding.rvPayContent.layoutManager = LinearLayoutManager(activity)
             payAdapter = TodayPayAdapter(payList = list)
             binding.rvPayContent.adapter = payAdapter
-            payAdapter?.setOnitemClickListener {
+            payAdapter?.setOnItemClickListener {
                 logd("PayDetailFragment", "id: ${it.id}")
                 startActivity(Intent(activity, PayDetailActivity::class.java).apply {
                     putExtra("pay_id", it.id)

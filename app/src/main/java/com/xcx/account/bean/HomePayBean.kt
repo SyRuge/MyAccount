@@ -11,5 +11,6 @@ data class HomePayBean(
     var payMoney: Long,
     var payCategory: String,
     var payTime: Long,
-    var payDate: String
+    var payDate: String,
+    var payNote: String
 ) : BaseDataBean()

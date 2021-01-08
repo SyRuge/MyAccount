@@ -31,7 +31,20 @@ class MyFragment : Fragment() {
     }
 
     private fun initListener() {
+        binding.llPayBackup.setOnClickListener {
+            backUpPayInfoToLocal()
+        }
+        binding.llPayRestore.setOnClickListener {
+            restoreLocalPayInfo()
+        }
+    }
 
+    private fun restoreLocalPayInfo() {
+
+    }
+
+    private fun backUpPayInfoToLocal() {
+        TODO()
     }
 
     override fun onDestroyView() {

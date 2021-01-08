@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        window.navigationBarColor = Color.parseColor("#fffafafa")
+        window.navigationBarColor = Color.parseColor("#FFFFFF")
     }
 
     private fun initData() {

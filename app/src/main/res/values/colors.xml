@@ -8,4 +8,5 @@
     <color name="hintTextColor">#61000000</color>
     <color name="backgroundColor">#F5F5F5</color>
     <color name="numberLineColor">#DEE0E0E0</color>
+    <color name="dialogActivityBg">#50000000</color>
 </resources>

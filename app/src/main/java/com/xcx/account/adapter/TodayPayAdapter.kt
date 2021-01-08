@@ -19,39 +19,61 @@ import java.math.BigDecimal
 class TodayPayAdapter(
     var context: Context = AccountApp.appContext,
     var payList: List<HomePayBean>
-) : RecyclerView.Adapter<TodayPayAdapter.PayHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listener: ItemClickListener? = null
 
-    fun setOnitemClickListener(listener: ItemClickListener) {
+    fun setOnItemClickListener(listener: ItemClickListener) {
         this.listener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PayHolder {
-        val view =
-            LayoutInflater.from(context).inflate(R.layout.rv_item_today_pay, parent, false)
-        return PayHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == 1) {
+            val view =
+                LayoutInflater.from(context).inflate(R.layout.rv_item_pay_header, parent, false)
+            HeaderHolder(view)
+        } else {
+            val view =
+                LayoutInflater.from(context).inflate(R.layout.rv_item_today_pay, parent, false)
+            PayHolder(view)
+        }
     }
 
-    override fun onBindViewHolder(holder: PayHolder, position: Int) {
-        val bean = payList[position]
-        holder.tvPaySellerName.text = bean.paySellerName
-        val payMoney = "-￥${getMoneyWithTwoDecimal(bean.payMoney)}"
-        holder.tvPayMoney.text = payMoney
-        holder.tvPayCategory.text = bean.payCategory
-        holder.tvPayDate.text = getTime(bean.payTime)
-        if (position == payList.size - 1) {
-            holder.viewPayLine.visibility = View.INVISIBLE
-        } else {
-            holder.viewPayLine.visibility = View.VISIBLE
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is HeaderHolder) {
+            holder.tvPayHeaderTitle.text = "今日支出"
         }
-        holder.itemView.setOnClickListener {
-            listener?.onItemClick(bean)
+        if (holder is PayHolder) {
+            val bean = payList[position-1]
+            holder.tvPaySellerName.text = bean.paySellerName
+            val payMoney = "-￥${getMoneyWithTwoDecimal(bean.payMoney)}"
+            holder.tvPayMoney.text = payMoney
+            holder.tvPayDate.text = getTime(bean.payTime)
+            if (bean.payNote.isNotEmpty()){
+                holder.tvPayCategory.text = bean.payNote
+            } else {
+                holder.tvPayCategory.text = bean.payCategory
+            }
+            if (position == payList.size) {
+                holder.viewPayLine.visibility = View.INVISIBLE
+            } else {
+                holder.viewPayLine.visibility = View.VISIBLE
+            }
+            holder.itemView.setOnClickListener {
+                listener?.onItemClick(bean)
+            }
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if (position == 0) {
+            return 1
+        }
+        return 0
     }
 
     override fun getItemCount(): Int {
-        return payList.size
+        return payList.size + 1
     }
 
     fun updatePayInfoData(list: List<HomePayBean>) {
@@ -65,6 +87,10 @@ class TodayPayAdapter(
         var tvPayCategory: TextView = itemView.findViewById(R.id.tv_pay_category)
         var tvPayDate: TextView = itemView.findViewById(R.id.tv_pay_date)
         var viewPayLine: View = itemView.findViewById(R.id.view_pay_line)
+    }
+
+    class HeaderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var tvPayHeaderTitle: TextView = itemView.findViewById(R.id.tv_pay_header_title)
     }
 
     fun interface ItemClickListener {
