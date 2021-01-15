@@ -17,7 +17,7 @@ class PayRepository {
         /**
          * query by id
          */
-        suspend fun getPayInfoById(id: Long) : PayInfoBean {
+        suspend fun getPayInfoById(id: Long): PayInfoBean {
             return PayDataBaseHelper.db.payDao().getPayInfoById(id)
         }
 
@@ -31,34 +31,33 @@ class PayRepository {
         /**
          * delete
          */
-        fun deletePayInfo(bean: PayInfoBean) {
-            MainScope().launch {
-                async(Dispatchers.IO) {
-                    PayDataBaseHelper.db.payDao().deletePayInfo(bean)
-                }
-            }
+        suspend fun deletePayInfo(bean: PayInfoBean): Int {
+            return PayDataBaseHelper.db.payDao().deletePayInfo(bean)
         }
 
         /**
          * update
          */
-        suspend fun updatePayInfo(bean: PayInfoBean) {
-            PayDataBaseHelper.db.payDao().updatePayInfo(bean)
+        suspend fun updatePayInfo(bean: PayInfoBean): Int {
+            return PayDataBaseHelper.db.payDao().updatePayInfo(bean)
         }
 
         /**
          * query
          */
-        fun getAllPayInfo() {
-            /*MainScope().launch {
-                async(Dispatchers.IO) {
-                    val payList = PayDataBaseHelper.db.payDao().getAllPayInfo()
-                    payList.forEach {
-                        logd(TAG, it.toString())
-                    }
-//                    logd(TAG, "insert rowId: $payList")
-                }
-            }*/
+        suspend fun getAllPayInfo(): MutableList<PayInfoBean> {
+            return PayDataBaseHelper.db.payDao().getAllPayInfo()
+        }
+
+
+        /**
+         * query
+         */
+        suspend fun getPayInfoByTimeRange(
+            startTime: Long,
+            endTime: Long
+        ): MutableList<PayInfoBean> {
+            return PayDataBaseHelper.db.payDao().getPayInfoByTimeRange(startTime, endTime)
         }
     }
 }

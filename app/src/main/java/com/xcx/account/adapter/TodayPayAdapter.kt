@@ -22,9 +22,13 @@ class TodayPayAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listener: ItemClickListener? = null
+    private var deleteListener: ItemDeleteListener? = null
 
     fun setOnItemClickListener(listener: ItemClickListener) {
         this.listener = listener
+    }
+    fun setOnItemDeleteListener(listener: ItemDeleteListener) {
+        this.deleteListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -62,6 +66,10 @@ class TodayPayAdapter(
             holder.itemView.setOnClickListener {
                 listener?.onItemClick(bean)
             }
+            holder.itemView.setOnLongClickListener {
+                deleteListener?.onItemDelete(bean)
+                true
+            }
         }
     }
 
@@ -95,5 +103,8 @@ class TodayPayAdapter(
 
     fun interface ItemClickListener {
         fun onItemClick(bean: HomePayBean)
+    }
+    fun interface ItemDeleteListener {
+        fun onItemDelete(bean: HomePayBean)
     }
 }

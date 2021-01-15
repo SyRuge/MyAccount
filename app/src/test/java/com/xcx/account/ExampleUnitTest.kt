@@ -1,6 +1,8 @@
 package com.xcx.account
 
 import android.bluetooth.BluetoothClass
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.math.BigDecimal
@@ -19,34 +21,146 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun testListener(){
-        val l=MyListener()
-       l.setListener {
-           cancel{
+    fun changeDate() {
+        val f = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val c = Calendar.getInstance()
 
-           }
-           ok{
 
-           }
-       }
+        val d=1610616481498
+
+        println(f.format(d))
+
+
+        c.timeInMillis = d
+        c.set(Calendar.YEAR, 2021)
+        c.set(Calendar.MONTH, 0)
+        c.set(Calendar.DAY_OF_MONTH, 13)
+
+        println(f.format(c.timeInMillis))
+    }
+
+    @Test
+    fun testListener() {
+        val l = MyListener()
+        l.setListener {
+            cancel {
+
+            }
+            ok {
+
+            }
+        }
         l.zzz()
+        val list = mutableListOf<TimeBean>().toList()
+        val f = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val c = Calendar.getInstance()
+
+        val max = c.getActualMaximum(Calendar.DAY_OF_MONTH)
+
+        println(max)
+
+        c.set(Calendar.MONTH,1)
+        c.set(Calendar.DAY_OF_MONTH,1)
+
+        println(f.format(c.timeInMillis))
+    }
+
+    @Test
+    fun testSortDay() {
+        val f = SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS")
+        val c = Calendar.getInstance()
+
+
+        //1610350424964
+        var t = 1610350424964
+
+        val list = mutableListOf<TimeBean>()
+        for (i in 0..1) {
+            var time = f.format(t)
+            list.add(TimeBean("水果${i + 1}", (i + 1) * 10L, t))
+            t += 100000 * (i + 1)
+        }
+
+        //today 1610437748854
+        list.add(TimeBean("水果4", 123, 1610437748854))
+        list.add(TimeBean("水果5", 45, 1610437748854 + 300000))
+
+
+        println(f.format(System.currentTimeMillis()))
+        list.groupBy {
+            c.timeInMillis = it.time
+            c.get(Calendar.DAY_OF_MONTH)
+        }.values.map {
+            it.reduce { acc, item ->
+                println("reduce: ${acc.msg}")
+                c.timeInMillis = item.time
+                c.get(Calendar.DAY_OF_MONTH)
+                TimeBean(acc.msg, acc.money + item.money, c.get(Calendar.DAY_OF_MONTH).toLong())
+            }
+        }.forEach {
+//            println(it)
+        }
+        println(f.format(System.currentTimeMillis()))
+
+
     }
 
     @Test
     fun testMap() {
-        val sf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val f = SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS")
+        val c = Calendar.getInstance()
 
-        val c=Calendar.getInstance()
-        val t = c.timeInMillis
 
-        val format = sf.format(Date(t))
-        println(format)
+        //1610350424964
+        var t = 1610350424964
 
-        c.set(Calendar.HOUR_OF_DAY,12)
-        c.set(Calendar.MINUTE,54)
+        val list = mutableListOf<TimeBean>()
+        for (i in 0..0) {
+            var time = f.format(t)
+            list.add(TimeBean("水果${i + 1}", (i + 1) * 10L, i+1L))
+            t += 100000 * (i + 1)
+        }
 
-        val ff=sf.format(Date(c.timeInMillis))
-        println(ff)
+        //today 1610437748854
+        list.add(TimeBean("水果4", 123, 4))
+        list.add(TimeBean("水果5", 45, 4))
+
+
+        val map = list.groupBy {
+           it.time
+        }.toMutableMap()
+
+        for (i in 1..12) {
+            if (!map.containsKey(i.toLong())) {
+                map[i.toLong()] = mutableListOf(TimeBean("水果$i",0,i.toLong()))
+            }
+        }
+
+
+        val map1 = map.values.map {
+            it.reduce { acc, item ->
+                println("reduce acc: $acc")
+                println("reduce item: $item")
+                TimeBean(acc.msg, acc.money + item.money, acc.time)
+            }
+        }.sortedBy {
+            it.time
+        }.toMutableList()
+
+        println(map1[0])
+
+
+        c.timeInMillis = System.currentTimeMillis()
+
+        val actualMaximum = c.getActualMaximum(Calendar.DAY_OF_MONTH)
+
+        println(actualMaximum)
+
+
+        map.forEach { (t, u) ->
+//            println(u)
+        }
+
     }
 
     @Test
@@ -103,7 +217,7 @@ class ExampleUnitTest {
         list.add(MyBean(6))
         Thread.sleep(500)
 
-        val l= mutableListOf<MyBean>()
+        val l = mutableListOf<MyBean>()
         l.addAll(list)
 
         val filter = l.filter {
@@ -115,7 +229,7 @@ class ExampleUnitTest {
         list.sortByDescending {
             it.time
         }
-        for ((i,v) in list.withIndex()) {
+        for ((i, v) in list.withIndex()) {
             println("i: $i, v: $v")
 
         }

@@ -34,7 +34,7 @@ fun getHourOfMinute(time: Long): Int {
 }
 
 /**
- * return like 12:15:33
+ * return like 12:15
  */
 fun getTime(time: Long): String {
     return timeFormat.format(Date(time))

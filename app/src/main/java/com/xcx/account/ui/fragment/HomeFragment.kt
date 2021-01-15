@@ -1,5 +1,7 @@
 package com.xcx.account.ui.fragment
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,17 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.xcx.account.R
 import com.xcx.account.adapter.TodayPayAdapter
 import com.xcx.account.adapter.TotalPayAdapter
 import com.xcx.account.bean.HomePayBean
 import com.xcx.account.bean.HomeTotalPayBean
 import com.xcx.account.databinding.FragmentHomeBinding
+import com.xcx.account.repository.database.table.PayInfoBean
 import com.xcx.account.ui.activity.InputPayMoneyActivity
 import com.xcx.account.ui.activity.PayDetailActivity
+import com.xcx.account.ui.activity.PayListActivity
+import com.xcx.account.ui.dialog.showCommonDialog
 import com.xcx.account.utils.*
 import com.xcx.account.viewmodel.PayViewModel
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     private var TAG = "HomeFragment"
     private var _binding: FragmentHomeBinding? = null
@@ -28,13 +34,19 @@ class HomeFragment : Fragment() {
     var totalAdapter: TotalPayAdapter? = null
     private val totalPayList = mutableListOf<HomeTotalPayBean>()
 
+    private lateinit var context: Activity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.context = context as Activity
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +57,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initData() {
-
+        binding.srlRefreshPayInfo.setColorSchemeResources(R.color.colorPrimary)
     }
 
     private fun initListener() {
@@ -56,8 +68,6 @@ class HomeFragment : Fragment() {
         }
 
         binding.fabAddPay.setOnClickListener {
-            /*val numberDialog = MoneyNumberDialog()
-            numberDialog.show(childFragmentManager, "number")*/
             startActivity(Intent(activity, InputPayMoneyActivity::class.java))
         }
 
@@ -67,6 +77,11 @@ class HomeFragment : Fragment() {
             //update total pay info
             updateTotalPayUi(oriList)
 
+        }
+        payModel.deletePayInfo.observe(viewLifecycleOwner) {
+            if (it > 0) {
+                showToast("删除成功!")
+            }
         }
     }
 
@@ -87,6 +102,13 @@ class HomeFragment : Fragment() {
                     putExtra("pay_id", it.id)
                 })
             }
+            payAdapter?.setOnItemDeleteListener { bean ->
+                showCommonDialog(context, "删除交易", "确认要删除本条交易吗?") {
+                    onConfirm {
+                        payModel.deletePayInfoById(PayInfoBean(bean.id, "", "", 0L, "", 0L, "", ""))
+                    }
+                }
+            }
         } else {
             payAdapter?.updatePayInfoData(list)
         }
@@ -106,6 +128,9 @@ class HomeFragment : Fragment() {
             binding.rvTotalPayContent.layoutManager = LinearLayoutManager(activity)
             totalAdapter = TotalPayAdapter(payList = totalPayList)
             binding.rvTotalPayContent.adapter = totalAdapter
+            totalAdapter?.setOnItemClickListener {
+                startActivity(Intent(context, PayListActivity::class.java))
+            }
         } else {
 
             totalAdapter?.apply {
@@ -152,40 +177,6 @@ class HomeFragment : Fragment() {
         }
 
         return arrayOf(todayTotalPay, weekTotalPay, monthTotalPay, yearTotalPay)
-    }
-
-
-    private fun getTotalPayList(list: List<HomePayBean>): MutableList<HomeTotalPayBean> {
-        val totalList = mutableListOf<HomeTotalPayBean>()
-        var todayTotalPay = 0L
-        var weekTotalPay = 0L
-        var monthTotalPay = 0L
-        var yearTotalPay = 0L
-
-        list.forEach {
-            //1. 计算本日支出
-            if (it.payTime in todayStartTime()..todayEndTime()) {
-                todayTotalPay += it.payMoney
-            }
-            //2. 计算本周支出
-            if (it.payTime in weekStartTime()..weekEndTime()) {
-                weekTotalPay += it.payMoney
-            }
-            //3. 计算本月支出
-            if (it.payTime in monthStartTime()..monthEndTime()) {
-                monthTotalPay += it.payMoney
-            }
-            //4. 计算本年支出
-            if (it.payTime in yearStartTime()..yearEndTime()) {
-                yearTotalPay += it.payMoney
-            }
-        }
-        totalList.add(HomeTotalPayBean("本日", todayDate(), todayTotalPay, "", ""))
-        totalList.add(HomeTotalPayBean("本周", curWeekRangeDate(), weekTotalPay, "", ""))
-        totalList.add(HomeTotalPayBean("本月", curMonthRangeDate(), monthTotalPay, "", ""))
-        totalList.add(HomeTotalPayBean("本年", curRangeYearDate(), yearTotalPay, "", ""))
-
-        return totalList
     }
 
     override fun onDestroyView() {

@@ -15,10 +15,10 @@ interface PayDao {
     suspend fun insertPayInfo(bean: PayInfoBean): Long
 
     @Delete
-    suspend fun deletePayInfo(bean: PayInfoBean)
+    suspend fun deletePayInfo(bean: PayInfoBean): Int
 
     @Update
-    suspend fun updatePayInfo(bean: PayInfoBean)
+    suspend fun updatePayInfo(bean: PayInfoBean): Int
 
     @Query("SELECT * FROM pay_info")
     suspend fun getAllPayInfo(): MutableList<PayInfoBean>
@@ -28,4 +28,10 @@ interface PayDao {
 
     @Query("SELECT * FROM pay_info WHERE id = :id")
     suspend fun getPayInfoById(id: Long): PayInfoBean
+
+    @Query("SELECT * FROM pay_info WHERE payTime BETWEEN :startTime AND :endTime")
+    suspend fun getPayInfoByTimeRange(startTime: Long, endTime: Long): MutableList<PayInfoBean>
+
+    @Query("SELECT * FROM pay_info WHERE payTime BETWEEN :startTime AND :endTime")
+    suspend fun getPayInfoByYear(startTime: Long, endTime: Long): MutableList<PayInfoBean>
 }

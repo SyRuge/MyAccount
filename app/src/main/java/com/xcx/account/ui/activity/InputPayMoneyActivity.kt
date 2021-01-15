@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.xcx.account.databinding.ActivityInputPayMoneyBinding
 
-class InputPayMoneyActivity : AppCompatActivity() {
+class InputPayMoneyActivity : BaseActivity() {
 
     lateinit var binding: ActivityInputPayMoneyBinding
 

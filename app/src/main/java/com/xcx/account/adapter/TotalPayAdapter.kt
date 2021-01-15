@@ -8,11 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xcx.account.AccountApp
 import com.xcx.account.R
-import com.xcx.account.bean.HomePayBean
 import com.xcx.account.bean.HomeTotalPayBean
 import com.xcx.account.utils.getMoneyWithTwoDecimal
-import com.xcx.account.utils.logd
-import java.math.BigDecimal
 
 /**
  * Created by xuchongxiang on 2020年12月18日.
@@ -21,6 +18,12 @@ class TotalPayAdapter(
     var context: Context = AccountApp.appContext,
     var payList: MutableList<HomeTotalPayBean>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var listener: ItemClickListener? = null
+
+    fun setOnItemClickListener(listener: ItemClickListener) {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {
@@ -49,6 +52,9 @@ class TotalPayAdapter(
             } else {
                 holder.viewTotalPayLine.visibility = View.VISIBLE
             }
+            holder.itemView.setOnClickListener {
+                listener?.onItemClick(bean)
+            }
         }
     }
 
@@ -72,5 +78,8 @@ class TotalPayAdapter(
         var tvTotalPayMoney: TextView = itemView.findViewById(R.id.tv_total_pay_money)
         var tvPayRangeDate: TextView = itemView.findViewById(R.id.tv_pay_range_date)
         var viewTotalPayLine: View = itemView.findViewById(R.id.view_total_pay_line)
+    }
+    fun interface ItemClickListener {
+        fun onItemClick(bean: HomeTotalPayBean)
     }
 }

@@ -2,18 +2,18 @@ package com.xcx.account.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xcx.account.adapter.PayCategoryAdapter
 import com.xcx.account.bean.PayCategoryBean
 import com.xcx.account.databinding.ActivityAddPayInfoBinding
-import com.xcx.account.repository.database.PayRepository
 import com.xcx.account.repository.database.table.PayInfoBean
 import com.xcx.account.utils.logd
 import com.xcx.account.utils.showToast
-import kotlinx.coroutines.*
+import com.xcx.account.viewmodel.AddPayInfoModel
 import java.math.BigDecimal
 
-class AddPayInfoActivity : AppCompatActivity(), CoroutineScope by MainScope() {
+class AddPayInfoActivity : BaseActivity(){
 
     val TAG = "AddPayInfoActivity"
     private var oriMoney = ""
@@ -21,6 +21,8 @@ class AddPayInfoActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private var selectCategory = "餐饮"
 
     lateinit var binding: ActivityAddPayInfoBinding
+    private val addPayModel: AddPayInfoModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,28 +54,23 @@ class AddPayInfoActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             val ori = BigDecimal(oriMoney)
             val money = ori.multiply(BigDecimal.valueOf(100)).toLong()
             val note = binding.etPayNote.text.toString()
-            launch {
-                val defer = async(Dispatchers.IO) {
-                    PayRepository.addPayInfo(
-                        PayInfoBean(
-                            0,
-                            "0",
-                            selectCategory,
-                            money,
-                            selectCategory,
-                            System.currentTimeMillis(),
-                            "",
-                            note
-                        )
-                    )
-                }
-                val row = defer.await()
-                if (row > 0) {
-                    showToast("add success!")
-                }
-                finish()
+            val bean = PayInfoBean(
+                0,
+                "0",
+                selectCategory,
+                money,
+                selectCategory,
+                System.currentTimeMillis(),
+                "",
+                note
+            )
+            addPayModel.addPayInfo(bean)
+        }
+        addPayModel.addPayInfo.observe(this) {
+            if (it > 0) {
+                showToast("添加成功!")
             }
-
+            finish()
         }
     }
 
@@ -102,10 +99,5 @@ class AddPayInfoActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         list.add(PayCategoryBean("交通"))
         list.add(PayCategoryBean("全部"))
         return list
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        cancel()
     }
 }
