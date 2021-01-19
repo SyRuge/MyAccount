@@ -2,6 +2,7 @@ package com.xcx.account.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xcx.account.adapter.PayCategoryAdapter
@@ -13,7 +14,7 @@ import com.xcx.account.utils.showToast
 import com.xcx.account.viewmodel.AddPayInfoModel
 import java.math.BigDecimal
 
-class AddPayInfoActivity : BaseActivity(){
+class AddPayInfoActivity : BaseActivity() {
 
     val TAG = "AddPayInfoActivity"
     private var oriMoney = ""
@@ -24,10 +25,13 @@ class AddPayInfoActivity : BaseActivity(){
     private val addPayModel: AddPayInfoModel by viewModels()
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun getContentView(): View {
         binding = ActivityAddPayInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        return binding.root
+    }
+
+    override fun afterSetContentView(savedInstanceState: Bundle?) {
         initData()
         initListener()
     }

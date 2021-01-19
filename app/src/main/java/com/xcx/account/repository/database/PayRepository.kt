@@ -1,8 +1,11 @@
 package com.xcx.account.repository.database
 
+import androidx.lifecycle.LiveData
 import com.xcx.account.repository.database.database.PayDataBaseHelper
 import com.xcx.account.repository.database.table.PayInfoBean
 import com.xcx.account.utils.logd
+import com.xcx.account.utils.yearEndTime
+import com.xcx.account.utils.yearStartTime
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -58,6 +61,13 @@ class PayRepository {
             endTime: Long
         ): MutableList<PayInfoBean> {
             return PayDataBaseHelper.db.payDao().getPayInfoByTimeRange(startTime, endTime)
+        }
+
+        /**
+         * query
+         */
+        fun getCurYearPayInfo(): LiveData<MutableList<PayInfoBean>> {
+            return PayDataBaseHelper.db.payDao().getCurYearPayInfo(yearStartTime(), yearEndTime())
         }
     }
 }

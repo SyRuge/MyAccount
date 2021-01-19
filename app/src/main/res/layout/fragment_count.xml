@@ -30,7 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tv_category_count"
+                    android:id="@+id/tv_category_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -38,17 +38,31 @@
                     android:text="分类统计"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_category_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="6dp"
+                    android:textColor="#e91e63"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_category_title"
+                    tools:text="-￥112" />
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pc_category_count"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:0.8"
+                    app:layout_constraintDimensionRatio="1:0.6"
                     app:layout_constraintTop_toBottomOf="@id/tv_category_count" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,7 +80,7 @@
                 app:layout_constraintTop_toBottomOf="@id/cl_category_count">
 
                 <TextView
-                    android:id="@+id/tv_day_trend_count"
+                    android:id="@+id/tv_day_trend_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -74,17 +88,31 @@
                     android:text="每日趋势"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_day_trend_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="6dp"
+                    android:textColor="#e91e63"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_day_trend_title"
+                    tools:text="-￥112" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lc_day_trend_count"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:0.8"
+                    app:layout_constraintDimensionRatio="1:0.6"
                     app:layout_constraintTop_toBottomOf="@id/tv_day_trend_count" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -96,13 +124,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/rv_pay_count_bg_shape"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cl_day_trend_count">
 
                 <TextView
-                    android:id="@+id/tv_month_count"
+                    android:id="@+id/tv_month_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -110,16 +139,30 @@
                     android:text="月度统计"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_month_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="6dp"
+                    android:textColor="#e91e63"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_month_title"
+                    tools:text="-￥112" />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/bc_month_count"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:0.8"
+                    app:layout_constraintDimensionRatio="1:0.6"
                     app:layout_constraintTop_toBottomOf="@id/tv_month_count" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

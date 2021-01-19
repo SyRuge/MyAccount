@@ -3,6 +3,7 @@ package com.xcx.account.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xcx.account.adapter.PayListAdapter
@@ -20,10 +21,13 @@ class PayListActivity : BaseActivity() {
     val payListModel: PayListViewModel by viewModels()
     var listAdapter: PayListAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun getContentView(): View {
         binding = ActivityPayListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        return binding.root
+    }
+
+    override fun afterSetContentView(savedInstanceState: Bundle?) {
         initData()
         initListener()
     }
@@ -38,13 +42,13 @@ class PayListActivity : BaseActivity() {
                 val listAdapter = PayListAdapter(payList = it)
                 binding.rvPayList.layoutManager = LinearLayoutManager(this)
                 binding.rvPayList.adapter = listAdapter
-                listAdapter?.setOnItemClickListener {
+                listAdapter.setOnItemClickListener {
                     logd("PayDetailFragment", "id: ${it.id}")
                     startActivity(Intent(this, PayDetailActivity::class.java).apply {
                         putExtra("pay_id", it.id)
                     })
                 }
-                listAdapter?.setOnItemDeleteListener { bean ->
+                listAdapter.setOnItemDeleteListener { bean ->
                     deletePayInfo(bean)
                 }
             } else {

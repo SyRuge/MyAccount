@@ -71,7 +71,7 @@ class CountFragment : BaseFragment() {
             //设置pieChart图表的描述
             description.isEnabled = false
             //设置pieChart图表上下左右的偏移，类似于外边距
-            setExtraOffsets(5F, 10F, 5F, 5F)
+//            setExtraOffsets(5F, 10F, 5F, 5F)
             //设置pieChart图表转动阻力摩擦系数[0,1]
             dragDecelerationFrictionCoef = 0.95F
             //设置pieChart图表起始角度
@@ -105,7 +105,7 @@ class CountFragment : BaseFragment() {
             setHoleColor(Color.WHITE)             //设置PieChart内部圆的颜色
             setDrawCenterText(true)               //是否绘制PieChart内部中心文本（true：下面属性才有意义）
             centerText = "全部" // 圆环中心的文字，会自动适配不会被覆盖
-            setCenterTextSize(10f)                //设置PieChart内部圆文字的大小
+            setCenterTextSize(12f)                //设置PieChart内部圆文字的大小
             setCenterTextColor(Color.BLACK)         //设置PieChart内部圆文字的颜色
         }
         /**
@@ -194,6 +194,7 @@ class CountFragment : BaseFragment() {
                 }
             }
             //设置y轴的刻度数量
+            setLabelCount(6, false)
             //+2：最大值n就有n+1个刻度，在加上y轴多一个单位长度，为了好看，so+2
             // setLabelCount(Collections.max(list) + 2, false)
             //+1:y轴多一个单位长度，为了好看
@@ -318,9 +319,12 @@ class CountFragment : BaseFragment() {
             }
             logd(TAG, "initPieChartData(): sumList is not empty")
             val pieEntries = mutableListOf<PieEntry>()
+            var totalMoney = 0L
             sumList.forEach {
+                totalMoney += it.payMoney
                 pieEntries.add(PieEntry(it.payMoney.toFloat(), it.payCategory))
             }
+            setTotalMoneyText(totalMoney)
             val pieDataSet = PieDataSet(pieEntries, "")
             pieDataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
             pieDataSet.sliceSpace = 3f // 每块之间的距离
@@ -410,7 +414,7 @@ class CountFragment : BaseFragment() {
             //一个LineDataSet就是一条线
             val lineDataSet = LineDataSet(entries, "").apply {
                 //线颜色
-                color = Color.parseColor("#F15A4A")
+                color = Color.parseColor("#e91e63")
                 //线宽度
                 lineWidth = 1.6f
                 //不显示圆点
@@ -486,7 +490,7 @@ class CountFragment : BaseFragment() {
                 // 值的颜色
                 valueTextColor = Color.RED
                 // 柱子的颜色
-                color = Color.parseColor("#1AE61A")
+                color = Color.parseColor("#e91e63")
                 //setValueTextSize(15f) // 值的大小
                 //label = "" // 设置标签之后，图例的内容默认会以设置的标签显示
                 valueFormatter = object : ValueFormatter() {
@@ -506,6 +510,13 @@ class CountFragment : BaseFragment() {
                 invalidate()
             }
         }
+    }
+
+    private fun setTotalMoneyText(totalMoney: Long) {
+        val money = "-￥${getMoneyWithTwoDecimal(totalMoney)}"
+        binding.tvCategoryCount.text = money
+        binding.tvDayTrendCount.text = money
+        binding.tvMonthCount.text = money
     }
 
     override fun onDestroyView() {

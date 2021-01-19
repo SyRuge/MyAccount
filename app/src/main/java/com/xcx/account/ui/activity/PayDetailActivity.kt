@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import com.xcx.account.R
 import com.xcx.account.databinding.ActivityPayDetailBinding
@@ -23,17 +24,15 @@ class PayDetailActivity : BaseActivity() {
     private var bean: PayInfoBean? = null
     private val payInfoModel: PayInfoDetailModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun getContentView(): View {
         binding = ActivityPayDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        initView()
-        initData()
-        initListener()
+        return binding.root
     }
 
-    private fun initView() {
+    override fun afterSetContentView(savedInstanceState: Bundle?) {
         setSupportActionBar(binding.tlToolbar)
+        initData()
+        initListener()
     }
 
     private fun initData() {

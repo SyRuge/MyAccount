@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xcx.account.repository.database.PayRepository
-import com.xcx.account.repository.database.database.PayDataBaseHelper
 import com.xcx.account.repository.database.table.PayInfoBean
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -15,7 +14,7 @@ import kotlinx.coroutines.launch
  */
 class CountViewModel : ViewModel() {
 
-    val categoryInfo = PayDataBaseHelper.db.payDao().getAllPayInfoLD()
+    val categoryInfo = PayRepository.getCurYearPayInfo()
     val dayTrendPayInfo = MutableLiveData<MutableList<PayInfoBean>>()
     val monthPayInfo = MutableLiveData<MutableList<PayInfoBean>>()
 

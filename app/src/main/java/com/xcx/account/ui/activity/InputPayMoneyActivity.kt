@@ -1,25 +1,26 @@
 package com.xcx.account.ui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.xcx.account.databinding.ActivityInputPayMoneyBinding
 
 class InputPayMoneyActivity : BaseActivity() {
 
     lateinit var binding: ActivityInputPayMoneyBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun getContentView(): View {
         binding = ActivityInputPayMoneyBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        initView()
+        return binding.root
+    }
+
+    override fun afterSetContentView(savedInstanceState: Bundle?) {
         initData()
         initListener()
     }
 
-    private fun initView() {
-
+    override fun isNeedSetStatusBarMode(): Boolean {
+        return false
     }
 
     private fun initData() {
@@ -43,7 +44,7 @@ class InputPayMoneyActivity : BaseActivity() {
             updateMoneyText("4")
         }
         binding.tvNumber5.setOnClickListener {
-            updateMoneyText("6")
+            updateMoneyText("5")
         }
         binding.tvNumber6.setOnClickListener {
             updateMoneyText("6")
@@ -79,6 +80,7 @@ class InputPayMoneyActivity : BaseActivity() {
             finish()
         }
     }
+
     private fun updateMoneyText(number: String) {
         val oldMoney = binding.tvMoney.text.toString()
         //only one point

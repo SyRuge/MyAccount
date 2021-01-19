@@ -1,14 +1,16 @@
 package com.xcx.account.ui.fragment
 
-import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.DialogFragment
 import com.xcx.account.databinding.DialogChangePayNoteBinding
+import com.xcx.account.utils.dp2px
+
 
 /**
  * Created by xuchongxiang on 2021年01月05日.
@@ -37,8 +39,7 @@ class ChangePayNoteDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DialogChangePayNoteBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,6 +71,20 @@ class ChangePayNoteDialog : DialogFragment() {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(binding.etPayNote.windowToken, 0)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val params = dialog?.window?.attributes?.apply {
+            width = WindowManager.LayoutParams.MATCH_PARENT
+            height = dp2px(200)
+        }
+        dialog?.window?.attributes = params
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.etPayNote.requestFocus()
     }
 
     override fun onDestroy() {
