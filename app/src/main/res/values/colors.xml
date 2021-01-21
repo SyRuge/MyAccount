@@ -11,6 +11,13 @@
     <color name="numberLineColor">#DEE0E0E0</color>
     <color name="dialogActivityBg">#50000000</color>
     <color name="dividerColor">#1F000000</color>
+    <color name="tabTextColor">#03A9F4</color>
+
+    <!-- 钱相关颜色 -->
+    <color name="moneyTextColor">#e91e63</color>
+    <color name="countInfoColor">#e91e63</color>
+    <color name="pink_color_500">#e91e63</color>
+
 
 
     <color name="primary_light">#B3E5FC</color>

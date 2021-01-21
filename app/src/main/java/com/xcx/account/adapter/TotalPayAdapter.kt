@@ -44,7 +44,7 @@ class TotalPayAdapter(
         if (holder is TotalHolder) {
             val bean = payList[position-1]
             holder.tvTotalPayName.text = bean.totalPayName
-            val payMoney = "-￥${getMoneyWithTwoDecimal(bean.payMoney)}"
+            val payMoney = "-¥${getMoneyWithTwoDecimal(bean.payMoney)}"
             holder.tvTotalPayMoney.text = payMoney
             holder.tvPayRangeDate.text = bean.payRangeDate
             if (position == payList.size) {

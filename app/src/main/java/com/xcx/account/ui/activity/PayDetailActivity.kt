@@ -78,7 +78,7 @@ class PayDetailActivity : BaseActivity() {
             bean = it
             logd(TAG, "observe thread: ${Thread.currentThread().name}")
             bean?.apply {
-                val money = "-￥${getMoneyWithTwoDecimal(payMoney)}"
+                val money = "-¥${getMoneyWithTwoDecimal(payMoney)}"
                 binding.tvDetailMoney.text = money
                 binding.tvDetailCategory.text = payCategory
                 binding.tvDetailDate.text = formatDate(payTime)

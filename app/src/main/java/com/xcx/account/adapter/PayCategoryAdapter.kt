@@ -40,8 +40,9 @@ class PayCategoryAdapter(
             if (isSelected != bean.isSelect) {
                 isSelected = bean.isSelect
             }
+
             if (position != itemCount - 1) {
-                setTextColor(resources.getColor(R.color.primaryTextColor, null))
+                setTextColor(resources.getColor(bean.color, null))
             } else {
                 setTextColor(resources.getColor(R.color.secondaryTextColor, null))
             }
@@ -56,7 +57,9 @@ class PayCategoryAdapter(
 
     private fun updateSelectStatus(bean: PayCategoryBean, position: Int) {
         bean.isSelect = true
+        bean.color = R.color.pink_color_500
         categoryList[preSelectPosition].isSelect = false
+        categoryList[preSelectPosition].color = R.color.primaryTextColor
         preSelectPosition = position
         notifyDataSetChanged()
     }

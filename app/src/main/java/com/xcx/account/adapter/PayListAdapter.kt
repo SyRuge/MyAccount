@@ -42,7 +42,7 @@ class PayListAdapter(
     override fun onBindViewHolder(holder: PayHolder, position: Int) {
         val bean = payList[position]
         holder.tvPaySellerName.text = bean.paySellerName
-        val payMoney = "-￥${getMoneyWithTwoDecimal(bean.payMoney)}"
+        val payMoney = "-¥${getMoneyWithTwoDecimal(bean.payMoney)}"
         holder.tvPayMoney.text = payMoney
         holder.tvPayDate.text = getTime(bean.payTime)
         if (bean.payNote.isNotEmpty()) {

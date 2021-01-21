@@ -513,7 +513,7 @@ class CountFragment : BaseFragment() {
     }
 
     private fun setTotalMoneyText(totalMoney: Long) {
-        val money = "-￥${getMoneyWithTwoDecimal(totalMoney)}"
+        val money = "-¥${getMoneyWithTwoDecimal(totalMoney)}"
         binding.tvCategoryCount.text = money
         binding.tvDayTrendCount.text = money
         binding.tvMonthCount.text = money

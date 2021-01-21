@@ -10,7 +10,7 @@ import com.xcx.account.AccountApp
 class PayDataBaseHelper {
     companion object {
         val db by lazy {
-            Room.databaseBuilder(AccountApp.appContext, PayDataBase::class.java,"pay-info").build()
+            Room.databaseBuilder(AccountApp.appContext, PayDataBase::class.java,"pay-info.db").build()
         }
     }
 }

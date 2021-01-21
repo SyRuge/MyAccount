@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.xcx.account.R
 import com.xcx.account.adapter.PayCategoryAdapter
 import com.xcx.account.bean.PayCategoryBean
 import com.xcx.account.databinding.ActivityAddPayInfoBinding
@@ -85,23 +86,23 @@ class AddPayInfoActivity : BaseActivity() {
             val b1 = ori.multiply(BigDecimal.valueOf(100L))
 
             val b2 = b1.divide(BigDecimal.valueOf(100.0)).setScale(2, BigDecimal.ROUND_DOWN)
-            val money = "-￥$b2"
+            val money = "-¥$b2"
             binding.tvPayMoney.text = money
         }
     }
 
     private fun getPayCategoryList(): MutableList<PayCategoryBean> {
         //餐饮 水果 房租 通讯 购物 日用 水电 交通 全部
-        var list = mutableListOf<PayCategoryBean>()
-        list.add(PayCategoryBean("餐饮", true))
-        list.add(PayCategoryBean("水果"))
-        list.add(PayCategoryBean("房租"))
-        list.add(PayCategoryBean("通讯"))
-        list.add(PayCategoryBean("购物"))
-        list.add(PayCategoryBean("日用"))
-        list.add(PayCategoryBean("水电"))
-        list.add(PayCategoryBean("交通"))
-        list.add(PayCategoryBean("全部"))
+        val list = mutableListOf<PayCategoryBean>()
+        list.add(PayCategoryBean(R.color.pink_color_500, "餐饮", true))
+        list.add(PayCategoryBean(R.color.primaryTextColor, "水果"))
+        list.add(PayCategoryBean(R.color.primaryTextColor, "房租"))
+        list.add(PayCategoryBean(R.color.primaryTextColor, "通讯"))
+        list.add(PayCategoryBean(R.color.primaryTextColor, "购物"))
+        list.add(PayCategoryBean(R.color.primaryTextColor, "日用"))
+        list.add(PayCategoryBean(R.color.primaryTextColor, "水电"))
+        list.add(PayCategoryBean(R.color.primaryTextColor, "交通"))
+        list.add(PayCategoryBean(R.color.primaryTextColor, "全部"))
         return list
     }
 }

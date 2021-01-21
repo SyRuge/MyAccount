@@ -50,7 +50,7 @@ class TodayPayAdapter(
         if (holder is PayHolder) {
             val bean = payList[position-1]
             holder.tvPaySellerName.text = bean.paySellerName
-            val payMoney = "-￥${getMoneyWithTwoDecimal(bean.payMoney)}"
+            val payMoney = "-¥${getMoneyWithTwoDecimal(bean.payMoney)}"
             holder.tvPayMoney.text = payMoney
             holder.tvPayDate.text = getTime(bean.payTime)
             if (bean.payNote.isNotEmpty()){
