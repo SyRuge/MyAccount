@@ -183,10 +183,12 @@ class PayDetailActivity : BaseActivity() {
         val dialog = TimePickerDialog(
             this, { _, hourOfDay, minute ->
                 logd(TAG, "hourOfDay: $hourOfDay, minute: $minute")
-                val c = Calendar.getInstance()
-                c.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                c.set(Calendar.MINUTE, minute)
                 bean?.apply {
+                    val c = Calendar.getInstance()
+                    c.timeInMillis = payTime
+                    c.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    c.set(Calendar.MINUTE, minute)
+
                     val b = PayInfoBean(
                         id,
                         payId,

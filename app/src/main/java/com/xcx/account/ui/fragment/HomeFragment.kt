@@ -178,6 +178,11 @@ class HomeFragment : BaseFragment() {
         return arrayOf(todayTotalPay, weekTotalPay, monthTotalPay, yearTotalPay)
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity?.title = "支出"
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

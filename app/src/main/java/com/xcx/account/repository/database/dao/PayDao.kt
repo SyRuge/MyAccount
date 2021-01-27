@@ -11,7 +11,7 @@ import com.xcx.account.repository.database.table.PayInfoBean
  */
 @Dao
 interface PayDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertPayInfo(bean: PayInfoBean): Long
 
     @Delete
@@ -37,4 +37,7 @@ interface PayDao {
 
     @Query("SELECT * FROM pay_info WHERE payTime BETWEEN :startTime AND :endTime")
     fun getCurYearPayInfo(startTime: Long, endTime: Long): LiveData<MutableList<PayInfoBean>>
+
+    @Query("SELECT * FROM pay_info WHERE payTime BETWEEN :startTime AND :endTime AND payCategory = :payCategory")
+    fun getPayInfoByCategory(startTime: Long, endTime: Long, payCategory: String): MutableList<PayInfoBean>
 }

@@ -11,14 +11,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.room.Room
+import com.google.gson.Gson
 import com.xcx.account.AccountApp
+import com.xcx.account.bean.PayJsonBean
 import com.xcx.account.databinding.FragmentMyBinding
+import com.xcx.account.repository.database.PayRepository
 import com.xcx.account.repository.database.database.PayDataBase
 import com.xcx.account.repository.database.database.PayDataBaseHelper
 import com.xcx.account.utils.logd
 import com.xcx.account.utils.loge
 import com.xcx.account.utils.showToast
+import com.xcx.account.viewmodel.MyViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -34,8 +39,9 @@ class MyFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val PERMISSION_REQUEST_CODE = 10010
 
-    val CREATE_FILE = 100
-    val PICK_FILE = 101
+    private val PICK_JSON_FILE = 101
+    private val CREATE_JSON_FILE = 102
+    private val myModel: MyViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,125 +63,64 @@ class MyFragment : BaseFragment() {
 
     private fun initListener() {
         binding.llPayBackup.setOnClickListener {
-            backUpPayInfoToLocal()
+            val format = SimpleDateFormat("yyyy-MM-dd_HH_mm_ss")
+            val fileName = "${format.format(System.currentTimeMillis())}.json"
+            val uri =
+                Uri.parse("content://com.android.externalstorage.documents/document/primary:Account")
+            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "application/json"
+                putExtra(Intent.EXTRA_TITLE, fileName)
+                putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
+            }
+            startActivityForResult(intent, CREATE_JSON_FILE)
         }
         binding.llPayRestore.setOnClickListener {
-            restoreLocalPayInfo()
-        }
-    }
-
-    private fun backUpPayInfoToLocal() {
-
-//        checkAppPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        val uri =
-            Uri.parse("content://com.android.externalstorage.documents/document/primary:Account")
-        val format = SimpleDateFormat("yyyy-MM-dd_HH_mm_ss")
-        val fileName = "${format.format(System.currentTimeMillis())}.db"
-
-        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "*/*"
-            putExtra(Intent.EXTRA_TITLE, fileName)
-
-            // Optionally, specify a URI for the directory that should be opened in
-            // the system file picker before your app creates the document.
-            putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
-        }
-        startActivityForResult(intent, CREATE_FILE)
-    }
-
-    private fun restoreLocalPayInfo() {
-//        checkAppPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-        val uri =
-            Uri.parse("content://com.android.externalstorage.documents/document/primary:Account")
-
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "*/*"
-
-            // Optionally, specify a URI for the file that should appear in the
-            // system file picker when it loads.
-            putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
+            val uri =
+                Uri.parse("content://com.android.externalstorage.documents/document/primary:Account")
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "application/json"
+                putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
+            }
+            startActivityForResult(intent, PICK_JSON_FILE)
         }
 
-        startActivityForResult(intent, PICK_FILE)
+        myModel.backupStatus.observe(viewLifecycleOwner) {
+            if (it) {
+                showToast("backup success!")
+            } else {
+                showToast("backup error")
+            }
+        }
 
+        myModel.restoreStatus.observe(viewLifecycleOwner) {
+            if (it) {
+                showToast("restore success!")
+            } else {
+                showToast("restore error")
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                CREATE_FILE -> {
+                CREATE_JSON_FILE -> {
                     resultData?.data?.also { uri ->
-                        createFile(uri)
+                        myModel.backupPayInfoJsonToLocal(uri)
                     }
                 }
-                PICK_FILE -> {
+                PICK_JSON_FILE -> {
                     resultData?.data?.also { uri ->
-                        copyFile(uri)
+                        myModel.restorePayInfoJsonFromLocal(uri)
                     }
                 }
             }
         }
     }
 
-    private fun createFile(uri: Uri) {
-
-        MainScope().launch {
-            val job = launch(Dispatchers.IO) {
-                PayDataBaseHelper.db.close()
-                val file = AccountApp.appContext.getDatabasePath("pay-info.db")
-                var out: OutputStream? = null
-                try {
-                    out = AccountApp.appContext.contentResolver.openOutputStream(uri)
-                    out?.use {
-                        it.write(file.readBytes())
-                        it.flush()
-                    }
-                    logd(TAG, "createFile: ")
-                } catch (e: Exception) {
-                    loge(TAG, "createFile: ", e)
-                }
-            }
-            job.join()
-            loge(TAG, "createFile: success")
-            exitProcess(0)
-        }
-
-    }
-
-    private fun copyFile(uri: Uri) {
-        MainScope().launch {
-            val job = launch(Dispatchers.IO) {
-                PayDataBaseHelper.db.close()
-                var out: FileOutputStream? = null
-                var input: InputStream? = null
-                try {
-                    val file = AccountApp.appContext.getDatabasePath("pay-info.db")
-                    if (file.exists()) {
-                        file.delete()
-                    }
-                    file.createNewFile()
-                    logd(TAG, "createNewFile: ")
-                    out = FileOutputStream(file)
-                    input = AccountApp.appContext.contentResolver.openInputStream(uri)
-                    out.use {
-                        val arr = input?.use {ips->
-                            ips.readBytes()
-                        }
-                        it.write(arr)
-                        it.flush()
-                    }
-                } catch (e: Exception) {
-                    loge(TAG, "createFile: ", e)
-                }
-            }
-            job.join()
-            loge(TAG, "copyFile: success")
-            exitProcess(0)
-        }
-    }
-
+    @Deprecated("will remove next path")
     private fun checkAppPermission(permission: String) {
         val isGranted = ContextCompat.checkSelfPermission(
             AccountApp.appContext,
@@ -203,6 +148,11 @@ class MyFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.title = "我的"
     }
 
     override fun onDestroyView() {

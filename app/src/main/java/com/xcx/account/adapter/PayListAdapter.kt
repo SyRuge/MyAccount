@@ -8,18 +8,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xcx.account.AccountApp
 import com.xcx.account.R
-import com.xcx.account.bean.HomePayBean
 import com.xcx.account.repository.database.table.PayInfoBean
+import com.xcx.account.utils.getDateAndTime
 import com.xcx.account.utils.getMoneyWithTwoDecimal
 import com.xcx.account.utils.getTime
-import java.math.BigDecimal
+import com.xcx.account.utils.logd
 
 /**
  * Created by xuchongxiang on 2020年12月18日.
  */
 class PayListAdapter(
     var context: Context = AccountApp.appContext,
-    var payList: List<PayInfoBean>
+    var payList: MutableList<PayInfoBean>
 ) : RecyclerView.Adapter<PayListAdapter.PayHolder>() {
 
     private var listener: ItemClickListener? = null
@@ -35,7 +35,7 @@ class PayListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PayHolder {
         val view =
-            LayoutInflater.from(context).inflate(R.layout.rv_item_list_pay, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.rv_item_pay_list, parent, false)
         return PayHolder(view)
     }
 
@@ -44,7 +44,7 @@ class PayListAdapter(
         holder.tvPaySellerName.text = bean.paySellerName
         val payMoney = "-¥${getMoneyWithTwoDecimal(bean.payMoney)}"
         holder.tvPayMoney.text = payMoney
-        holder.tvPayDate.text = getTime(bean.payTime)
+        holder.tvPayDate.text = getDateAndTime(bean.payTime)
         if (bean.payNote.isNotEmpty()) {
             holder.tvPayCategory.text = bean.payNote
         } else {
@@ -68,7 +68,8 @@ class PayListAdapter(
         return payList.size
     }
 
-    fun updatePayInfoData(list: List<PayInfoBean>) {
+    fun updatePayInfoData(list: MutableList<PayInfoBean>) {
+        logd("xcx","updatePayInfoData():")
         payList = list
         notifyDataSetChanged()
     }

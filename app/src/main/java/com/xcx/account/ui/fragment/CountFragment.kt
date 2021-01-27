@@ -58,6 +58,9 @@ class CountFragment : BaseFragment() {
          */
         countModel.getDayTrendPayInfo(monthStartTime(), monthEndTime())
         countModel.getMonthPayInfo(yearStartTime(), yearEndTime())
+
+        activity?.title = "统计"
+
     }
 
     private fun initPieChart() {

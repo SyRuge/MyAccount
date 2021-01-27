@@ -8,6 +8,7 @@ import java.util.*
  */
 private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
 private val timeFormat = SimpleDateFormat("HH:mm")
+private val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
 private const val TAG = "DateFormatUtils"
 
@@ -38,6 +39,13 @@ fun getHourOfMinute(time: Long): Int {
  */
 fun getTime(time: Long): String {
     return timeFormat.format(Date(time))
+}
+
+/**
+ * return like 2021-01-22 10:28:32
+ */
+fun getDateAndTime(time: Long): String {
+    return format.format(Date(time))
 }
 
 fun todayDate(): String {

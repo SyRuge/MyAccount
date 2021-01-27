@@ -69,5 +69,13 @@ class PayRepository {
         fun getCurYearPayInfo(): LiveData<MutableList<PayInfoBean>> {
             return PayDataBaseHelper.db.payDao().getCurYearPayInfo(yearStartTime(), yearEndTime())
         }
+
+        /**
+         * query
+         */
+        fun getPayInfoByCategory(payCategory: String): MutableList<PayInfoBean> {
+            return PayDataBaseHelper.db.payDao()
+                .getPayInfoByCategory(yearStartTime(), yearEndTime(), payCategory)
+        }
     }
 }

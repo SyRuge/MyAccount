@@ -11,12 +11,12 @@ import androidx.room.PrimaryKey
 data class PayInfoBean(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Long,
-    @ColumnInfo(name = "payId") val payId: String,
-    @ColumnInfo(name = "paySellerName") val paySellerName: String,
-    @ColumnInfo(name = "payMoney") val payMoney: Long,
-    @ColumnInfo(name = "payCategory") val payCategory: String,
-    @ColumnInfo(name = "payTime") val payTime: Long,
-    @ColumnInfo(name = "payDate") val payDate: String,
-    @ColumnInfo(name = "payNote") val payNote: String
+    var id: Long,
+    @ColumnInfo(name = "payId") var payId: String,
+    @ColumnInfo(name = "paySellerName") var paySellerName: String,
+    @ColumnInfo(name = "payMoney") var payMoney: Long,
+    @ColumnInfo(name = "payCategory") var payCategory: String,
+    @ColumnInfo(name = "payTime") var payTime: Long,
+    @ColumnInfo(name = "payDate") var payDate: String,
+    @ColumnInfo(name = "payNote") var payNote: String
 )

@@ -13,6 +13,16 @@ import kotlinx.coroutines.launch
 class PayListViewModel : ViewModel() {
     val payInfo = PayRepository.getCurYearPayInfo()
     val deletePayInfo = MutableLiveData<Int>()
+    val catrgoryPayInfo = MutableLiveData<MutableList<PayInfoBean>>()
+
+    fun getPayInfoByCategory(payCategory: String) {
+        viewModelScope.launch {
+            val deferred = async(Dispatchers.IO) {
+                PayRepository.getPayInfoByCategory(payCategory)
+            }
+            catrgoryPayInfo.value = deferred.await()
+        }
+    }
 
     fun deletePayInfoById(bean: PayInfoBean) {
         viewModelScope.launch {
