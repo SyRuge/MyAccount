@@ -59,7 +59,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initView() {
-        binding.tvToolbarTitle.text = "支出"
+        binding.tvToolbarTitle.text = getString(R.string.tab_home)
         binding.srlRefreshPayInfo.setColorSchemeResources(R.color.colorAccent)
     }
 
@@ -87,7 +87,7 @@ class HomeFragment : BaseFragment() {
         }
         payModel.deletePayInfo.observe(viewLifecycleOwner) {
             if (it > 0) {
-                showToast("删除成功!")
+                showToast(getString(R.string.delete_pay_success))
             }
         }
     }
@@ -104,13 +104,15 @@ class HomeFragment : BaseFragment() {
             payAdapter = TodayPayAdapter(payList = list)
             binding.rvPayContent.adapter = payAdapter
             payAdapter?.setOnItemClickListener {
-                logd("PayDetailFragment", "id: ${it.id}")
+                logd(TAG, "id: ${it.id}")
                 startActivity(Intent(activity, PayDetailActivity::class.java).apply {
-                    putExtra("pay_id", it.id)
+                    putExtra(PAY_ID_KEY, it.id)
                 })
             }
             payAdapter?.setOnItemDeleteListener { bean ->
-                showCommonDialog(context, "删除交易", "确认要删除本条交易吗?") {
+                showCommonDialog(context,
+                    getString(R.string.dialog_delete_pay_title),
+                    getString(R.string.dialog_delete_pay_msg)) {
                     onConfirm {
                         payModel.deletePayInfoById(PayInfoBean(bean.id, "", "", 0L, "", 0L, "", ""))
                     }
@@ -127,10 +129,10 @@ class HomeFragment : BaseFragment() {
     private fun updateTotalPayUi(list: List<HomePayBean>) {
         val totalPayMoney = getTotalPayMoney(list)
         if (totalAdapter == null) {
-            totalPayList.add(HomeTotalPayBean("本日", todayDate(), totalPayMoney[0], "", ""))
-            totalPayList.add(HomeTotalPayBean("本周", curWeekRangeDate(), totalPayMoney[1], "", ""))
-            totalPayList.add(HomeTotalPayBean("本月", curMonthRangeDate(), totalPayMoney[2], "", ""))
-            totalPayList.add(HomeTotalPayBean("本年", curRangeYearDate(), totalPayMoney[3], "", ""))
+            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_day_dec), todayDate(), totalPayMoney[0], "", ""))
+            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_week_dec), curWeekRangeDate(), totalPayMoney[1], "", ""))
+            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_month_dec), curMonthRangeDate(), totalPayMoney[2], "", ""))
+            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_year_dec), curRangeYearDate(), totalPayMoney[3], "", ""))
 
             binding.rvTotalPayContent.layoutManager = LinearLayoutManager(activity)
             totalAdapter = TotalPayAdapter(payList = totalPayList)

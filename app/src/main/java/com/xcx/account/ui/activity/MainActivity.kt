@@ -1,10 +1,12 @@
 package com.xcx.account.ui.activity
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.xcx.account.R
 import com.xcx.account.adapter.AccountAdapter
@@ -39,6 +41,19 @@ class MainActivity : BaseActivity() {
 
     private fun initData() {
         binding.vpContent.adapter = AccountAdapter(this)
+        binding.tlBottomTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                updateTabText(tab, true)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                updateTabText(tab, false)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+            }
+
+        })
         TabLayoutMediator(
             binding.tlBottomTab, binding.vpContent, true, true
         ) { tab, position ->
@@ -78,5 +93,19 @@ class MainActivity : BaseActivity() {
 
     private fun initListener() {
 
+    }
+
+    private fun updateTabText(tab: TabLayout.Tab, isSelect: Boolean) {
+        if (isSelect) {
+            tab.customView?.apply {
+                val tv: TextView = findViewById(R.id.tv_tab_text)
+                tv.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            }
+        } else {
+            tab.customView?.apply {
+                val tv: TextView = findViewById(R.id.tv_tab_text)
+                tv.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            }
+        }
     }
 }

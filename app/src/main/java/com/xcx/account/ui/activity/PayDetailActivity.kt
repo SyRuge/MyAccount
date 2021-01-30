@@ -18,7 +18,7 @@ import java.util.*
 class PayDetailActivity : BaseActivity() {
 
     private val TAG = "PayDetailActivity"
-
+    private val DIALOG_PAY_NOTE_TAG = "PayNote"
     lateinit var binding: ActivityPayDetailBinding
     private var id = 0L
     private var bean: PayInfoBean? = null
@@ -36,7 +36,7 @@ class PayDetailActivity : BaseActivity() {
     }
 
     private fun initData() {
-        val id = intent.getLongExtra("pay_id", 0)
+        val id = intent.getLongExtra(PAY_ID_KEY, 0)
         logd(TAG, "initData id: $id")
         if (id != 0L) {
             payInfoModel.getPayInfoById(id)
@@ -57,7 +57,10 @@ class PayDetailActivity : BaseActivity() {
         }
 
         binding.ivToolbarDelete.setOnClickListener {
-            showCommonDialog(this, "删除交易", "确认要删除本条交易吗?") {
+            showCommonDialog(this,
+                getString(R.string.dialog_delete_pay_title),
+                getString(R.string.dialog_delete_pay_msg)) {
+
                 onConfirm {
                     val id = bean?.id ?: -1L
                     if (id > -1L) {
@@ -69,7 +72,7 @@ class PayDetailActivity : BaseActivity() {
 
         payInfoModel.deletePayInfo.observe(this) {
             if (it > 0) {
-                showToast("删除成功!")
+                showToast(getString(R.string.delete_pay_success))
             }
             finish()
         }
@@ -98,14 +101,14 @@ class PayDetailActivity : BaseActivity() {
                             null
                         )
                     )
-                    binding.tvDetailNote.text = "点击添加备注"
+                    binding.tvDetailNote.text = getString(R.string.hint_add_pay_note)
                 }
             }
         }
 
         payInfoModel.updateInfo.observe(this) {
             if (it > 0) {
-                showToast("修改成功!")
+                showToast(getString(R.string.update_pay_success))
             }
         }
     }
@@ -113,7 +116,7 @@ class PayDetailActivity : BaseActivity() {
     private fun showChangePayNoteDialog() {
         val dialog = ChangePayNoteDialog().apply {
             arguments = Bundle().apply {
-                putString("pay_note", bean?.payNote ?: "")
+                putString(PAY_NOTE_KEY, bean?.payNote ?: "")
             }
         }
         dialog.setDialogClickListener {
@@ -140,14 +143,14 @@ class PayDetailActivity : BaseActivity() {
 
             }
         }
-        dialog.show(supportFragmentManager, "PayNote")
+        dialog.show(supportFragmentManager, DIALOG_PAY_NOTE_TAG)
     }
 
     private fun showDatePickDialog() {
         val date = getYearMonthAndDay()
         val dialog = DatePickerDialog(
             this,
-            { view, year, month, dayOfMonth ->
+            { _, year, month, dayOfMonth ->
                 logd(TAG, "year: $year, month: $month, dayOfMonth: $dayOfMonth")
                 bean?.apply {
                     val c = Calendar.getInstance()

@@ -10,7 +10,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 /**
- * Created by xuchongxiang on 2021年01月14日.
+ * Created by SyRuge on 2021年01月14日.
  */
 class AddPayInfoModel : ViewModel() {
     val addPayInfo = MutableLiveData<Long>()

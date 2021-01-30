@@ -8,7 +8,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 /**
- * Created by xuchongxiang on 2020年12月22日.
+ * Created by SyRuge on 2020年12月22日.
  */
 class PayListViewModel : ViewModel() {
     val payInfo = PayRepository.getCurYearPayInfo()

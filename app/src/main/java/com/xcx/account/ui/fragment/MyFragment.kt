@@ -1,7 +1,6 @@
 package com.xcx.account.ui.fragment
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -12,24 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.room.Room
-import com.google.gson.Gson
 import com.xcx.account.AccountApp
-import com.xcx.account.bean.PayJsonBean
+import com.xcx.account.R
 import com.xcx.account.databinding.FragmentMyBinding
-import com.xcx.account.repository.database.PayRepository
-import com.xcx.account.repository.database.database.PayDataBase
-import com.xcx.account.repository.database.database.PayDataBaseHelper
-import com.xcx.account.utils.logd
-import com.xcx.account.utils.loge
 import com.xcx.account.utils.showToast
 import com.xcx.account.viewmodel.MyViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import java.io.*
 import java.text.SimpleDateFormat
-import kotlin.system.exitProcess
 
 
 class MyFragment : BaseFragment() {
@@ -38,10 +25,14 @@ class MyFragment : BaseFragment() {
     private var _binding: FragmentMyBinding? = null
     private val binding get() = _binding!!
     private val PERMISSION_REQUEST_CODE = 10010
+    private val URI_FILE_LOCATION =
+        "content://com.android.externalstorage.documents/document/primary:Account"
+    private val FILE_MIME_TYPE = "application/json"
 
     private val PICK_JSON_FILE = 101
     private val CREATE_JSON_FILE = 102
     private val myModel: MyViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +50,7 @@ class MyFragment : BaseFragment() {
     }
 
     private fun initView() {
-        binding.tvToolbarTitle.text = "我的"
+        binding.tvToolbarTitle.text = getString(R.string.tab_my)
     }
 
     private fun initData() {
@@ -70,22 +61,20 @@ class MyFragment : BaseFragment() {
         binding.llPayBackup.setOnClickListener {
             val format = SimpleDateFormat("yyyy-MM-dd_HH_mm_ss")
             val fileName = "${format.format(System.currentTimeMillis())}.json"
-            val uri =
-                Uri.parse("content://com.android.externalstorage.documents/document/primary:Account")
+            val uri = Uri.parse(URI_FILE_LOCATION)
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
-                type = "application/json"
+                type = FILE_MIME_TYPE
                 putExtra(Intent.EXTRA_TITLE, fileName)
                 putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
             }
             startActivityForResult(intent, CREATE_JSON_FILE)
         }
         binding.llPayRestore.setOnClickListener {
-            val uri =
-                Uri.parse("content://com.android.externalstorage.documents/document/primary:Account")
+            val uri = Uri.parse(URI_FILE_LOCATION)
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
-                type = "application/json"
+                type = FILE_MIME_TYPE
                 putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
             }
             startActivityForResult(intent, PICK_JSON_FILE)
@@ -93,17 +82,17 @@ class MyFragment : BaseFragment() {
 
         myModel.backupStatus.observe(viewLifecycleOwner) {
             if (it) {
-                showToast("backup success!")
+                showToast(getString(R.string.back_up_success))
             } else {
-                showToast("backup error")
+                showToast(getString(R.string.back_up_error))
             }
         }
 
         myModel.restoreStatus.observe(viewLifecycleOwner) {
             if (it) {
-                showToast("restore success!")
+                showToast(getString(R.string.restore_success))
             } else {
-                showToast("restore error")
+                showToast(getString(R.string.restore_error))
             }
         }
     }
@@ -138,6 +127,7 @@ class MyFragment : BaseFragment() {
         }
     }
 
+    @Deprecated("will remove next path")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

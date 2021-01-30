@@ -14,7 +14,7 @@ import com.xcx.account.utils.getTime
 import java.math.BigDecimal
 
 /**
- * Created by xuchongxiang on 2020年12月18日.
+ * Created by SyRuge on 2020年12月18日.
  */
 class TodayPayAdapter(
     var context: Context = AccountApp.appContext,

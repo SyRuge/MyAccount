@@ -6,7 +6,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 
 /**
- * Created by xuchongxiang on 2021年01月15日.
+ * Created by SyRuge on 2021年01月15日.
  */
 abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

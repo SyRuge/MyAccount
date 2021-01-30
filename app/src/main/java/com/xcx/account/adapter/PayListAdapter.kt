@@ -15,7 +15,7 @@ import com.xcx.account.utils.getTime
 import com.xcx.account.utils.logd
 
 /**
- * Created by xuchongxiang on 2020年12月18日.
+ * Created by SyRuge on 2020年12月18日.
  */
 class PayListAdapter(
     var context: Context = AccountApp.appContext,

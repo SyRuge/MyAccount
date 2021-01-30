@@ -1,15 +1,16 @@
 package com.xcx.account.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.xcx.account.AccountApp
 import com.xcx.account.R
 import com.xcx.account.adapter.PayCategoryAdapter
 import com.xcx.account.bean.PayCategoryBean
 import com.xcx.account.databinding.ActivityAddPayInfoBinding
 import com.xcx.account.repository.database.table.PayInfoBean
+import com.xcx.account.utils.INPUT_MONEY_KEY
 import com.xcx.account.utils.logd
 import com.xcx.account.utils.showToast
 import com.xcx.account.viewmodel.AddPayInfoModel
@@ -19,8 +20,7 @@ class AddPayInfoActivity : BaseActivity() {
 
     val TAG = "AddPayInfoActivity"
     private var oriMoney = ""
-    private val KEY_INPUT_MONEY = "input_money"
-    private var selectCategory = "餐饮"
+    private var selectCategory = AccountApp.appContext.getString(R.string.category_food)
 
     lateinit var binding: ActivityAddPayInfoBinding
     private val addPayModel: AddPayInfoModel by viewModels()
@@ -40,7 +40,7 @@ class AddPayInfoActivity : BaseActivity() {
     }
 
     private fun initData() {
-        oriMoney = intent.getStringExtra(KEY_INPUT_MONEY) ?: ""
+        oriMoney = intent.getStringExtra(INPUT_MONEY_KEY) ?: ""
         formatPayMoney()
         val list = getPayCategoryList()
         binding.rvPayCategory.layoutManager = GridLayoutManager(this, 3)
@@ -94,16 +94,17 @@ class AddPayInfoActivity : BaseActivity() {
 
     private fun getPayCategoryList(): MutableList<PayCategoryBean> {
         //餐饮 水果 房租 通讯 购物 日用 水电 交通 全部
-        val list = mutableListOf<PayCategoryBean>()
-        list.add(PayCategoryBean(R.color.pink_color_500, "餐饮", true))
-        list.add(PayCategoryBean(R.color.primaryTextColor, "水果"))
-        list.add(PayCategoryBean(R.color.primaryTextColor, "房租"))
-        list.add(PayCategoryBean(R.color.primaryTextColor, "通讯"))
-        list.add(PayCategoryBean(R.color.primaryTextColor, "购物"))
-        list.add(PayCategoryBean(R.color.primaryTextColor, "日用"))
-        list.add(PayCategoryBean(R.color.primaryTextColor, "水电"))
-        list.add(PayCategoryBean(R.color.primaryTextColor, "交通"))
-        list.add(PayCategoryBean(R.color.primaryTextColor, "全部"))
+        val list = mutableListOf<PayCategoryBean>().apply {
+            add(PayCategoryBean(R.color.pink_color_500, getString(R.string.category_food), true))
+            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_fruit)))
+            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_rent)))
+            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_comm)))
+            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_shop)))
+            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_daily_expenses)))
+            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_utilities)))
+            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_traffic)))
+            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_all)))
+        }
         return list
     }
 }

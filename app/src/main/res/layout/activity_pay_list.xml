@@ -33,20 +33,20 @@
 
             <ImageView
                 android:id="@+id/iv_pay_sort"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/icon_category"
+                android:background="@drawable/icon_time_money_sort"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_pay_sort_category"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/icon_sort"
+                android:src="@drawable/icon_category_sort"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_pay_sort"
                 app:layout_constraintTop_toTopOf="parent" />

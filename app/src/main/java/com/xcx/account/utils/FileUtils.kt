@@ -5,7 +5,7 @@ import com.xcx.account.AccountApp
 import java.io.InputStreamReader
 
 /**
- * Created by xuchongxiang on 2021年01月25日.
+ * Created by SyRuge on 2021年01月25日.
  */
 private const val TAG = "FileUtils"
 

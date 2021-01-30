@@ -11,7 +11,7 @@ import com.xcx.account.R
 import com.xcx.account.bean.PayCategoryBean
 
 /**
- * Created by xuchongxiang on 2020年12月28日.
+ * Created by SyRuge on 2020年12月28日.
  */
 class PayCategoryAdapter(
     val context: Context = AccountApp.appContext,

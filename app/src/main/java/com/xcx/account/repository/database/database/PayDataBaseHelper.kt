@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.xcx.account.AccountApp
 
 /**
- * Created by xuchongxiang on 2020年12月21日.
+ * Created by SyRuge on 2020年12月21日.
  */
 class PayDataBaseHelper {
     companion object {

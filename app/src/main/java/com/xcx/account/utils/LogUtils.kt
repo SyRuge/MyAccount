@@ -3,7 +3,7 @@ package com.xcx.account.utils
 import android.util.Log
 
 /**
- * Created by xuchongxiang on 2020年12月17日.
+ * Created by SyRuge on 2020年12月17日.
  */
 fun logv(tag: String, msg: String) {
     Log.v(tag, msg)

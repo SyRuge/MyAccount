@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="@string/tab_home"
-        android:textColor="@drawable/tab_text_color_selector"
+        android:textColor="@color/primaryTextColor"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

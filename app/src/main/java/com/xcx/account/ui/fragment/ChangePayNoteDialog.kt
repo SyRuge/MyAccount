@@ -9,11 +9,12 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.DialogFragment
 import com.xcx.account.databinding.DialogChangePayNoteBinding
+import com.xcx.account.utils.PAY_NOTE_KEY
 import com.xcx.account.utils.dp2px
 
 
 /**
- * Created by xuchongxiang on 2021年01月05日.
+ * Created by SyRuge on 2021年01月05日.
  */
 class ChangePayNoteDialog : DialogFragment() {
 
@@ -29,7 +30,7 @@ class ChangePayNoteDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.apply {
-            payNote = getString("pay_note", "")
+            payNote = getString(PAY_NOTE_KEY, "")
         }
     }
 

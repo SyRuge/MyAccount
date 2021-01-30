@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * Created by xuchongxiang on 2020年12月25日.
+ * Created by SyRuge on 2020年12月25日.
  */
 private val dateFormat = SimpleDateFormat("yyyy-MM-dd")
 private val timeFormat = SimpleDateFormat("HH:mm")

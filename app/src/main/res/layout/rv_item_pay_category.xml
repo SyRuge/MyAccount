@@ -17,12 +17,12 @@
         android:paddingTop="6dp"
         android:paddingEnd="35dp"
         android:paddingBottom="6dp"
-        android:text="购物"
         android:textColor="@color/primaryTextColor"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="购物" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

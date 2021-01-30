@@ -5,7 +5,7 @@ import android.content.Context
 import kotlin.properties.Delegates
 
 /**
- * Created by xuchongxiang on 2020年12月18日.
+ * Created by SyRuge on 2020年12月18日.
  */
 class AccountApp : Application() {
 

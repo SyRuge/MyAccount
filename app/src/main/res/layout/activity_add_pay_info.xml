@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="分类"
+        android:text="@string/category_dec"
         android:textColor="@color/secondaryTextColor"
         app:layout_constraintStart_toStartOf="@id/tv_pay_money"
         app:layout_constraintTop_toBottomOf="@id/view_line_1" />
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
         android:layout_marginTop="16dp"
-        android:text="备注"
+        android:text="@string/pay_note_dec"
         android:textColor="@color/secondaryTextColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_pay_category" />
@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="26dp"
         android:background="@null"
-        android:hint="点击添加备注"
+        android:hint="@string/add_pay_note"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_pay_note"
@@ -108,7 +108,7 @@
 
     <Button
         android:id="@+id/btn_add_pay_info"
-        android:text="保存"
+        android:text="@string/add_pay_info_dec"
         android:textColor="#FFFFFF"
         android:layout_width="0dp"
         android:layout_height="46dp"

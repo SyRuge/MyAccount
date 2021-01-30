@@ -15,7 +15,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 /**
- * Created by xuchongxiang on 2021年01月25日.
+ * Created by SyRuge on 2021年01月25日.
  */
 class MyViewModel : ViewModel() {
     val backupStatus = MutableLiveData<Boolean>()

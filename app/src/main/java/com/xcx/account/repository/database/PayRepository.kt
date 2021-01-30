@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 /**
- * Created by xuchongxiang on 2020年12月22日.
+ * Created by SyRuge on 2020年12月22日.
  */
 class PayRepository {
 

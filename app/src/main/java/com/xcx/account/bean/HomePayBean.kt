@@ -2,7 +2,7 @@ package com.xcx.account.bean
 
 
 /**
- * Created by xuchongxiang on 2020年12月18日.
+ * Created by SyRuge on 2020年12月18日.
  */
 data class HomePayBean(
     var id: Long,

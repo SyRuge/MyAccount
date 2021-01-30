@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.xcx.account.R
 import com.xcx.account.databinding.FragmentCountBinding
 import com.xcx.account.repository.database.PayRepository
 import com.xcx.account.repository.database.table.PayInfoBean
@@ -49,8 +50,7 @@ class CountFragment : BaseFragment() {
     }
 
     private fun initView() {
-        binding.tvToolbarTitle.text = "统计"
-
+        binding.tvToolbarTitle.text = getString(R.string.tab_count)
     }
 
     private fun initData() {
@@ -206,7 +206,6 @@ class CountFragment : BaseFragment() {
             }
             logd(TAG, "initBarChartData(): list is not empty")
             val entries = mutableListOf<BarEntry>()
-            // x是横坐标，表示位置，y是纵坐标，表示高度
 
             for (i in list.indices) {
                 logd(TAG, "initBarChartData() i: $i ,value: ${list[i]}")

@@ -6,7 +6,7 @@ import com.xcx.account.AccountApp
 
 
 /**
- * Create By Ruge at 2021-01-19
+ * Create By SyRuge at 2021-01-19
  */
 fun dp2px(dp: Int): Int {
     return TypedValue.applyDimension(

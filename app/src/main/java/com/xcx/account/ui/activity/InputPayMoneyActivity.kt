@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.xcx.account.databinding.ActivityInputPayMoneyBinding
+import com.xcx.account.utils.INPUT_MONEY_KEY
 
 class InputPayMoneyActivity : BaseActivity() {
 
@@ -15,12 +16,13 @@ class InputPayMoneyActivity : BaseActivity() {
     }
 
     override fun afterSetContentView(savedInstanceState: Bundle?) {
+        initView()
         initData()
         initListener()
     }
 
-    override fun isNeedSetStatusBarMode(): Boolean {
-        return false
+    private fun initView() {
+        binding.tvMoney.text = "0"
     }
 
     private fun initData() {
@@ -75,10 +77,14 @@ class InputPayMoneyActivity : BaseActivity() {
         }
         binding.tvNumberOk.setOnClickListener {
             startActivity(Intent(this, AddPayInfoActivity::class.java).apply {
-                putExtra("input_money", binding.tvMoney.text.toString())
+                putExtra(INPUT_MONEY_KEY, binding.tvMoney.text.toString())
             })
             finish()
         }
+    }
+
+    override fun isNeedSetStatusBarMode(): Boolean {
+        return false
     }
 
     private fun updateMoneyText(number: String) {

@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
-            android:text="备份"
+            android:text="@string/pay_backup"
             android:textColor="@color/primaryTextColor"
             android:textSize="18sp" />
 
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
-            android:text="恢复"
+            android:text="@string/pay_restore"
             android:textColor="@color/primaryTextColor"
             android:textSize="18sp" />
 

@@ -3,7 +3,7 @@ package com.xcx.account.utils
 import java.math.BigDecimal
 
 /**
- * Created by xuchongxiang on 2020年12月30日.
+ * Created by SyRuge on 2020年12月30日.
  */
 /**
  * return like 22.35

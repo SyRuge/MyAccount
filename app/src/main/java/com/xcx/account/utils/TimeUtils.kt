@@ -3,7 +3,7 @@ package com.xcx.account.utils
 import java.util.*
 
 /**
- * Created by xuchongxiang on 2020年12月28日.
+ * Created by SyRuge on 2020年12月28日.
  */
 
 private const val TAG = "TimeUtils"

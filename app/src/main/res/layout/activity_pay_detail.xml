@@ -7,8 +7,8 @@
     tools:context=".ui.activity.PayDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:elevation="5dp"
         android:id="@+id/tl_toolbar"
+        android:elevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
@@ -44,8 +44,8 @@
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
-        android:textStyle="bold"
         android:id="@+id/tv_detail_money"
+        android:textStyle="bold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -87,7 +87,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="分类"
+            android:text="@string/category_dec"
             android:textColor="@color/secondaryTextColor"
             android:textSize="12sp" />
 
@@ -95,9 +95,9 @@
             android:id="@+id/tv_detail_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="餐饮"
             android:textColor="@color/primaryTextColor"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="餐饮" />
 
         <View
             android:layout_width="match_parent"
@@ -122,7 +122,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="日期"
+            android:text="@string/pay_detail_date_dec"
             android:textColor="@color/secondaryTextColor"
             android:textSize="12sp" />
 
@@ -130,9 +130,9 @@
             android:id="@+id/tv_detail_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2020-12-30"
             android:textColor="@color/primaryTextColor"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="2020-12-30" />
 
         <View
             android:layout_width="match_parent"
@@ -157,7 +157,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="时间"
+            android:text="@string/pay_detail_time_dec"
             android:textColor="@color/secondaryTextColor"
             android:textSize="12sp" />
 
@@ -165,9 +165,9 @@
             android:id="@+id/tv_detail_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="11:08"
             android:textColor="@color/primaryTextColor"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="11:08" />
 
         <View
             android:layout_width="match_parent"
@@ -193,7 +193,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="备注"
+            android:text="@string/pay_note_dec"
             android:textColor="@color/secondaryTextColor" />
 
         <TextView

@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Created by xuchongxiang on 2020年12月21日.
+ * Created by SyRuge on 2020年12月21日.
  */
 @Entity(tableName = "pay_info")
 data class PayInfoBean(

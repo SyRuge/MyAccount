@@ -11,11 +11,13 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.xcx.account.AccountApp
+import com.xcx.account.R
 import com.xcx.account.utils.logd
 import java.util.*
 
 /**
- * Create By Ruge at 2021-01-30
+ * Create By SyRuge at 2021-01-30
  */
 class ChartHelper {
     companion object {
@@ -32,6 +34,7 @@ class ChartHelper {
             pieChart.apply {
                 //设置 pieChart 图表基本属性
                 setUsePercentValues(true)//使用百分比显示, 表内数据用百分比替代，而不是原先的值。并且ValueFormatter中提供的值也是该百分比的。默认false
+                setNoDataText(context.getString(R.string.chart_no_data))
                 //设置pieChart图表的描述
                 description.isEnabled = false
                 //设置pieChart图表上下左右的偏移，类似于外边距
@@ -68,7 +71,7 @@ class ChartHelper {
                 setTransparentCircleAlpha(0)    // 上述透明圆环的透明度[0-255],数值越小越透明，默认100
                 setHoleColor(Color.WHITE)             //设置PieChart内部圆的颜色
                 setDrawCenterText(true)               //是否绘制PieChart内部中心文本（true：下面属性才有意义）
-                centerText = "全部" // 圆环中心的文字，会自动适配不会被覆盖
+                centerText = AccountApp.appContext.getString(R.string.piechart_center_text) // 圆环中心的文字，会自动适配不会被覆盖
                 setCenterTextSize(12f)                //设置PieChart内部圆文字的大小
                 setCenterTextColor(Color.BLACK)         //设置PieChart内部圆文字的颜色
             }
@@ -131,7 +134,7 @@ class ChartHelper {
                 //显示边界
                 setDrawBorders(false)
                 description.isEnabled = false
-                setNoDataText("暂无数据")
+                setNoDataText(AccountApp.appContext.getString(R.string.chart_no_data))
             }
             //得到X轴
             val xAxis = lineChart.xAxis
@@ -213,7 +216,7 @@ class ChartHelper {
             //一个LineDataSet就是一条线
             lineDataSet.apply {
                 //线颜色
-                color = Color.parseColor("#e91e63")
+                color = AccountApp.appContext.resources.getColor(R.color.pink_color_500, null)
                 //线宽度
                 lineWidth = 1.6f
                 //不显示圆点
@@ -244,9 +247,11 @@ class ChartHelper {
                 setDrawBorders(false)
                 // 不显示描述
                 description.isEnabled = false
+                setNoDataText(AccountApp.appContext.getString(R.string.chart_no_data))
                 // 设置饼图的偏移量，类似于内边距 ，设置视图窗口大小
                 //setExtraOffsets(20f, 20f, 20f, 20f)
             }
+            // x是横坐标，表示位置，y是纵坐标，表示高度
 
             val labelName = arrayOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
             barChart.xAxis.apply {
@@ -317,7 +322,7 @@ class ChartHelper {
                 // 值的颜色
                 valueTextColor = Color.RED
                 // 柱子的颜色
-                color = Color.parseColor("#e91e63")
+                color = AccountApp.appContext.resources.getColor(R.color.pink_color_500, null)
                 //setValueTextSize(15f) // 值的大小
                 //label = "" // 设置标签之后，图例的内容默认会以设置的标签显示
                 valueFormatter = object : ValueFormatter() {

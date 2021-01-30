@@ -12,7 +12,7 @@ import com.xcx.account.bean.HomeTotalPayBean
 import com.xcx.account.utils.getMoneyWithTwoDecimal
 
 /**
- * Created by xuchongxiang on 2020年12月18日.
+ * Created by SyRuge on 2020年12月18日.
  */
 class TotalPayAdapter(
     var context: Context = AccountApp.appContext,

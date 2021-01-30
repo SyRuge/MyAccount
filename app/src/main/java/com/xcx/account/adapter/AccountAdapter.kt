@@ -8,7 +8,7 @@ import com.xcx.account.ui.fragment.HomeFragment
 import com.xcx.account.ui.fragment.MyFragment
 
 /**
- * Created by xuchongxiang on 2020年12月17日.
+ * Created by SyRuge on 2020年12月17日.
  */
 class AccountAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {
