@@ -45,7 +45,7 @@ class TodayPayAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is HeaderHolder) {
-            holder.tvPayHeaderTitle.text = "今日支出"
+            holder.tvPayHeaderTitle.setText(R.string.today_pay_dec)
         }
         if (holder is PayHolder) {
             val bean = payList[position-1]

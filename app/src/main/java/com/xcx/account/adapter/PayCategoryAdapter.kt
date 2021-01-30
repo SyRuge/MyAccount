@@ -72,7 +72,7 @@ class PayCategoryAdapter(
         var tvPayCategory: TextView = itemView.findViewById(R.id.tv_pay_category)
     }
 
-    interface OnItemClickListener {
+    fun interface OnItemClickListener {
         fun onItemClick(bean: PayCategoryBean)
     }
 }

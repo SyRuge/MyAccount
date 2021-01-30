@@ -1,13 +1,11 @@
 package com.xcx.account.utils
 
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Created by xuchongxiang on 2020年12月28日.
  */
 
-private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
 private const val TAG = "TimeUtils"
 
 fun todayStartTime(): Long {
@@ -34,11 +32,11 @@ fun todayEndTime(): Long {
 fun weekStartTime(): Long {
     val c = Calendar.getInstance()
 
-    var day_of_week = c.get(Calendar.DAY_OF_WEEK) - 1
-    if (day_of_week == 0) {
-        day_of_week = 7
+    var dayOfWeek = c.get(Calendar.DAY_OF_WEEK) - 1
+    if (dayOfWeek == 0) {
+        dayOfWeek = 7
     }
-    c.add(Calendar.DATE, -day_of_week + 1)
+    c.add(Calendar.DATE, -dayOfWeek + 1)
     c.set(Calendar.HOUR_OF_DAY,0)
     c.set(Calendar.MINUTE,0)
     c.set(Calendar.SECOND,0)
@@ -49,11 +47,11 @@ fun weekStartTime(): Long {
 
 fun weekEndTime(): Long {
     val c = Calendar.getInstance()
-    var day_of_week = c.get(Calendar.DAY_OF_WEEK) - 1
-    if (day_of_week == 0) {
-        day_of_week = 7
+    var dayOfWeek = c.get(Calendar.DAY_OF_WEEK) - 1
+    if (dayOfWeek == 0) {
+        dayOfWeek = 7
     }
-    c.add(Calendar.DATE, -day_of_week + 7)
+    c.add(Calendar.DATE, -dayOfWeek + 7)
     c.set(Calendar.HOUR_OF_DAY,23)
     c.set(Calendar.MINUTE,59)
     c.set(Calendar.SECOND,59)
@@ -76,9 +74,9 @@ fun monthStartTime(): Long {
 
 fun monthEndTime(): Long {
     val c = Calendar.getInstance()
-    val end_day_of_month = c.getActualMaximum(Calendar.DAY_OF_MONTH)
+    val endDayOfMonth = c.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-    c.set(Calendar.DAY_OF_MONTH, end_day_of_month)
+    c.set(Calendar.DAY_OF_MONTH, endDayOfMonth)
     c.set(Calendar.HOUR_OF_DAY, 23)
     c.set(Calendar.MINUTE, 59)
     c.set(Calendar.SECOND, 59)

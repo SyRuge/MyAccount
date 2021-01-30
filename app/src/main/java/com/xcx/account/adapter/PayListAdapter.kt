@@ -69,7 +69,6 @@ class PayListAdapter(
     }
 
     fun updatePayInfoData(list: MutableList<PayInfoBean>) {
-        logd("xcx","updatePayInfoData():")
         payList = list
         notifyDataSetChanged()
     }

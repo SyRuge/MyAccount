@@ -45,7 +45,7 @@ class MyFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentMyBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,8 +53,13 @@ class MyFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initData()
         initListener()
+    }
+
+    private fun initView() {
+        binding.tvToolbarTitle.text = "我的"
     }
 
     private fun initData() {
@@ -136,7 +141,7 @@ class MyFragment : BaseFragment() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
@@ -148,11 +153,6 @@ class MyFragment : BaseFragment() {
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activity?.title = "我的"
     }
 
     override fun onDestroyView() {

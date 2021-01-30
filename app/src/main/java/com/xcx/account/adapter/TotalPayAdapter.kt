@@ -39,7 +39,7 @@ class TotalPayAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is HeaderHolder) {
-            holder.tvPayHeaderTitle.text = "支出总和"
+            holder.tvPayHeaderTitle.setText(R.string.total_pay_dec)
         }
         if (holder is TotalHolder) {
             val bean = payList[position-1]

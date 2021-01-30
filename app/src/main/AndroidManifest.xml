@@ -30,14 +30,11 @@
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".ui.activity.PayDetailActivity"
-            android:theme="@style/PayDetailTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity
             android:name=".ui.activity.InputPayMoneyActivity"
             android:theme="@style/DialogActivityTheme" />
-        <activity
-            android:name=".ui.activity.PayListActivity"
-            android:theme="@style/PayDetailTheme" />
+        <activity android:name=".ui.activity.PayListActivity" />
     </application>
 
 </manifest>

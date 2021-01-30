@@ -79,7 +79,7 @@ class PayListActivity : BaseActivity() {
             }
         }
 
-        payListModel.catrgoryPayInfo.observe(this) {
+        payListModel.categoryPayInfo.observe(this) {
             it.sortByDescending { bean ->
                 bean.payTime
             }

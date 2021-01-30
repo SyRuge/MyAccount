@@ -5,4 +5,7 @@
     <string name="tab_my">我的</string>
     <string name="add_pay_info_short">添加交易</string>
     <string name="add_pay_info_long">添加交易</string>
+    <string name="today_pay_dec">今日支出</string>
+    <string name="total_pay_dec">支出总和</string>
+    <string name="add_pay_info_success">添加成功!</string>
 </resources>

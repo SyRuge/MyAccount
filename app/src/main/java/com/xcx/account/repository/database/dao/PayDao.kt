@@ -30,7 +30,7 @@ interface PayDao {
     suspend fun getPayInfoById(id: Long): PayInfoBean
 
     @Query("SELECT * FROM pay_info WHERE payTime BETWEEN :startTime AND :endTime")
-    suspend fun getPayInfoByTimeRange(startTime: Long, endTime: Long): MutableList<PayInfoBean>
+    fun getPayInfoByTimeRange(startTime: Long, endTime: Long): LiveData<MutableList<PayInfoBean>>
 
     @Query("SELECT * FROM pay_info WHERE payTime BETWEEN :startTime AND :endTime")
     suspend fun getPayInfoByYear(startTime: Long, endTime: Long): MutableList<PayInfoBean>

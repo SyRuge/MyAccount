@@ -15,7 +15,7 @@ import kotlin.coroutines.CoroutineContext
 class PayRepository {
 
     companion object {
-        val TAG = "PayRepository"
+        const val TAG = "PayRepository"
 
         /**
          * query by id
@@ -56,10 +56,10 @@ class PayRepository {
         /**
          * query
          */
-        suspend fun getPayInfoByTimeRange(
+        fun getPayInfoByTimeRange(
             startTime: Long,
             endTime: Long
-        ): MutableList<PayInfoBean> {
+        ): LiveData<MutableList<PayInfoBean>> {
             return PayDataBaseHelper.db.payDao().getPayInfoByTimeRange(startTime, endTime)
         }
 

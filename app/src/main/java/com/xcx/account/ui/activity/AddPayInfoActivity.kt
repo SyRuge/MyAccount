@@ -33,22 +33,22 @@ class AddPayInfoActivity : BaseActivity() {
     }
 
     override fun afterSetContentView(savedInstanceState: Bundle?) {
+        super.afterSetContentView(savedInstanceState)
+        setSupportActionBar(binding.tlToolbar)
         initData()
         initListener()
     }
 
     private fun initData() {
-        oriMoney = intent.getStringExtra("input_money") ?: ""
+        oriMoney = intent.getStringExtra(KEY_INPUT_MONEY) ?: ""
         formatPayMoney()
         val list = getPayCategoryList()
         binding.rvPayCategory.layoutManager = GridLayoutManager(this, 3)
         val payCategoryAdapter = PayCategoryAdapter(categoryList = list)
         binding.rvPayCategory.adapter = payCategoryAdapter
-        payCategoryAdapter.setOnItemClickListener(object : PayCategoryAdapter.OnItemClickListener {
-            override fun onItemClick(bean: PayCategoryBean) {
-                selectCategory = bean.payCategory
-            }
-        })
+        payCategoryAdapter.setOnItemClickListener { bean ->
+            selectCategory = bean.payCategory
+        }
     }
 
     private fun initListener() {
@@ -73,7 +73,8 @@ class AddPayInfoActivity : BaseActivity() {
         }
         addPayModel.addPayInfo.observe(this) {
             if (it > 0) {
-                showToast("添加成功!")
+                showToast(getString(R.string.add_pay_info_success))
+
             }
             finish()
         }

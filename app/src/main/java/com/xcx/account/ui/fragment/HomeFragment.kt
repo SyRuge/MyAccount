@@ -28,10 +28,13 @@ class HomeFragment : BaseFragment() {
     private var TAG = "HomeFragment"
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    lateinit var payModel: PayViewModel
-    var payAdapter: TodayPayAdapter? = null
-    var totalAdapter: TotalPayAdapter? = null
+    private var payAdapter: TodayPayAdapter? = null
+    private var totalAdapter: TotalPayAdapter? = null
     private val totalPayList = mutableListOf<HomeTotalPayBean>()
+
+    private val payModel: PayViewModel by lazy {
+        ViewModelProvider(this).get(PayViewModel::class.java)
+    }
 
     private lateinit var context: Activity
 
@@ -42,7 +45,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -50,13 +53,18 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        payModel = ViewModelProvider(this).get(PayViewModel::class.java)
+        initView()
         initData()
         initListener()
     }
 
-    private fun initData() {
+    private fun initView() {
+        binding.tvToolbarTitle.text = "支出"
         binding.srlRefreshPayInfo.setColorSchemeResources(R.color.colorAccent)
+    }
+
+    private fun initData() {
+
     }
 
     private fun initListener() {
@@ -176,11 +184,6 @@ class HomeFragment : BaseFragment() {
         }
 
         return arrayOf(todayTotalPay, weekTotalPay, monthTotalPay, yearTotalPay)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activity?.title = "支出"
     }
 
     override fun onDestroyView() {
