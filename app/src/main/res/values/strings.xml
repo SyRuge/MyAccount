@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">爱记账</string>
-    <string name="tab_home">主页</string>
+    <string name="tab_home">首页</string>
     <string name="tab_count">统计</string>
     <string name="tab_my">我的</string>
     <string name="add_pay_info_short">添加交易</string>
@@ -10,12 +10,15 @@
     <string name="add_pay_info_success">添加成功!</string>
     <string name="category_food">餐饮</string>
     <string name="category_fruit">水果</string>
-    <string name="category_rent">房租</string>
+    <string name="category_fun">娱乐</string>
     <string name="category_comm">通讯</string>
     <string name="category_shop">购物</string>
     <string name="category_daily_expenses">日用</string>
     <string name="category_utilities">水电</string>
     <string name="category_traffic">交通</string>
+    <string name="category_snacks">零食</string>
+    <string name="category_clothes">服饰</string>
+    <string name="category_rent">房租</string>
     <string name="category_all">全部</string>
     <string name="dialog_delete_pay_title">删除交易</string>
     <string name="dialog_delete_pay_msg">确认要删除本条交易吗?</string>

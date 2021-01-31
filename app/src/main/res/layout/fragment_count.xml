@@ -37,10 +37,11 @@
 
 
     <androidx.core.widget.NestedScrollView
-        app:layout_constraintTop_toBottomOf="@id/tl_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="#FFF5F5F5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tl_toolbar"
         tools:context=".ui.fragment.CountFragment">
 
 

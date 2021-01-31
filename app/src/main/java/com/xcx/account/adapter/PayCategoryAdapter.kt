@@ -50,8 +50,8 @@ class PayCategoryAdapter(
         holder.itemView.setOnClickListener {
             if (position != itemCount -1) {
                 updateSelectStatus(bean, position)
-                listener?.onItemClick(bean)
             }
+            listener?.onItemClick(bean)
         }
     }
 

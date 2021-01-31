@@ -2,7 +2,9 @@ package com.xcx.account.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xcx.account.AccountApp
 import com.xcx.account.R
@@ -47,8 +49,34 @@ class AddPayInfoActivity : BaseActivity() {
         val payCategoryAdapter = PayCategoryAdapter(categoryList = list)
         binding.rvPayCategory.adapter = payCategoryAdapter
         payCategoryAdapter.setOnItemClickListener { bean ->
-            selectCategory = bean.payCategory
+            if (bean.payCategory == getString(R.string.category_all)) {
+                showAllCategoryDialog()
+            } else {
+                selectCategory = bean.payCategory
+            }
         }
+    }
+
+    private fun showAllCategoryDialog() {
+        //餐饮 水果 房租 通讯 购物 日用 水电 交通
+
+        val list = arrayOf(
+            getString(R.string.category_snacks),
+            getString(R.string.category_clothes),
+            getString(R.string.category_rent))
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.category_dec))
+            .setAdapter(
+                adapter
+            ) { dialog, which ->
+                dialog.dismiss()
+                selectCategory = list[which]
+            }
+            .create()
+            .show()
     }
 
     private fun initListener() {
@@ -93,14 +121,15 @@ class AddPayInfoActivity : BaseActivity() {
     }
 
     private fun getPayCategoryList(): MutableList<PayCategoryBean> {
-        //餐饮 水果 房租 通讯 购物 日用 水电 交通 全部
+        //餐饮 水果 娱乐 通讯 购物 日用 水电 交通 全部
         val list = mutableListOf<PayCategoryBean>().apply {
             add(PayCategoryBean(R.color.pink_color_500, getString(R.string.category_food), true))
             add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_fruit)))
-            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_rent)))
+            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_fun)))
             add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_comm)))
             add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_shop)))
-            add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_daily_expenses)))
+            add(PayCategoryBean(R.color.primaryTextColor,
+                getString(R.string.category_daily_expenses)))
             add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_utilities)))
             add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_traffic)))
             add(PayCategoryBean(R.color.primaryTextColor, getString(R.string.category_all)))

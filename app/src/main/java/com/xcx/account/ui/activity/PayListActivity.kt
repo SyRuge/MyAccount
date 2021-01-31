@@ -105,12 +105,15 @@ class PayListActivity : BaseActivity() {
 
         val list = arrayOf(getString(R.string.category_food),
             getString(R.string.category_fruit),
-            getString(R.string.category_rent),
+            getString(R.string.category_fun),
             getString(R.string.category_comm),
             getString(R.string.category_shop),
             getString(R.string.category_daily_expenses),
             getString(R.string.category_utilities),
-            getString(R.string.category_traffic))
+            getString(R.string.category_traffic),
+            getString(R.string.category_snacks),
+            getString(R.string.category_clothes),
+            getString(R.string.category_rent))
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
 
@@ -129,8 +132,11 @@ class PayListActivity : BaseActivity() {
 
     private fun showSortDialog() {
 
-        val list = arrayOf(getString(R.string.sort_by_date_desc), getString(R.string.sort_by_date_asc), getString(
-                    R.string.sort_by_money_desc), getString(R.string.sort_by_money_asc))
+        val list = arrayOf(getString(R.string.sort_by_date_desc),
+            getString(R.string.sort_by_date_asc),
+            getString(
+                R.string.sort_by_money_desc),
+            getString(R.string.sort_by_money_asc))
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
 
