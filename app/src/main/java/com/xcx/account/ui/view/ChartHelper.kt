@@ -1,5 +1,6 @@
 package com.xcx.account.ui.view
 
+import android.app.Activity
 import android.graphics.Color
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
@@ -48,7 +49,7 @@ class ChartHelper {
                 //设置pieChart图表点击Item高亮是否可用
                 isHighlightPerTapEnabled = true
                 //设置pieChart图表展示动画效果
-                animateY(1400, Easing.EaseInOutQuad)
+                //animateY(1400, Easing.EaseInOutQuad)
                 //中心文本边界框矩形半径比例，默认是100%
                 centerTextRadiusPercent = 100F
                 //设置整个饼形图的角度，默认是360°即一个整圆，也可以设置为弧，这样现实的值也会重新计算
@@ -71,7 +72,8 @@ class ChartHelper {
                 setTransparentCircleAlpha(0)    // 上述透明圆环的透明度[0-255],数值越小越透明，默认100
                 setHoleColor(Color.WHITE)             //设置PieChart内部圆的颜色
                 setDrawCenterText(true)               //是否绘制PieChart内部中心文本（true：下面属性才有意义）
-                centerText = AccountApp.appContext.getString(R.string.piechart_center_text) // 圆环中心的文字，会自动适配不会被覆盖
+                centerText =
+                    AccountApp.appContext.getString(R.string.piechart_center_text) // 圆环中心的文字，会自动适配不会被覆盖
                 setCenterTextSize(12f)                //设置PieChart内部圆文字的大小
                 setCenterTextColor(Color.BLACK)         //设置PieChart内部圆文字的颜色
             }
@@ -109,6 +111,10 @@ class ChartHelper {
             for (c in ColorTemplate.VORDIPLOM_COLORS) {
                 colors.add(c)
             }
+            pieDataSet.apply {
+                xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+            }
+            pieChart.setEntryLabelColor(Color.BLACK)
             pieDataSet.colors = colors
             val pieData = PieData(pieDataSet)
 
@@ -126,7 +132,7 @@ class ChartHelper {
         /**
          * 设置LineChart图表基本属性
          */
-        fun initLineChart(lineChart: LineChart) {
+        fun initLineChart(lineChart: LineChart, context: Activity) {
             /**
              * 设置坐标轴
              */
@@ -207,6 +213,14 @@ class ChartHelper {
              */
             val legend = lineChart.legend
             legend.isEnabled = false
+
+            /**
+             * 设置MarkView
+             */
+            val mv = LineChartMarkView(context)
+            mv.chartView = lineChart
+            lineChart.marker = mv
+            lineChart.invalidate()
         }
 
         /**

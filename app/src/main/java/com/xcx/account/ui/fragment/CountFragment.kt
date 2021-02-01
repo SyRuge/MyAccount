@@ -55,7 +55,7 @@ class CountFragment : BaseFragment() {
 
     private fun initData() {
         ChartHelper.initPieChart(binding.pcCategoryCount)
-        ChartHelper.initLineChart(binding.lcDayTrendCount)
+        ChartHelper.initLineChart(binding.lcDayTrendCount, context)
         ChartHelper.initBarChart(binding.bcMonthCount)
     }
 
@@ -149,11 +149,14 @@ class CountFragment : BaseFragment() {
             logd(TAG, "initLineChartData(): list is not empty")
             //设置数据
             val entries = mutableListOf<Entry>()
-
+            var totalMoney = 0L
             for (i in list.indices) {
                 logd(TAG, "initLineChartData() i: $i ,value: ${list[i]}")
+                totalMoney += list[i].payMoney
                 entries.add(Entry(i.toFloat(), list[i].payMoney.toFloat() / 100))
             }
+            val money = "-¥${getMoneyWithTwoDecimal(totalMoney)}"
+            binding.tvDayTrendCount.text = money
             //一个LineDataSet就是一条线
             val lineDataSet = LineDataSet(entries, "")
             ChartHelper.setLineChartData(binding.lcDayTrendCount, lineDataSet)
@@ -219,7 +222,6 @@ class CountFragment : BaseFragment() {
     private fun setTotalMoneyText(totalMoney: Long) {
         val money = "-¥${getMoneyWithTwoDecimal(totalMoney)}"
         binding.tvCategoryCount.text = money
-        binding.tvDayTrendCount.text = money
         binding.tvMonthCount.text = money
     }
 

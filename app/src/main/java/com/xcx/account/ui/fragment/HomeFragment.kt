@@ -36,13 +36,6 @@ class HomeFragment : BaseFragment() {
         ViewModelProvider(this).get(PayViewModel::class.java)
     }
 
-    private lateinit var context: Activity
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.context = context as Activity
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
