@@ -91,12 +91,23 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pc_category_count"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:0.6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_category_count" />
+
+
+                <ImageView
+                    android:id="@+id/iv_pc_detail"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="11dp"
+                    android:background="@drawable/iv_count_detail_selector"
+                    android:src="@drawable/icon_count_detail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pc_category_count" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -141,12 +152,21 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lc_day_trend_count"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:0.6"
                     app:layout_constraintTop_toBottomOf="@id/tv_day_trend_count" />
+
+                <ImageView
+                    android:id="@+id/iv_lc_detail"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="11dp"
+                    android:background="@drawable/iv_count_detail_selector"
+                    android:src="@drawable/icon_count_detail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lc_day_trend_count" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -192,11 +212,19 @@
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/bc_month_count"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:0.6"
                     app:layout_constraintTop_toBottomOf="@id/tv_month_count" />
+
+                <ImageView
+                    android:id="@+id/iv_bc_detail"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="11dp"
+                    android:background="@drawable/iv_count_detail_selector"
+                    android:src="@drawable/icon_count_detail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bc_month_count" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

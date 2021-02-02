@@ -65,4 +65,5 @@
     <string name="month_count">月度统计</string>
     <string name="pay_backup">备份</string>
     <string name="pay_restore">恢复</string>
+    <string name="pay_count_detail_title">详情</string>
 </resources>

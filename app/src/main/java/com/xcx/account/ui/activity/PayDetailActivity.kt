@@ -36,7 +36,7 @@ class PayDetailActivity : BaseActivity() {
     }
 
     private fun initData() {
-        val id = intent.getLongExtra(PAY_ID_KEY, 0)
+        id = intent.getLongExtra(PAY_ID_KEY, 0)
         logd(TAG, "initData id: $id")
         if (id != 0L) {
             payInfoModel.getPayInfoById(id)
