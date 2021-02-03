@@ -53,7 +53,7 @@ class TotalPayAdapter(
                 holder.viewTotalPayLine.visibility = View.VISIBLE
             }
             holder.itemView.setOnClickListener {
-                listener?.onItemClick(bean)
+                listener?.onItemClick(bean, position)
             }
         }
     }
@@ -80,6 +80,6 @@ class TotalPayAdapter(
         var viewTotalPayLine: View = itemView.findViewById(R.id.view_total_pay_line)
     }
     fun interface ItemClickListener {
-        fun onItemClick(bean: HomeTotalPayBean)
+        fun onItemClick(bean: HomeTotalPayBean, position: Int)
     }
 }

@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (getContentViewByLayoutId() > 0) {
-            setContentView(getContentViewByLayoutId())
+        if (getLayoutId() > 0) {
+            setContentView(getLayoutId())
         } else {
             setContentView(getContentView())
         }
@@ -24,7 +24,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     abstract fun getContentView(): View
 
-    open fun getContentViewByLayoutId(): Int {
+    open fun getLayoutId(): Int {
         return -1
     }
 

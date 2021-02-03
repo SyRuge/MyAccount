@@ -26,6 +26,15 @@ class ChartHelper {
         private const val TAG = "ChartHelper"
         var pieChartTotalMoney = 0L
         var lineChartTotalMoney = 0L
+        val categoryColors = mutableListOf<Int>()
+        val VORDIPLOM_COLORS = intArrayOf(
+            Color.rgb(255, 208, 140),
+            Color.rgb(255, 247, 140),
+            Color.rgb(192, 255, 140),
+            Color.rgb(140, 234, 255),
+            Color.rgb(255, 140, 157)
+        )
+
 
         /**
          * must get after {@link ChartHelper#setBarChartData(barChart, oriList)}
@@ -101,12 +110,9 @@ class ChartHelper {
         /**
          * 设置PieChart数据
          */
-        fun setPieChartData(pieChart: PieChart, list: MutableList<PayInfoBean>) {
+        fun setPieChartData(pieChart: PieChart, sumList: MutableList<PayInfoBean>) {
 
-            val sumList = handlePieChartData(list)
-            if (sumList.isNullOrEmpty()) {
-                return
-            }
+//            val sumList = handlePieChartData(list)
             logd(TAG, "initPieChartData(): sumList is not empty")
             val pieEntries = mutableListOf<PieEntry>()
             pieChartTotalMoney = 0L
@@ -115,14 +121,13 @@ class ChartHelper {
                 pieEntries.add(PieEntry(it.payMoney.toFloat(), it.payCategory))
             }
 
-            val categoryColors = mutableListOf<Int>()
-            val MATERIAL_COLORS = intArrayOf(
+            /*val MATERIAL_COLORS = intArrayOf(
                 Color.rgb(200, 172, 255)
             )
-            for (c in MATERIAL_COLORS) {
+            for (c in ColorTemplate.MATERIAL_COLORS) {
                 categoryColors.add(c)
-            }
-            for (c in ColorTemplate.VORDIPLOM_COLORS) {
+            }*/
+            for (c in VORDIPLOM_COLORS) {
                 categoryColors.add(c)
             }
 
@@ -248,11 +253,9 @@ class ChartHelper {
         /**
          * 设置LineChart数据
          */
-        fun setLineChartData(lineChart: LineChart, oriList: MutableList<PayInfoBean>) {
-            val list = handleLineChartData(oriList)
-            if (list.isEmpty()) {
-                return
-            }
+        fun setLineChartData(lineChart: LineChart, list: MutableList<PayInfoBean>) {
+//            val list = handleLineChartData(oriList)
+
             logd(TAG, "initLineChartData(): list is not empty")
             //设置数据
             val entries = mutableListOf<Entry>()
@@ -366,11 +369,8 @@ class ChartHelper {
         /**
          * 设置BarChart数据
          */
-        fun setBarChartData(barChart: BarChart, oriList: MutableList<PayInfoBean>) {
-            val list = handleBarChartData(oriList)
-            if (list.isEmpty()) {
-                return
-            }
+        fun setBarChartData(barChart: BarChart, list: MutableList<PayInfoBean>) {
+//            val list = handleBarChartData(oriList)
             logd(TAG, "initBarChartData(): list is not empty")
             val entries = mutableListOf<BarEntry>()
 
@@ -409,7 +409,7 @@ class ChartHelper {
         /**
          * 处理PieChart数据
          */
-        private fun handlePieChartData(list: MutableList<PayInfoBean>): MutableList<PayInfoBean> {
+        fun handlePieChartData(list: MutableList<PayInfoBean>): MutableList<PayInfoBean> {
             val sumList = list.groupBy { it.payCategory }
                 .values.map {
                     it.reduce { acc, item ->
@@ -431,7 +431,7 @@ class ChartHelper {
         /**
          * 处理LineChart数据
          */
-        private fun handleLineChartData(oriList: MutableList<PayInfoBean>): MutableList<PayInfoBean> {
+        fun handleLineChartData(oriList: MutableList<PayInfoBean>): MutableList<PayInfoBean> {
             val c = Calendar.getInstance()
 
             val map = oriList.groupBy {
@@ -474,7 +474,7 @@ class ChartHelper {
         /**
          * 处理BarChart数据
          */
-        private fun handleBarChartData(oriList: MutableList<PayInfoBean>): MutableList<PayInfoBean> {
+        fun handleBarChartData(oriList: MutableList<PayInfoBean>): MutableList<PayInfoBean> {
             val c = Calendar.getInstance()
 
             val map = oriList.groupBy {

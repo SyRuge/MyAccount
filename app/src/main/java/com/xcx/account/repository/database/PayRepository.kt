@@ -3,11 +3,8 @@ package com.xcx.account.repository.database
 import androidx.lifecycle.LiveData
 import com.xcx.account.repository.database.database.PayDataBaseHelper
 import com.xcx.account.repository.database.table.PayInfoBean
-import com.xcx.account.utils.logd
 import com.xcx.account.utils.yearEndTime
 import com.xcx.account.utils.yearStartTime
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by SyRuge on 2020年12月22日.
@@ -56,11 +53,11 @@ class PayRepository {
         /**
          * query
          */
-        fun getPayInfoByTimeRange(
+        fun getPayInfoByTimeRangeWithLD(
             startTime: Long,
             endTime: Long
         ): LiveData<MutableList<PayInfoBean>> {
-            return PayDataBaseHelper.db.payDao().getPayInfoByTimeRange(startTime, endTime)
+            return PayDataBaseHelper.db.payDao().getPayInfoByTimeRangeWithLD(startTime, endTime)
         }
 
         /**
@@ -73,9 +70,20 @@ class PayRepository {
         /**
          * query
          */
-        fun getPayInfoByCategory(payCategory: String): MutableList<PayInfoBean> {
+        fun getPayInfoByCategory(
+            payCategory: String,
+            startTime: Long,
+            endTime: Long
+        ): MutableList<PayInfoBean> {
             return PayDataBaseHelper.db.payDao()
-                .getPayInfoByCategory(yearStartTime(), yearEndTime(), payCategory)
+                .getPayInfoByCategory(startTime, endTime, payCategory)
+        }
+
+        /**
+         * query
+         */
+        fun getPayInfoByTimeRange(startTime: Long, endTime: Long): MutableList<PayInfoBean> {
+            return PayDataBaseHelper.db.payDao().getPayInfoByTimeRange(startTime, endTime)
         }
     }
 }

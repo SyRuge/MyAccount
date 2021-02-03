@@ -1,7 +1,5 @@
 package com.xcx.account.ui.fragment
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -130,8 +128,21 @@ class HomeFragment : BaseFragment() {
             binding.rvTotalPayContent.layoutManager = LinearLayoutManager(activity)
             totalAdapter = TotalPayAdapter(payList = totalPayList)
             binding.rvTotalPayContent.adapter = totalAdapter
-            totalAdapter?.setOnItemClickListener {
-                startActivity(Intent(context, PayListActivity::class.java))
+            totalAdapter?.setOnItemClickListener {_, position->
+                when(position) {
+                    1 -> {
+                        startPayListActivity(SHOW_TIME_RANGE_LIST, todayStartTime(), todayEndTime())
+                    }
+                    2 -> {
+                        startPayListActivity(SHOW_TIME_RANGE_LIST, weekStartTime(), weekEndTime())
+                    }
+                    3->{
+                        startPayListActivity(SHOW_TIME_RANGE_LIST, monthStartTime(), monthEndTime())
+                    }
+                    4->{
+                        startPayListActivity(SHOW_TIME_RANGE_LIST, yearStartTime(), yearEndTime())
+                    }
+                }
             }
         } else {
 

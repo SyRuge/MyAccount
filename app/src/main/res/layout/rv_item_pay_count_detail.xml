@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@id/tv_pay_category"
         tools:text="-¥7712.30" />
 
-    <ProgressBar
+    <com.xcx.account.ui.view.MyProgressBar
         android:id="@+id/pb_pay_count"
         style="@style/MyProgressBar"
         android:layout_marginBottom="16dp"

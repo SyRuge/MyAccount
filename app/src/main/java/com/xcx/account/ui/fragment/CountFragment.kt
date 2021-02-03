@@ -77,7 +77,8 @@ class CountFragment : BaseFragment() {
 
     private fun observePieChartData() {
         countModel.categoryInfo.observe(viewLifecycleOwner) { list ->
-            ChartHelper.setPieChartData(binding.pcCategoryCount, list)
+            val pieList = ChartHelper.handlePieChartData(list)
+            ChartHelper.setPieChartData(binding.pcCategoryCount, pieList)
             val money = "-¥${getMoneyWithTwoDecimal(ChartHelper.pieChartTotalMoney)}"
             binding.tvCategoryCount.text = money
         }
@@ -85,16 +86,18 @@ class CountFragment : BaseFragment() {
     }
 
     private fun observeLineChartData() {
-        countModel.dayTrendPayInfo.observe(viewLifecycleOwner) { oriList ->
-            ChartHelper.setLineChartData(binding.lcDayTrendCount, oriList)
+        countModel.dayTrendPayInfo.observe(viewLifecycleOwner) { list ->
+            val lineList = ChartHelper.handleLineChartData(list)
+            ChartHelper.setLineChartData(binding.lcDayTrendCount, lineList)
             val money = "-¥${getMoneyWithTwoDecimal(ChartHelper.lineChartTotalMoney)}"
             binding.tvDayTrendCount.text = money
         }
     }
 
     private fun observeBarChartData() {
-        countModel.monthPayInfo.observe(viewLifecycleOwner) { oriList ->
-            ChartHelper.setBarChartData(binding.bcMonthCount, oriList)
+        countModel.monthPayInfo.observe(viewLifecycleOwner) { list ->
+            val barList = ChartHelper.handleBarChartData(list)
+            ChartHelper.setBarChartData(binding.bcMonthCount, barList)
             val money = "-¥${getMoneyWithTwoDecimal(ChartHelper.barChartTotalMoney)}"
             binding.tvMonthCount.text = money
         }

@@ -14,19 +14,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xcx.account.AccountApp
 import com.xcx.account.R
-import com.xcx.account.repository.database.table.PayInfoBean
+import com.xcx.account.bean.PayCountBean
+import com.xcx.account.ui.view.MyProgressBar
+import com.xcx.account.utils.getMoneyWithTwoDecimal
+import com.xcx.account.utils.getNumberWithTwoDecimal
 
 /**
  * Create By Ruge at 2021-02-02
  */
 class PayCountAdapter(
     var context: Context = AccountApp.appContext,
-    var payList: MutableList<PayInfoBean>,
+    var payList: MutableList<PayCountBean>,
 ) : RecyclerView.Adapter<PayCountAdapter.CountHolder>() {
 
     private var listener: ItemClickListener? = null
-
-    val c = arrayOf(Color.RED, Color.YELLOW, Color.BLUE, Color.GREEN, Color.CYAN)
 
     fun setOnItemClickListener(listener: ItemClickListener) {
         this.listener = listener
@@ -39,15 +40,21 @@ class PayCountAdapter(
     }
 
     override fun onBindViewHolder(holder: CountHolder, position: Int) {
-        setProgressAndColor(holder.pbPayCount, position)
+        val bean = payList[position]
+        val money = "-¥${getMoneyWithTwoDecimal(bean.payMoney)}"
+        holder.tvPayCategory.text = bean.categoryName
+        holder.tvPayMoney.text = money
+        setProgressAndColor(holder, bean, position)
+        holder.itemView.setOnClickListener {
+            listener?.onItemClick(bean)
+        }
     }
 
     override fun getItemCount(): Int {
-//        return payList.size
-        return 9
+        return payList.size
     }
 
-    fun updatePayInfoData(list: MutableList<PayInfoBean>) {
+    fun updatePayInfoData(list: MutableList<PayCountBean>) {
         payList = list
         notifyDataSetChanged()
     }
@@ -55,15 +62,10 @@ class PayCountAdapter(
     class CountHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvPayMoney: TextView = itemView.findViewById(R.id.tv_pay_money)
         var tvPayCategory: TextView = itemView.findViewById(R.id.tv_pay_category)
-        var pbPayCount: ProgressBar = itemView.findViewById(R.id.pb_pay_count)
+        var pbPayCount: MyProgressBar = itemView.findViewById(R.id.pb_pay_count)
     }
 
-    fun interface ItemClickListener {
-        fun onItemClick(bean: PayInfoBean)
-    }
-
-
-    private fun setProgressAndColor(progressBar: ProgressBar, position: Int) {
+    private fun setProgressAndColor(holder: CountHolder, bean: PayCountBean, position: Int) {
 
         val roundRadius = 6 // 3dp 圆角半径 The x-radius of the oval used to round the corners
         // 准备progressBar带圆角的背景Drawable
@@ -76,9 +78,9 @@ class PayCountAdapter(
         val progressContent = GradientDrawable()
         progressContent.cornerRadius = roundRadius.toFloat()
         //设置绘制颜色，此处可以自己获取不同的颜色
-        progressContent.setColor(c[0])
+        progressContent.setColor(bean.color)
         //ClipDrawable是对一个Drawable进行剪切操作，可以控制这个drawable的剪切区域，以及相相对于容器的对齐方式
-        val progressClip = ClipDrawable(progressContent, Gravity.LEFT, ClipDrawable.HORIZONTAL)
+        val progressClip = ClipDrawable(progressContent, Gravity.START, ClipDrawable.HORIZONTAL)
         //Setup LayerDrawable and assign to progressBar
         // 待设置的Drawable数组
         val progressDrawables = arrayOf(progressBg, progressClip)
@@ -87,6 +89,14 @@ class PayCountAdapter(
         progressLayerDrawable.setId(0, android.R.id.background)
         progressLayerDrawable.setId(1, android.R.id.progress)
         //设置progressBarDrawable
-        progressBar.progressDrawable = progressLayerDrawable
+        holder.pbPayCount.progressDrawable = progressLayerDrawable
+        val percent = bean.payMoney * 100.0f / bean.totalMoney
+        val text = "${getNumberWithTwoDecimal(percent)}%"
+//        holder.pbPayCount.progress = percent.toInt()
+        holder.pbPayCount.setProgressAndPercentText(percent.toInt(), text)
+    }
+
+    fun interface ItemClickListener {
+        fun onItemClick(bean: PayCountBean)
     }
 }
