@@ -37,7 +37,7 @@ class ChangePayNoteDialog : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = DialogChangePayNoteBinding.inflate(inflater, container, false)
         return binding.root

@@ -16,7 +16,6 @@ import com.xcx.account.databinding.FragmentHomeBinding
 import com.xcx.account.repository.database.table.PayInfoBean
 import com.xcx.account.ui.activity.InputPayMoneyActivity
 import com.xcx.account.ui.activity.PayDetailActivity
-import com.xcx.account.ui.activity.PayListActivity
 import com.xcx.account.ui.dialog.showCommonDialog
 import com.xcx.account.utils.*
 import com.xcx.account.viewmodel.PayViewModel
@@ -120,26 +119,42 @@ class HomeFragment : BaseFragment() {
     private fun updateTotalPayUi(list: List<HomePayBean>) {
         val totalPayMoney = getTotalPayMoney(list)
         if (totalAdapter == null) {
-            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_day_dec), todayDate(), totalPayMoney[0], "", ""))
-            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_week_dec), curWeekRangeDate(), totalPayMoney[1], "", ""))
-            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_month_dec), curMonthRangeDate(), totalPayMoney[2], "", ""))
-            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_year_dec), curRangeYearDate(), totalPayMoney[3], "", ""))
+            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_day_dec),
+                todayDate(),
+                totalPayMoney[0],
+                "",
+                ""))
+            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_week_dec),
+                curWeekRangeDate(),
+                totalPayMoney[1],
+                "",
+                ""))
+            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_month_dec),
+                curMonthRangeDate(),
+                totalPayMoney[2],
+                "",
+                ""))
+            totalPayList.add(HomeTotalPayBean(getString(R.string.cur_year_dec),
+                curRangeYearDate(),
+                totalPayMoney[3],
+                "",
+                ""))
 
             binding.rvTotalPayContent.layoutManager = LinearLayoutManager(activity)
             totalAdapter = TotalPayAdapter(payList = totalPayList)
             binding.rvTotalPayContent.adapter = totalAdapter
-            totalAdapter?.setOnItemClickListener {_, position->
-                when(position) {
+            totalAdapter?.setOnItemClickListener { _, position ->
+                when (position) {
                     1 -> {
                         startPayListActivity(SHOW_TIME_RANGE_LIST, todayStartTime(), todayEndTime())
                     }
                     2 -> {
                         startPayListActivity(SHOW_TIME_RANGE_LIST, weekStartTime(), weekEndTime())
                     }
-                    3->{
+                    3 -> {
                         startPayListActivity(SHOW_TIME_RANGE_LIST, monthStartTime(), monthEndTime())
                     }
-                    4->{
+                    4 -> {
                         startPayListActivity(SHOW_TIME_RANGE_LIST, yearStartTime(), yearEndTime())
                     }
                 }

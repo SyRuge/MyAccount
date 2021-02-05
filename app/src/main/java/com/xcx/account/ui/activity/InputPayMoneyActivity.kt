@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.xcx.account.databinding.ActivityInputPayMoneyBinding
-import com.xcx.account.utils.MODIFY_MONEY_KEY
 import com.xcx.account.utils.INPUT_MONEY_KEY
 import com.xcx.account.utils.MODIFY_MONEY_ACTION
+import com.xcx.account.utils.MODIFY_MONEY_KEY
 import com.xcx.account.utils.getMoneyWithTwoDecimal
 
 class InputPayMoneyActivity : BaseActivity() {

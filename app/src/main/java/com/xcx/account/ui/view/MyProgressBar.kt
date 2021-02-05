@@ -2,7 +2,6 @@ package com.xcx.account.ui.view
 
 import android.content.Context
 import android.graphics.*
-import android.text.TextUtils
 import android.util.AttributeSet
 import android.widget.ProgressBar
 import com.xcx.account.utils.dp2px
@@ -13,7 +12,7 @@ import com.xcx.account.utils.sp2px
  * Created by SyRuge on 2021年02月04日.
  */
 class MyProgressBar @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0,
 ) : ProgressBar(context, attrs, defStyleAttr) {
 
 

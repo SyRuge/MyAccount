@@ -15,7 +15,7 @@ import com.xcx.account.bean.PayCategoryBean
  */
 class PayCategoryAdapter(
     val context: Context = AccountApp.appContext,
-    var categoryList: MutableList<PayCategoryBean>
+    var categoryList: MutableList<PayCategoryBean>,
 ) :
     RecyclerView.Adapter<PayCategoryAdapter.CategoryHolder>() {
 
@@ -34,7 +34,7 @@ class PayCategoryAdapter(
 
     override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
         holder.tvPayCategory.text = categoryList[position].payCategory
-        var bean = categoryList[position]
+        val bean = categoryList[position]
         holder.tvPayCategory.apply {
             text = bean.payCategory
             if (isSelected != bean.isSelect) {
@@ -48,7 +48,7 @@ class PayCategoryAdapter(
             }
         }
         holder.itemView.setOnClickListener {
-            if (position != itemCount -1) {
+            if (position != itemCount - 1) {
                 updateSelectStatus(bean, position)
             }
             listener?.onItemClick(bean)

@@ -16,8 +16,9 @@ import kotlinx.coroutines.launch
  */
 class CountViewModel : ViewModel() {
 
-    val categoryInfo = PayRepository.getCurYearPayInfo()
-    val dayTrendPayInfo = PayRepository.getPayInfoByTimeRangeWithLD(monthStartTime(), monthEndTime())
+    val categoryInfo = PayRepository.getPayInfoByTimeRangeWithLD(monthStartTime(), monthEndTime())
+    val dayTrendPayInfo =
+        PayRepository.getPayInfoByTimeRangeWithLD(monthStartTime(), monthEndTime())
     val monthPayInfo = PayRepository.getPayInfoByTimeRangeWithLD(yearStartTime(), yearEndTime())
 
     @Deprecated("will delete")

@@ -18,10 +18,11 @@ import kotlinx.coroutines.launch
  */
 class PayCountDetailModel : ViewModel() {
     val categoryInfo = MutableLiveData<MutableList<PayInfoBean>>()
-    val dayTrendPayInfo = PayRepository.getPayInfoByTimeRangeWithLD(monthStartTime(), monthEndTime())
+    val dayTrendPayInfo =
+        PayRepository.getPayInfoByTimeRangeWithLD(monthStartTime(), monthEndTime())
     val monthPayInfo = PayRepository.getPayInfoByTimeRangeWithLD(yearStartTime(), yearEndTime())
 
-    fun getCategoryByTimeRange(startTime: Long, endTime: Long){
+    fun getCategoryByTimeRange(startTime: Long, endTime: Long) {
         viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 PayRepository.getPayInfoByTimeRange(startTime, endTime)
@@ -30,7 +31,7 @@ class PayCountDetailModel : ViewModel() {
         }
     }
 
-    fun getDayTrendByTimeRange(startTime: Long, endTime: Long){
+    fun getDayTrendByTimeRange(startTime: Long, endTime: Long) {
         viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 PayRepository.getPayInfoByTimeRange(startTime, endTime)
@@ -39,7 +40,7 @@ class PayCountDetailModel : ViewModel() {
         }
     }
 
-    fun getMonthPayByTimeRange(startTime: Long, endTime: Long){
+    fun getMonthPayByTimeRange(startTime: Long, endTime: Long) {
         viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 PayRepository.getPayInfoByTimeRange(startTime, endTime)

@@ -10,11 +10,11 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.utils.ColorTemplate
 import com.xcx.account.AccountApp
 import com.xcx.account.R
 import com.xcx.account.repository.database.table.PayInfoBean
 import com.xcx.account.utils.logd
+import com.xcx.account.utils.logi
 import java.util.*
 
 /**
@@ -24,6 +24,7 @@ class ChartHelper {
     companion object {
 
         private const val TAG = "ChartHelper"
+        private var curTime = 0L
         var pieChartTotalMoney = 0L
         var lineChartTotalMoney = 0L
         val categoryColors = mutableListOf<Int>()
@@ -182,7 +183,7 @@ class ChartHelper {
                 val days = c.getActualMaximum(Calendar.DAY_OF_MONTH)
                 //设置X轴的值（最小值、最大值、然后会根据设置的刻度数量自动分配刻度显示）
                 //setAxisMinimum(0f)
-                axisMaximum = days.toFloat()
+//                axisMaximum = days.toFloat()
                 //不显示网格线
                 setDrawGridLines(false)
                 // 标签倾斜
@@ -190,7 +191,10 @@ class ChartHelper {
                 //设置X轴值为字符串
                 valueFormatter = object : ValueFormatter() {
                     override fun getFormattedValue(value: Float): String {
-                        //                    logd(TAG, "initLineChart() value: $value")
+                        logi(TAG, "initLineChart() valueFormatter: $value")
+                        if (curTime > 0) {
+                            c.timeInMillis = curTime
+                        }
                         val month = c.get(Calendar.MONTH) + 1
                         return "$month.${(value + 1).toInt()}"
                         //                    return super.getFormattedValue(value)
@@ -253,15 +257,16 @@ class ChartHelper {
         /**
          * 设置LineChart数据
          */
-        fun setLineChartData(lineChart: LineChart, list: MutableList<PayInfoBean>) {
+        fun setLineChartData(lineChart: LineChart, list: MutableList<PayInfoBean>, time: Long = 0) {
 //            val list = handleLineChartData(oriList)
-
             logd(TAG, "initLineChartData(): list is not empty")
+            curTime = time
+
             //设置数据
             val entries = mutableListOf<Entry>()
             lineChartTotalMoney = 0L
             for (i in list.indices) {
-                logd(TAG, "initLineChartData() i: $i ,value: ${list[i]}")
+//                logd(TAG, "initLineChartData() i: $i ,value: ${list[i]}")
                 lineChartTotalMoney += list[i].payMoney
                 entries.add(Entry(i.toFloat(), list[i].payMoney.toFloat() / 100))
             }
@@ -284,6 +289,10 @@ class ChartHelper {
             lineChart.apply {
                 data = lineData
                 invalidate()
+            }
+            if (curTime > 0) {
+                val markView = lineChart.marker as LineChartMarkView
+                markView.curTime = curTime
             }
         }
 
@@ -431,16 +440,24 @@ class ChartHelper {
         /**
          * 处理LineChart数据
          */
-        fun handleLineChartData(oriList: MutableList<PayInfoBean>): MutableList<PayInfoBean> {
+        fun handleLineChartData(
+            oriList: MutableList<PayInfoBean>,
+            time: Long = 0,
+        ): MutableList<PayInfoBean> {
             val c = Calendar.getInstance()
 
             val map = oriList.groupBy {
                 c.timeInMillis = it.payTime
                 c.get(Calendar.DAY_OF_MONTH)
             }.toMutableMap()
+
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = c.timeInMillis
+            if (oriList.isEmpty() && time > 0) {
+                calendar.timeInMillis = time
+            }
             val totalDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+            logd(TAG, "handleLineChartData: totalDays: $totalDays")
             for (i in 1..totalDays) {
                 if (!map.containsKey(i)) {
                     calendar.set(Calendar.DAY_OF_MONTH, i)

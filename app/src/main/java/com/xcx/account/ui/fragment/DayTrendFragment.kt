@@ -33,7 +33,7 @@ class DayTrendFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentDayTrendBinding.inflate(inflater, container, false)
         return binding.root
@@ -74,8 +74,8 @@ class DayTrendFragment : BaseFragment() {
 
     private fun observeLineChartData() {
         dayTrendModel.dayTrendPayInfo.observe(viewLifecycleOwner) { list ->
-            val lineList = ChartHelper.handleLineChartData(list)
-            ChartHelper.setLineChartData(binding.lcPayCount, lineList)
+            val lineList = ChartHelper.handleLineChartData(list, startTime)
+            ChartHelper.setLineChartData(binding.lcPayCount, lineList, startTime)
             val money = "-¥${getMoneyWithTwoDecimal(ChartHelper.lineChartTotalMoney)}"
             binding.tvPayCount.text = money
 

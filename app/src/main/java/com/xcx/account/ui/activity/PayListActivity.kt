@@ -76,11 +76,11 @@ class PayListActivity : BaseActivity() {
             showSortDialog()
         }
 
-        payListModel.categoryPayInfo.observe(this){
+        payListModel.categoryPayInfo.observe(this) {
             updatePayList(it)
         }
 
-        payListModel.timeRangePayInfo.observe(this){
+        payListModel.timeRangePayInfo.observe(this) {
             updatePayList(it)
         }
 

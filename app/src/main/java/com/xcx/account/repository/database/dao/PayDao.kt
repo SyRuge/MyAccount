@@ -1,9 +1,7 @@
 package com.xcx.account.repository.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.xcx.account.bean.HomePayBean
 import com.xcx.account.repository.database.table.PayInfoBean
 
 /**

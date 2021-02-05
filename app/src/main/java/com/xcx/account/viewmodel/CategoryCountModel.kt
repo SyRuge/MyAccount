@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class CategoryCountModel : ViewModel() {
     val categoryInfo = MutableLiveData<MutableList<PayInfoBean>>()
 
-    fun getCategoryByTimeRange(startTime: Long, endTime: Long){
+    fun getCategoryByTimeRange(startTime: Long, endTime: Long) {
         viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 PayRepository.getPayInfoByTimeRange(startTime, endTime)

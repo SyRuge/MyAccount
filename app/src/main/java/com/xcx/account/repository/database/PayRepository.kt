@@ -55,7 +55,7 @@ class PayRepository {
          */
         fun getPayInfoByTimeRangeWithLD(
             startTime: Long,
-            endTime: Long
+            endTime: Long,
         ): LiveData<MutableList<PayInfoBean>> {
             return PayDataBaseHelper.db.payDao().getPayInfoByTimeRangeWithLD(startTime, endTime)
         }
@@ -73,7 +73,7 @@ class PayRepository {
         fun getPayInfoByCategory(
             payCategory: String,
             startTime: Long,
-            endTime: Long
+            endTime: Long,
         ): MutableList<PayInfoBean> {
             return PayDataBaseHelper.db.payDao()
                 .getPayInfoByCategory(startTime, endTime, payCategory)

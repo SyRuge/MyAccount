@@ -9,5 +9,5 @@ data class HomeTotalPayBean(
     var payRangeDate: String,
     var payMoney: Long,
     var payId: String,
-    var payCategory: String
+    var payCategory: String,
 ) : BaseDataBean()

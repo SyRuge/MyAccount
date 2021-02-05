@@ -18,5 +18,5 @@ data class PayInfoBean(
     @ColumnInfo(name = "payCategory") var payCategory: String,
     @ColumnInfo(name = "payTime") var payTime: Long,
     @ColumnInfo(name = "payDate") var payDate: String,
-    @ColumnInfo(name = "payNote") var payNote: String
+    @ColumnInfo(name = "payNote") var payNote: String,
 )

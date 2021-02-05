@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.github.mikephil.charting.data.*
 import com.xcx.account.R
 import com.xcx.account.databinding.FragmentCountBinding
-import com.xcx.account.repository.database.table.PayInfoBean
 import com.xcx.account.ui.activity.PayCountDetailActivity
 import com.xcx.account.ui.view.ChartHelper
 import com.xcx.account.utils.*
 import com.xcx.account.viewmodel.CountViewModel
-import java.util.*
 
 
 class CountFragment : BaseFragment() {

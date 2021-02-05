@@ -10,5 +10,5 @@ data class PayCountBean(
     var startTime: Long,
     var endTime: Long,
     var color: Int,
-    var showCountType: Int
+    var showCountType: Int,
 ) : BaseDataBean()

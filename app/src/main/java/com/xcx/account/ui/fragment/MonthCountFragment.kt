@@ -30,7 +30,7 @@ class MonthCountFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentMonthCountBinding.inflate(inflater, container, false)
         return binding.root

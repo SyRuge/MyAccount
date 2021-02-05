@@ -1,7 +1,6 @@
 package com.xcx.account.repository.database.database
 
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.xcx.account.AccountApp
 
 /**

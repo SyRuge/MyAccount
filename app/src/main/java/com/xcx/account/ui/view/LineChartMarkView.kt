@@ -17,6 +17,7 @@ class LineChartMarkView(context: Context) :
     MarkerView(context, R.layout.markerview_linechart) {
 
     private val TAG = "LineChartMarkView"
+    var curTime = 0L
 
     var tvMarkView: TextView = findViewById(R.id.tv_line_mark)
     val c = Calendar.getInstance()
@@ -24,6 +25,9 @@ class LineChartMarkView(context: Context) :
 
     override fun refreshContent(e: Entry, highlight: Highlight) {
         logd(TAG, "$e")
+        if (curTime > 0) {
+            c.timeInMillis = curTime
+        }
         val month = c.get(Calendar.MONTH) + 1
         val text = "${month}月${e.x.toInt() + 1}日 -¥${e.y}"
         tvMarkView.text = text

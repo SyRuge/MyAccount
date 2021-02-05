@@ -33,7 +33,7 @@ class CategoryCountFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentCategoryCountBinding.inflate(inflater, container, false)
         return binding.root

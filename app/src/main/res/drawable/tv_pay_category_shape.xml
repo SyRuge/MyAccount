@@ -3,16 +3,16 @@
 
     <item android:state_selected="true">
         <shape android:shape="rectangle">
-            <corners android:radius="6dp"/>
-            <stroke android:color="@color/pink_color_500" android:width="0.5dp"/>
+            <corners android:radius="6dp" />
+            <stroke android:color="@color/pink_color_500" android:width="0.5dp" />
 
         </shape>
     </item>
 
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="6dp"/>
-            <stroke android:color="@color/numberLineColor" android:width="0.5dp"/>
+            <corners android:radius="6dp" />
+            <stroke android:color="@color/numberLineColor" android:width="0.5dp" />
 
         </shape>
     </item>

@@ -9,7 +9,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xcx.account.AccountApp
@@ -113,7 +112,7 @@ class PayCountAdapter(
         arr: MutableList<PayCountBean>,
         sum: Double,
         idx: Int,
-        precision: Int
+        precision: Int,
     ): Double {
         var sum = sum
         if (arr.size - 1 < idx) {

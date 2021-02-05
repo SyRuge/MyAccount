@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xcx.account.repository.database.PayRepository
 import com.xcx.account.repository.database.table.PayInfoBean
-import com.xcx.account.utils.yearEndTime
-import com.xcx.account.utils.yearStartTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -17,7 +15,7 @@ import kotlinx.coroutines.launch
 class MonthCountModel : ViewModel() {
     val monthPayInfo = MutableLiveData<MutableList<PayInfoBean>>()
 
-    fun getMonthPayByTimeRange(startTime: Long, endTime: Long){
+    fun getMonthPayByTimeRange(startTime: Long, endTime: Long) {
         viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
                 PayRepository.getPayInfoByTimeRange(startTime, endTime)
