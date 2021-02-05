@@ -1,6 +1,5 @@
 package com.xcx.account.ui.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +19,7 @@ import java.util.*
 
 class DayTrendFragment : BaseFragment() {
 
+    private val TAG = "DayTrendFragment"
     private var _binding: FragmentDayTrendBinding? = null
     private val binding get() = _binding!!
     private val dayTrendModel: DayTrendCountModel by lazy {
@@ -85,13 +85,13 @@ class DayTrendFragment : BaseFragment() {
                 if (lineList[i].payMoney > 0) {
                     c.timeInMillis = lineList[i].payTime
                     val title =
-                        "${c.get(Calendar.YEAR)}年${c.get(Calendar.MONTH + 1)}月${c.get(Calendar.DAY_OF_MONTH)}日"
+                        "${c.get(Calendar.YEAR)}年${c.get(Calendar.MONTH) + 1}月${c.get(Calendar.DAY_OF_MONTH)}日"
                     val bean = PayCountBean(
                         title,
                         lineList[i].payMoney,
                         ChartHelper.lineChartTotalMoney,
-                        startTime,
-                        endTime,
+                        dayStartTime(lineList[i].payTime),
+                        dayEndTime(lineList[i].payTime),
                         resources.getColor(R.color.pink_color_500, null),
                         0
                     )
@@ -105,12 +105,14 @@ class DayTrendFragment : BaseFragment() {
 
     private fun updateStartAndEndTime(isNextTime: Boolean) {
         if (isNextTime) {
-            startTime = endTime
-            endTime = nextMonthStartTime(endTime)
+            startTime = nextMonthStartTime(startTime)
+            endTime = monthEndTime(startTime)
         } else {
-            endTime = startTime
             startTime = preMonthStartTime(startTime)
+            endTime = monthEndTime(startTime)
         }
+        logd("xcx", "DayTrend: ${getDateAndTime(startTime)}")
+        logd("xcx", "DayTrend: ${getDateAndTime(endTime)}")
         val arr = getMonthAndYear(startTime)
         if (startTime in yearStartTime()..yearEndTime()) {
             val text = "${arr[1]}月"
@@ -126,7 +128,7 @@ class DayTrendFragment : BaseFragment() {
             categoryAdapter = PayCountAdapter(payList = list)
             binding.rvPayCountDetail.adapter = categoryAdapter
             categoryAdapter?.setOnItemClickListener {
-                startPayListActivity(SHOW_TIME_RANGE_LIST, it.startTime, it.endTime)
+                startPayListActivity(SHOW_DETAIL_TIME_RANGE_LIST, it.startTime, it.endTime)
             }
         } else {
             categoryAdapter?.updatePayInfoData(list)

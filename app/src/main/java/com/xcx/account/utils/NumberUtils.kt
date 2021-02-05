@@ -12,3 +12,10 @@ fun getNumberWithTwoDecimal(num: Float): String {
     return BigDecimal(num.toString())
         .setScale(2, BigDecimal.ROUND_DOWN).toString()
 }
+
+/**
+ * return like 22.35
+ */
+fun getNumberWithTwoDecimal(num: Double): String {
+    return BigDecimal.valueOf(num).setScale(2, BigDecimal.ROUND_DOWN).toString()
+}

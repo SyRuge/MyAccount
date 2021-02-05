@@ -439,6 +439,7 @@ class ChartHelper {
                 c.get(Calendar.DAY_OF_MONTH)
             }.toMutableMap()
             val calendar = Calendar.getInstance()
+            calendar.timeInMillis = c.timeInMillis
             val totalDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
             for (i in 1..totalDays) {
                 if (!map.containsKey(i)) {
@@ -460,7 +461,7 @@ class ChartHelper {
                         acc.paySellerName,
                         acc.payMoney + item.payMoney,
                         acc.payCategory,
-                        c.get(Calendar.DAY_OF_MONTH).toLong(),
+                        acc.payTime,
                         acc.payDate,
                         acc.payNote
                     )
@@ -482,6 +483,7 @@ class ChartHelper {
                 c.get(Calendar.MONTH)
             }.toMutableMap()
             val calendar = Calendar.getInstance()
+            calendar.timeInMillis = c.timeInMillis
             val totalMonth = calendar.getActualMaximum(Calendar.MONTH)
             for (i in 0..totalMonth) {
                 if (!map.containsKey(i)) {
@@ -505,7 +507,7 @@ class ChartHelper {
                         acc.paySellerName,
                         acc.payMoney + item.payMoney,
                         acc.payCategory,
-                        c.get(Calendar.MONTH).toLong(),
+                        acc.payTime,
                         acc.payDate,
                         acc.payNote
                     )

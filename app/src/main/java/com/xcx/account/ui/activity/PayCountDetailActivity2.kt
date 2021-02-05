@@ -1,7 +1,6 @@
 package com.xcx.account.ui.activity
 
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -11,7 +10,6 @@ import com.xcx.account.R
 import com.xcx.account.adapter.PayCountAdapter
 import com.xcx.account.bean.PayCountBean
 import com.xcx.account.databinding.ActivityPayCountDetail2Binding
-import com.xcx.account.databinding.ActivityPayCountDetailBinding
 import com.xcx.account.ui.view.ChartHelper
 import com.xcx.account.utils.*
 import com.xcx.account.viewmodel.PayCountDetailModel
@@ -243,14 +241,14 @@ class PayCountDetailActivity2 : BaseActivity() {
             when (showCountType) {
                 SHOW_PIECHART_DETAIL -> {
                     startPayListActivity(
-                        SHOW_CATEGORY_LIST,
+                        SHOW_DETAIL_CATEGORY_LIST,
                         it.startTime,
                         it.endTime,
                         it.categoryName
                     )
                 }
                 SHOW_LINECHART_DETAIL, SHOW_BARCHART_DETAIL -> {
-                    startPayListActivity(SHOW_TIME_RANGE_LIST, it.startTime, it.endTime)
+                    startPayListActivity(SHOW_DETAIL_TIME_RANGE_LIST, it.startTime, it.endTime)
                 }
             }
         }

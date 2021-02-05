@@ -1,6 +1,5 @@
 package com.xcx.account.ui.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -75,12 +74,14 @@ class CategoryCountFragment : BaseFragment() {
 
     private fun updateStartAndEndTime(isNextTime: Boolean) {
         if (isNextTime) {
-            startTime = endTime
-            endTime = nextMonthStartTime(endTime)
+            startTime = nextMonthStartTime(startTime)
+            endTime = monthEndTime(startTime)
         } else {
-            endTime = startTime
             startTime = preMonthStartTime(startTime)
+            endTime = monthEndTime(startTime)
         }
+        logd("xcx", "Category: ${getDateAndTime(startTime)}")
+        logd("xcx", "Category: ${getDateAndTime(endTime)}")
         val arr = getMonthAndYear(startTime)
         if (startTime in yearStartTime()..yearEndTime()) {
             val text = "${arr[1]}月"
@@ -124,7 +125,7 @@ class CategoryCountFragment : BaseFragment() {
             binding.rvPayCountDetail.adapter = categoryAdapter
             categoryAdapter?.setOnItemClickListener {
                 startPayListActivity(
-                    SHOW_CATEGORY_LIST,
+                    SHOW_DETAIL_CATEGORY_LIST,
                     it.startTime,
                     it.endTime,
                     it.categoryName

@@ -49,12 +49,19 @@ class PayListActivity : BaseActivity() {
         }
         when (listType) {
             SHOW_CUR_YEAR_LIST -> {
+                binding.ivPaySortCategory.visibility = View.VISIBLE
                 payListModel.getPayInfoByTimeRange(yearStartTime(), yearEndTime())
             }
-            SHOW_CATEGORY_LIST -> {
+            SHOW_TIME_RANGE_LIST -> {
+                binding.ivPaySortCategory.visibility = View.VISIBLE
+                payListModel.getPayInfoByTimeRange(startTime, endTime)
+            }
+            SHOW_DETAIL_CATEGORY_LIST -> {
+                binding.ivPaySortCategory.visibility = View.GONE
                 payListModel.getPayInfoByCategoryAndTime(payCategory, startTime, endTime)
             }
-            SHOW_TIME_RANGE_LIST -> {
+            SHOW_DETAIL_TIME_RANGE_LIST -> {
+                binding.ivPaySortCategory.visibility = View.GONE
                 payListModel.getPayInfoByTimeRange(startTime, endTime)
             }
         }
@@ -93,7 +100,7 @@ class PayListActivity : BaseActivity() {
             binding.rvPayList.layoutManager = LinearLayoutManager(this)
             binding.rvPayList.adapter = listAdapter
             listAdapter?.setOnItemClickListener {
-                logd("PayDetailFragment", "id: ${it.id}")
+                logd(TAG, "id: ${it.id}")
                 startActivity(Intent(this, PayDetailActivity::class.java).apply {
                     putExtra(PAY_ID_KEY, it.id)
                 })
@@ -167,7 +174,7 @@ class PayListActivity : BaseActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
 
         AlertDialog.Builder(this)
-            .setTitle(getString(R.string.category_dec))
+            .setTitle(getString(R.string.sort_dec))
             .setAdapter(
                 adapter
             ) { dialog, which ->

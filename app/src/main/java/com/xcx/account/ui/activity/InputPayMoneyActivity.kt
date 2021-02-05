@@ -4,11 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.xcx.account.databinding.ActivityInputPayMoneyBinding
+import com.xcx.account.utils.MODIFY_MONEY_KEY
 import com.xcx.account.utils.INPUT_MONEY_KEY
+import com.xcx.account.utils.MODIFY_MONEY_ACTION
+import com.xcx.account.utils.getMoneyWithTwoDecimal
 
 class InputPayMoneyActivity : BaseActivity() {
 
     lateinit var binding: ActivityInputPayMoneyBinding
+    private var startAction = ""
 
     override fun getContentView(): View {
         binding = ActivityInputPayMoneyBinding.inflate(layoutInflater)
@@ -22,7 +26,13 @@ class InputPayMoneyActivity : BaseActivity() {
     }
 
     private fun initView() {
-        binding.tvMoney.text = "0"
+        startAction = intent.action ?: ""
+        val money = intent.getLongExtra(MODIFY_MONEY_KEY, 0)
+        if (money > 0) {
+            binding.tvMoney.text = getMoneyWithTwoDecimal(money)
+        } else {
+            binding.tvMoney.text = "0"
+        }
     }
 
     private fun initData() {
@@ -76,9 +86,15 @@ class InputPayMoneyActivity : BaseActivity() {
             finish()
         }
         binding.tvNumberOk.setOnClickListener {
-            startActivity(Intent(this, AddPayInfoActivity::class.java).apply {
-                putExtra(INPUT_MONEY_KEY, binding.tvMoney.text.toString())
-            })
+            if (startAction == MODIFY_MONEY_ACTION) {
+                setResult(RESULT_OK, Intent().apply {
+                    putExtra(INPUT_MONEY_KEY, binding.tvMoney.text.toString())
+                })
+            } else {
+                startActivity(Intent(this, AddPayInfoActivity::class.java).apply {
+                    putExtra(INPUT_MONEY_KEY, binding.tvMoney.text.toString())
+                })
+            }
             finish()
         }
     }

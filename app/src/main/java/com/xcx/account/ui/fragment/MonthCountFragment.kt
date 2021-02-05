@@ -1,8 +1,6 @@
 package com.xcx.account.ui.fragment
 
-import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,6 @@ import com.xcx.account.bean.PayCountBean
 import com.xcx.account.databinding.FragmentMonthCountBinding
 import com.xcx.account.ui.view.ChartHelper
 import com.xcx.account.utils.*
-import com.xcx.account.viewmodel.CategoryCountModel
 import com.xcx.account.viewmodel.MonthCountModel
 import java.util.*
 
@@ -84,13 +81,13 @@ class MonthCountFragment : BaseFragment() {
             for (i in barList.size - 1 downTo 0) {
                 if (barList[i].payMoney > 0) {
                     c.timeInMillis = barList[i].payTime
-                    val title = "${c.get(Calendar.YEAR)}年${c.get(Calendar.MONTH + 1)}月"
+                    val title = "${c.get(Calendar.YEAR)}年${c.get(Calendar.MONTH) + 1}月"
                     val bean = PayCountBean(
                         title,
                         barList[i].payMoney,
                         ChartHelper.barChartTotalMoney,
-                        startTime,
-                        endTime,
+                        monthStartTime(barList[i].payTime),
+                        monthEndTime(barList[i].payTime),
                         resources.getColor(R.color.pink_color_500, null),
                         0
                     )
@@ -103,12 +100,14 @@ class MonthCountFragment : BaseFragment() {
 
     private fun updateStartAndEndTime(isNextTime: Boolean) {
         if (isNextTime) {
-            startTime = endTime
-            endTime = nextYearStartTime(endTime)
+            startTime = nextYearStartTime(startTime)
+            endTime = yearEndTime(startTime)
         } else {
-            endTime = startTime
             startTime = preYearStartTime(startTime)
+            endTime = yearEndTime(startTime)
         }
+        logd("xcx", "Month: ${getDateAndTime(startTime)}")
+        logd("xcx", "Month: ${getDateAndTime(endTime)}")
         val arr = getMonthAndYear(startTime)
         val text = "${arr[0]}年"
         binding.tvCurTime.text = text
@@ -120,12 +119,7 @@ class MonthCountFragment : BaseFragment() {
             categoryAdapter = PayCountAdapter(payList = list)
             binding.rvPayCountDetail.adapter = categoryAdapter
             categoryAdapter?.setOnItemClickListener {
-                startPayListActivity(
-                    SHOW_CATEGORY_LIST,
-                    it.startTime,
-                    it.endTime,
-                    it.categoryName
-                )
+                startPayListActivity(SHOW_DETAIL_TIME_RANGE_LIST, it.startTime, it.endTime)
             }
         } else {
             categoryAdapter?.updatePayInfoData(list)
