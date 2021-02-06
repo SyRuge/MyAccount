@@ -1,8 +1,9 @@
 package com.xcx.account.ui.activity
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -13,15 +14,19 @@ import com.xcx.account.ui.dialog.showCommonDialog
 import com.xcx.account.ui.fragment.ChangePayNoteDialog
 import com.xcx.account.utils.*
 import com.xcx.account.viewmodel.PayInfoDetailModel
+import java.math.BigDecimal
 import java.util.*
 
 class PayDetailActivity : BaseActivity() {
 
+    lateinit var binding: ActivityPayDetailBinding
+
     private val TAG = "PayDetailActivity"
     private val DIALOG_PAY_NOTE_TAG = "PayNote"
-    lateinit var binding: ActivityPayDetailBinding
+    private val MODIFY_MONEY_CODE = 10010
     private var id = 0L
     private var bean: PayInfoBean? = null
+
     private val payInfoModel: PayInfoDetailModel by viewModels()
 
     override fun getContentView(): View {
@@ -36,7 +41,7 @@ class PayDetailActivity : BaseActivity() {
     }
 
     private fun initData() {
-        val id = intent.getLongExtra(PAY_ID_KEY, 0)
+        id = intent.getLongExtra(PAY_ID_KEY, 0)
         logd(TAG, "initData id: $id")
         if (id != 0L) {
             payInfoModel.getPayInfoById(id)
@@ -46,6 +51,13 @@ class PayDetailActivity : BaseActivity() {
     }
 
     private fun initListener() {
+        binding.tvDetailMoney.setOnClickListener {
+            val intent = Intent(this, InputPayMoneyActivity::class.java).apply {
+                action = MODIFY_MONEY_ACTION
+                putExtra(MODIFY_MONEY_KEY, bean?.payMoney ?: 0)
+            }
+            startActivityForResult(intent, MODIFY_MONEY_CODE)
+        }
         binding.llDetailDate.setOnClickListener {
             showDatePickDialog()
         }
@@ -110,6 +122,38 @@ class PayDetailActivity : BaseActivity() {
             if (it > 0) {
                 showToast(getString(R.string.update_pay_success))
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null || resultCode != Activity.RESULT_OK) {
+            return
+        }
+        if (requestCode == MODIFY_MONEY_CODE) {
+            updatePayMoney(data)
+        }
+    }
+
+    private fun updatePayMoney(data: Intent) {
+        val oriMoney = data.getStringExtra(INPUT_MONEY_KEY)
+        if (oriMoney.isNullOrEmpty()) {
+            return
+        }
+        val money = BigDecimal(oriMoney).multiply(BigDecimal.valueOf(100)).toLong()
+
+        bean?.apply {
+            val b = PayInfoBean(
+                id,
+                payId,
+                paySellerName,
+                money,
+                payCategory,
+                payTime,
+                payDate,
+                payNote
+            )
+            payInfoModel.updatePayInfo(b)
         }
     }
 

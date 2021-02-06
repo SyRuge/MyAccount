@@ -2,7 +2,6 @@ package com.xcx.account.ui.view
 
 import android.app.Activity
 import android.graphics.Color
-import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
@@ -11,10 +10,11 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.utils.ColorTemplate
 import com.xcx.account.AccountApp
 import com.xcx.account.R
+import com.xcx.account.repository.database.table.PayInfoBean
 import com.xcx.account.utils.logd
+import com.xcx.account.utils.logi
 import java.util.*
 
 /**
@@ -23,7 +23,24 @@ import java.util.*
 class ChartHelper {
     companion object {
 
-        const val TAG = "ChartHelper"
+        private const val TAG = "ChartHelper"
+        private var curTime = 0L
+        var pieChartTotalMoney = 0L
+        var lineChartTotalMoney = 0L
+        val categoryColors = mutableListOf<Int>()
+        val VORDIPLOM_COLORS = intArrayOf(
+            Color.rgb(255, 208, 140),
+            Color.rgb(255, 247, 140),
+            Color.rgb(192, 255, 140),
+            Color.rgb(140, 234, 255),
+            Color.rgb(255, 140, 157)
+        )
+
+
+        /**
+         * must get after {@link ChartHelper#setBarChartData(barChart, oriList)}
+         */
+        var barChartTotalMoney = 0L
 
         /**
          * 设置pieChart图表基本属性
@@ -76,6 +93,7 @@ class ChartHelper {
                     AccountApp.appContext.getString(R.string.piechart_center_text) // 圆环中心的文字，会自动适配不会被覆盖
                 setCenterTextSize(12f)                //设置PieChart内部圆文字的大小
                 setCenterTextColor(Color.BLACK)         //设置PieChart内部圆文字的颜色
+                setEntryLabelColor(Color.BLACK)         //设置分类标签颜色，也就是显示在x轴上的文字
             }
 
             /**
@@ -93,34 +111,44 @@ class ChartHelper {
         /**
          * 设置PieChart数据
          */
-        fun setPieChartData(pieChart: PieChart, pieDataSet: PieDataSet) {
-            pieDataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-            pieDataSet.sliceSpace = 3f // 每块之间的距离
-            //        iPieDataSet.setValueLinePart1OffsetPercentage(80.f);//组成折线的两段折线长短
-            //        iPieDataSet.setValueLinePart1OffsetPercentage(80.f);
-            //        iPieDataSet.setValueLinePart1Length(0.5f);
-            //        iPieDataSet.setValueLinePart2Length(0.5f);
-            //        iPieDataSet.setValueTextColors(colors);
-            val colors = mutableListOf<Int>()
-            val MATERIAL_COLORS = intArrayOf(
+        fun setPieChartData(pieChart: PieChart, sumList: MutableList<PayInfoBean>) {
+
+//            val sumList = handlePieChartData(list)
+            logd(TAG, "initPieChartData(): sumList is not empty")
+            val pieEntries = mutableListOf<PieEntry>()
+            pieChartTotalMoney = 0L
+            sumList.forEach {
+                pieChartTotalMoney += it.payMoney
+                pieEntries.add(PieEntry(it.payMoney.toFloat(), it.payCategory))
+            }
+
+            /*val MATERIAL_COLORS = intArrayOf(
                 Color.rgb(200, 172, 255)
             )
-            for (c in MATERIAL_COLORS) {
-                colors.add(c)
+            for (c in ColorTemplate.MATERIAL_COLORS) {
+                categoryColors.add(c)
+            }*/
+            for (c in VORDIPLOM_COLORS) {
+                categoryColors.add(c)
             }
-            for (c in ColorTemplate.VORDIPLOM_COLORS) {
-                colors.add(c)
-            }
-            pieDataSet.apply {
-                xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-            }
-            pieChart.setEntryLabelColor(Color.BLACK)
-            pieDataSet.colors = colors
-            val pieData = PieData(pieDataSet)
 
-            pieData.setValueFormatter(PercentFormatter(pieChart))
-            pieData.setValueTextSize(11f)
-            pieData.setValueTextColor(Color.BLACK)
+            val pieDataSet = PieDataSet(pieEntries, "").apply {
+                yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+                sliceSpace = 3f // 每块之间的距离
+                xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE //分类文字显示到线上
+                colors = categoryColors
+                //        iPieDataSet.setValueLinePart1OffsetPercentage(80.f);//组成折线的两段折线长短
+                //        iPieDataSet.setValueLinePart1OffsetPercentage(80.f);
+                //        iPieDataSet.setValueLinePart1Length(0.5f);
+                //        iPieDataSet.setValueLinePart2Length(0.5f);
+                //        iPieDataSet.setValueTextColors(colors);
+            }
+
+            val pieData = PieData(pieDataSet).apply {
+                setValueFormatter(PercentFormatter(pieChart))
+                setValueTextSize(11f)
+                setValueTextColor(Color.BLACK)
+            }
 
             pieChart.apply {
                 data = pieData
@@ -155,7 +183,7 @@ class ChartHelper {
                 val days = c.getActualMaximum(Calendar.DAY_OF_MONTH)
                 //设置X轴的值（最小值、最大值、然后会根据设置的刻度数量自动分配刻度显示）
                 //setAxisMinimum(0f)
-                axisMaximum = days.toFloat()
+//                axisMaximum = days.toFloat()
                 //不显示网格线
                 setDrawGridLines(false)
                 // 标签倾斜
@@ -163,7 +191,10 @@ class ChartHelper {
                 //设置X轴值为字符串
                 valueFormatter = object : ValueFormatter() {
                     override fun getFormattedValue(value: Float): String {
-                        //                    logd(TAG, "initLineChart() value: $value")
+                        logi(TAG, "initLineChart() valueFormatter: $value")
+                        if (curTime > 0) {
+                            c.timeInMillis = curTime
+                        }
                         val month = c.get(Calendar.MONTH) + 1
                         return "$month.${(value + 1).toInt()}"
                         //                    return super.getFormattedValue(value)
@@ -226,9 +257,21 @@ class ChartHelper {
         /**
          * 设置LineChart数据
          */
-        fun setLineChartData(lineChart: LineChart, lineDataSet: LineDataSet) {
+        fun setLineChartData(lineChart: LineChart, list: MutableList<PayInfoBean>, time: Long = 0) {
+//            val list = handleLineChartData(oriList)
+            logd(TAG, "initLineChartData(): list is not empty")
+            curTime = time
+
+            //设置数据
+            val entries = mutableListOf<Entry>()
+            lineChartTotalMoney = 0L
+            for (i in list.indices) {
+//                logd(TAG, "initLineChartData() i: $i ,value: ${list[i]}")
+                lineChartTotalMoney += list[i].payMoney
+                entries.add(Entry(i.toFloat(), list[i].payMoney.toFloat() / 100))
+            }
             //一个LineDataSet就是一条线
-            lineDataSet.apply {
+            val lineDataSet = LineDataSet(entries, "").apply {
                 //线颜色
                 color = AccountApp.appContext.resources.getColor(R.color.pink_color_500, null)
                 //线宽度
@@ -246,6 +289,10 @@ class ChartHelper {
             lineChart.apply {
                 data = lineData
                 invalidate()
+            }
+            if (curTime > 0) {
+                val markView = lineChart.marker as LineChartMarkView
+                markView.curTime = curTime
             }
         }
 
@@ -331,7 +378,18 @@ class ChartHelper {
         /**
          * 设置BarChart数据
          */
-        fun setBarChartData(barChart: BarChart, barDataSet: BarDataSet) {
+        fun setBarChartData(barChart: BarChart, list: MutableList<PayInfoBean>) {
+//            val list = handleBarChartData(oriList)
+            logd(TAG, "initBarChartData(): list is not empty")
+            val entries = mutableListOf<BarEntry>()
+
+            barChartTotalMoney = 0L
+            for (i in list.indices) {
+                logd(TAG, "initBarChartData() i: $i ,value: ${list[i]}")
+                barChartTotalMoney += list[i].payMoney
+                entries.add(BarEntry(i.toFloat(), list[i].payMoney.toFloat() / 100))
+            }
+            val barDataSet = BarDataSet(entries, "")
             barDataSet.apply {
                 // 值的颜色
                 valueTextColor = Color.RED
@@ -355,6 +413,126 @@ class ChartHelper {
                 data = barData
                 invalidate()
             }
+        }
+
+        /**
+         * 处理PieChart数据
+         */
+        fun handlePieChartData(list: MutableList<PayInfoBean>): MutableList<PayInfoBean> {
+            val sumList = list.groupBy { it.payCategory }
+                .values.map {
+                    it.reduce { acc, item ->
+                        PayInfoBean(
+                            acc.id,
+                            acc.payId,
+                            acc.paySellerName,
+                            acc.payMoney + item.payMoney,
+                            acc.payCategory,
+                            acc.payTime,
+                            acc.payDate,
+                            acc.payNote
+                        )
+                    }
+                }.toMutableList()
+            return sumList
+        }
+
+        /**
+         * 处理LineChart数据
+         */
+        fun handleLineChartData(
+            oriList: MutableList<PayInfoBean>,
+            time: Long = 0,
+        ): MutableList<PayInfoBean> {
+            val c = Calendar.getInstance()
+
+            val map = oriList.groupBy {
+                c.timeInMillis = it.payTime
+                c.get(Calendar.DAY_OF_MONTH)
+            }.toMutableMap()
+
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = c.timeInMillis
+            if (oriList.isEmpty() && time > 0) {
+                calendar.timeInMillis = time
+            }
+            val totalDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+            logd(TAG, "handleLineChartData: totalDays: $totalDays")
+            for (i in 1..totalDays) {
+                if (!map.containsKey(i)) {
+                    calendar.set(Calendar.DAY_OF_MONTH, i)
+                    map[i] = mutableListOf(
+                        PayInfoBean(
+                            0L, "", "", 0L,
+                            "", calendar.timeInMillis, "", ""
+                        )
+                    )
+                }
+            }
+            val list = map.values.map {
+                it.reduce { acc, item ->
+                    c.timeInMillis = item.payTime
+                    PayInfoBean(
+                        acc.id,
+                        acc.payId,
+                        acc.paySellerName,
+                        acc.payMoney + item.payMoney,
+                        acc.payCategory,
+                        acc.payTime,
+                        acc.payDate,
+                        acc.payNote
+                    )
+                }
+            }.sortedBy {
+                it.payTime
+            }.toMutableList()
+            return list
+        }
+
+        /**
+         * 处理BarChart数据
+         */
+        fun handleBarChartData(oriList: MutableList<PayInfoBean>): MutableList<PayInfoBean> {
+            val c = Calendar.getInstance()
+
+            val map = oriList.groupBy {
+                c.timeInMillis = it.payTime
+                c.get(Calendar.MONTH)
+            }.toMutableMap()
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = c.timeInMillis
+            val totalMonth = calendar.getActualMaximum(Calendar.MONTH)
+            for (i in 0..totalMonth) {
+                if (!map.containsKey(i)) {
+                    calendar.set(Calendar.DAY_OF_MONTH, 1)
+                    calendar.set(Calendar.MONTH, i)
+                    map[i] = mutableListOf(
+                        PayInfoBean(
+                            0L, "", "", 0L,
+                            "", calendar.timeInMillis, "", ""
+                        )
+                    )
+                }
+            }
+
+            val list = map.values.map {
+                it.reduce { acc, item ->
+                    c.timeInMillis = item.payTime
+                    PayInfoBean(
+                        acc.id,
+                        acc.payId,
+                        acc.paySellerName,
+                        acc.payMoney + item.payMoney,
+                        acc.payCategory,
+                        acc.payTime,
+                        acc.payDate,
+                        acc.payNote
+                    )
+                }
+            }.sortedBy {
+                it.payTime
+            }.toMutableList()
+            return list
         }
 
     }

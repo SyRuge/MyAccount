@@ -16,7 +16,7 @@ import com.xcx.account.utils.getMoneyWithTwoDecimal
  */
 class TotalPayAdapter(
     var context: Context = AccountApp.appContext,
-    var payList: MutableList<HomeTotalPayBean>
+    var payList: MutableList<HomeTotalPayBean>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listener: ItemClickListener? = null
@@ -42,7 +42,7 @@ class TotalPayAdapter(
             holder.tvPayHeaderTitle.setText(R.string.total_pay_dec)
         }
         if (holder is TotalHolder) {
-            val bean = payList[position-1]
+            val bean = payList[position - 1]
             holder.tvTotalPayName.text = bean.totalPayName
             val payMoney = "-¥${getMoneyWithTwoDecimal(bean.payMoney)}"
             holder.tvTotalPayMoney.text = payMoney
@@ -53,7 +53,7 @@ class TotalPayAdapter(
                 holder.viewTotalPayLine.visibility = View.VISIBLE
             }
             holder.itemView.setOnClickListener {
-                listener?.onItemClick(bean)
+                listener?.onItemClick(bean, position)
             }
         }
     }
@@ -79,7 +79,8 @@ class TotalPayAdapter(
         var tvPayRangeDate: TextView = itemView.findViewById(R.id.tv_pay_range_date)
         var viewTotalPayLine: View = itemView.findViewById(R.id.view_total_pay_line)
     }
+
     fun interface ItemClickListener {
-        fun onItemClick(bean: HomeTotalPayBean)
+        fun onItemClick(bean: HomeTotalPayBean, position: Int)
     }
 }

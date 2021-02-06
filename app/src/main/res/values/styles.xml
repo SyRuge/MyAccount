@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-<!--        <item name="android:textColorPrimary">@color/textColorPrimary</item>-->
+        <!-- <item name="android:textColorPrimary">@color/textColorPrimary</item> -->
     </style>
 
     <style name="DialogActivityTheme" parent="Theme.AppCompat.DayNight">
@@ -15,6 +15,16 @@
         <item name="android:windowBackground">@color/dialogActivityBg</item>
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="MyProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <!--进度条的进度颜色drawable文件-->
+        <item name="android:progressDrawable">@drawable/progress_indeterminate_horizontal</item>
+        <!--进度条的最小高度-->
+        <item name="android:minHeight">12dp</item>
+        <!--进度条的最大高度-->
+        <item name="android:maxHeight">12dp</item>
+        <item name="android:indeterminateOnly">false</item>
     </style>
 
 </resources>

@@ -2,7 +2,6 @@ package com.xcx.account.ui.dialog
 
 import android.app.Activity
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.xcx.account.AccountApp
 import com.xcx.account.R
 

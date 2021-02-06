@@ -16,24 +16,24 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:singleLine="true"
-        tools:text="本日"
         android:textColor="#DE000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@id/tv_total_pay_money"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="本日" />
 
     <TextView
         android:id="@+id/tv_total_pay_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        tools:text="-22.35"
         android:textColor="@color/moneyTextColor"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="-22.35" />
 
 
     <TextView
@@ -41,11 +41,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        tools:text="2020-12-14 ~ 2020-12-20"
         android:textColor="#8A000000"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/tv_total_pay_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_total_pay_name" />
+        app:layout_constraintTop_toBottomOf="@id/tv_total_pay_name"
+        tools:text="2020-12-14 ~ 2020-12-20" />
 
     <View
         android:id="@+id/view_total_pay_line"

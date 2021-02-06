@@ -11,14 +11,13 @@ import com.xcx.account.R
 import com.xcx.account.bean.HomePayBean
 import com.xcx.account.utils.getMoneyWithTwoDecimal
 import com.xcx.account.utils.getTime
-import java.math.BigDecimal
 
 /**
  * Created by SyRuge on 2020年12月18日.
  */
 class TodayPayAdapter(
     var context: Context = AccountApp.appContext,
-    var payList: List<HomePayBean>
+    var payList: List<HomePayBean>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listener: ItemClickListener? = null
@@ -27,6 +26,7 @@ class TodayPayAdapter(
     fun setOnItemClickListener(listener: ItemClickListener) {
         this.listener = listener
     }
+
     fun setOnItemDeleteListener(listener: ItemDeleteListener) {
         this.deleteListener = listener
     }
@@ -48,12 +48,12 @@ class TodayPayAdapter(
             holder.tvPayHeaderTitle.setText(R.string.today_pay_dec)
         }
         if (holder is PayHolder) {
-            val bean = payList[position-1]
+            val bean = payList[position - 1]
             holder.tvPaySellerName.text = bean.paySellerName
             val payMoney = "-¥${getMoneyWithTwoDecimal(bean.payMoney)}"
             holder.tvPayMoney.text = payMoney
             holder.tvPayDate.text = getTime(bean.payTime)
-            if (bean.payNote.isNotEmpty()){
+            if (bean.payNote.isNotEmpty()) {
                 holder.tvPayCategory.text = bean.payNote
             } else {
                 holder.tvPayCategory.text = bean.payCategory
@@ -104,6 +104,7 @@ class TodayPayAdapter(
     fun interface ItemClickListener {
         fun onItemClick(bean: HomePayBean)
     }
+
     fun interface ItemDeleteListener {
         fun onItemDelete(bean: HomePayBean)
     }

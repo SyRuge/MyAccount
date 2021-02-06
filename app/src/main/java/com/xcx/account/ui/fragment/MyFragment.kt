@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.xcx.account.AccountApp
+import com.xcx.account.BuildConfig
 import com.xcx.account.R
 import com.xcx.account.databinding.FragmentMyBinding
 import com.xcx.account.utils.showToast
@@ -51,6 +52,7 @@ class MyFragment : BaseFragment() {
 
     private fun initView() {
         binding.tvToolbarTitle.text = getString(R.string.tab_my)
+        binding.tvVersionName.text = "v${BuildConfig.VERSION_NAME}"
     }
 
     private fun initData() {

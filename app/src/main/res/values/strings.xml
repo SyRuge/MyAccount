@@ -26,6 +26,7 @@
     <string name="hint_add_pay_note">点击添加备注</string>
     <string name="update_pay_success">修改成功!</string>
     <string name="category_dec">分类</string>
+    <string name="sort_dec">排序</string>
     <string name="sort_by_date_desc">按日期降序</string>
     <string name="sort_by_date_asc">按日期升序</string>
     <string name="sort_by_money_desc">按金额降序</string>
@@ -65,4 +66,5 @@
     <string name="month_count">月度统计</string>
     <string name="pay_backup">备份</string>
     <string name="pay_restore">恢复</string>
+    <string name="pay_count_detail_title">详情</string>
 </resources>

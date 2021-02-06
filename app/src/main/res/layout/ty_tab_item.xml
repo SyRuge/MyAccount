@@ -11,10 +11,10 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="2dp"
-        android:background="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="@id/tv_tab_text"
         app:layout_constraintStart_toStartOf="@id/tv_tab_text"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/tv_tab_text"

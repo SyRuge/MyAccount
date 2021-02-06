@@ -1,9 +1,7 @@
 package com.xcx.account.repository.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.xcx.account.bean.HomePayBean
 import com.xcx.account.repository.database.table.PayInfoBean
 
 /**
@@ -30,7 +28,10 @@ interface PayDao {
     suspend fun getPayInfoById(id: Long): PayInfoBean
 
     @Query("SELECT * FROM pay_info WHERE payTime BETWEEN :startTime AND :endTime")
-    fun getPayInfoByTimeRange(startTime: Long, endTime: Long): LiveData<MutableList<PayInfoBean>>
+    fun getPayInfoByTimeRangeWithLD(startTime: Long, endTime: Long): LiveData<MutableList<PayInfoBean>>
+
+    @Query("SELECT * FROM pay_info WHERE payTime BETWEEN :startTime AND :endTime")
+    fun getPayInfoByTimeRange(startTime: Long, endTime: Long): MutableList<PayInfoBean>
 
     @Query("SELECT * FROM pay_info WHERE payTime BETWEEN :startTime AND :endTime")
     suspend fun getPayInfoByYear(startTime: Long, endTime: Long): MutableList<PayInfoBean>

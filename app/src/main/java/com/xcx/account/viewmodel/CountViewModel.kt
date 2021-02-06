@@ -1,10 +1,8 @@
 package com.xcx.account.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xcx.account.repository.database.PayRepository
-import com.xcx.account.repository.database.table.PayInfoBean
 import com.xcx.account.utils.monthEndTime
 import com.xcx.account.utils.monthStartTime
 import com.xcx.account.utils.yearEndTime
@@ -18,15 +16,16 @@ import kotlinx.coroutines.launch
  */
 class CountViewModel : ViewModel() {
 
-    val categoryInfo = PayRepository.getCurYearPayInfo()
-    val dayTrendPayInfo = PayRepository.getPayInfoByTimeRange(monthStartTime(), monthEndTime())
-    val monthPayInfo = PayRepository.getPayInfoByTimeRange(yearStartTime(), yearEndTime())
+    val categoryInfo = PayRepository.getPayInfoByTimeRangeWithLD(monthStartTime(), monthEndTime())
+    val dayTrendPayInfo =
+        PayRepository.getPayInfoByTimeRangeWithLD(monthStartTime(), monthEndTime())
+    val monthPayInfo = PayRepository.getPayInfoByTimeRangeWithLD(yearStartTime(), yearEndTime())
 
     @Deprecated("will delete")
     fun getDayTrendPayInfo(startTime: Long, endTime: Long) {
         viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
-                PayRepository.getPayInfoByTimeRange(startTime, endTime)
+                PayRepository.getPayInfoByTimeRangeWithLD(startTime, endTime)
             }
             //dayTrendPayInfo.value = deferred.await()
         }
@@ -36,7 +35,7 @@ class CountViewModel : ViewModel() {
     fun getMonthPayInfo(startTime: Long, endTime: Long) {
         viewModelScope.launch {
             val deferred = async(Dispatchers.IO) {
-                PayRepository.getPayInfoByTimeRange(startTime, endTime)
+                PayRepository.getPayInfoByTimeRangeWithLD(startTime, endTime)
             }
             //monthPayInfo.value = deferred.await()
         }

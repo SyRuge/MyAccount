@@ -11,15 +11,13 @@ import com.xcx.account.R
 import com.xcx.account.repository.database.table.PayInfoBean
 import com.xcx.account.utils.getDateAndTime
 import com.xcx.account.utils.getMoneyWithTwoDecimal
-import com.xcx.account.utils.getTime
-import com.xcx.account.utils.logd
 
 /**
  * Created by SyRuge on 2020年12月18日.
  */
 class PayListAdapter(
     var context: Context = AccountApp.appContext,
-    var payList: MutableList<PayInfoBean>
+    var payList: MutableList<PayInfoBean>,
 ) : RecyclerView.Adapter<PayListAdapter.PayHolder>() {
 
     private var listener: ItemClickListener? = null

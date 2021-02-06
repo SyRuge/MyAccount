@@ -105,13 +105,14 @@
     </LinearLayout>
 
     <TextView
-        android:text="v1.0.0"
+        android:id="@+id/tv_version_name"
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_pay_restore" />
+        app:layout_constraintTop_toBottomOf="@id/ll_pay_restore"
+        tools:text="v1.0.0" />
 
     <View
         android:id="@+id/view_line_2"
